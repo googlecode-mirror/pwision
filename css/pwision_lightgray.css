@@ -1,0 +1,285 @@
+/*
+part of PWision toolkit: http://pwision.googlecode.com/
+Copyright (C) 2009 Becheru Petru-Ioan
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+html
+	{
+	background: url(images/logo.jpg) left bottom no-repeat ;
+	background-color: #F0F8FF;
+	}
+
+a:hover{
+	color: blue;
+	background-color: yellow;
+	text-decoration:underline overline;
+	border-radius:0.5em ;
+		-moz-border-radius:0.5em;
+	}
+
+
+
+p {
+	font-family: Arial, Helvetica, sans-serif;
+	color: rgb(40,40,40);
+	}
+
+#container {
+	margin-left:10%;
+	margin-right:10%;
+	}
+
+#container p
+	{
+/* 	margin: 5px 1em 5px 20px;  */
+	padding: 0px;
+	}
+#container p:hover
+	{
+	color:black;
+	background-color: rgba(234,242,247,0.5);
+	}
+
+	#pageHeader {
+		border-radius:  1em 1em 0em 0em;
+			-moz-border-radius: 1em 1em 0em 0em;
+		border: 1px solid gray;
+		background-color: lightgray ;
+		*background-color: LightGrey;
+		color:blue;
+/* 		text-align:center; */
+		text-shadow: black 1px 1px 5px;
+		}
+
+	#pageHeader:hover{
+	/* 	color: yellow; */
+		color: white ;
+		}
+
+		#pageTitle
+			{
+			display:inline-block;
+			vertical-align: middle;
+			height:100%;
+			zoom:1; *display: inline; _height: 30px;
+			}
+			#pageTitle h1
+				{
+				margin: 0px;
+				margin-top: 0px;
+				font-style:italic;
+				cursor:pointer;
+				}
+
+				#pageTitle h1 span{
+					text-align:center;
+					font-size: xx-large;
+					}
+
+			#pageTitle h2 {
+				font-size: smaller;
+				color:black;
+				background-color: rgba(211,211,211,0.7);
+				*background-color: LightGrey;
+				border: 1px solid gray;
+				margin-top:1em;
+				}
+		#ltools
+			{
+			float:right;
+			text-align:right;
+			display:inline-block;
+			vertical-align: middle;
+			height:100%;
+			zoom:1; *display: inline; _height: 30px;
+			}
+			#ltools h3
+				{
+				display:none;
+				overflow: hidden;
+				}
+
+
+#intro
+	{
+/* 	position: absolute; */
+	display:block;
+	}
+
+
+
+#linkList {
+/* 	border-left:1px solid gray; */
+/* 	text-align:center; */
+/* 	border:1px solid gray; */
+	}
+
+/*	#linkList h3 {
+		padding: 0px;
+		width: 206px;
+		text-align:center;
+		border: 1px solid gray;
+		border-radius: 0px 1em 0em 0em;
+			-moz-border-radius: 0px 0em 0em 0em;
+		}*/
+
+	#lselect, #larchives,#lresources{
+			display:inline-block;
+			vertical-align: top;
+			height:100%;
+			zoom:1; *display: inline; _height: 30px;
+		}
+	#larchives,#lresources{
+			border-bottom:0px solid gray;
+			}
+	#lselect{
+			border-top:0px solid gray;
+			border-left:1px solid transparent;
+			}
+		#lselect h3{
+			display:none;
+			overflow:none;
+			}
+		#lselect div div
+			{
+			background-color: lightgray ;
+			*background-color: LightGrey;
+			margin-left: 1em;
+			padding-left:1em;
+			padding-right:1em;
+			display:inline-block;
+			vertical-align: top;
+			height:100%;
+			zoom:1; *display: inline; _height: 30px;
+			border:1px solid gray;
+			border-top:1px solid transparent;
+			border-radius: 0em 0em 1em 1em;
+				-moz-border-radius: 1em 1em 0em 0em;
+			}
+		#lselect div div:hover{
+			background-color:white;
+			}
+		#lselect div div.selected{
+			}
+		#lresources h3, #larchives h3{
+			display:none;
+			overflow:none;
+			}
+		#lresources div div{
+			background-color: lightgray ;
+			*background-color: LightGrey;
+			margin-left: 1em;
+			padding-left:1em;
+			padding-right:1em;
+			display:inline-block;
+			vertical-align: top;
+			height:100%;
+			zoom:1; *display: inline; _height: 30px;
+			border:1px solid gray;
+			border-bottom:1px solid transparent;
+			border-radius: 1em 1em 0em 0em;
+				-moz-border-radius: 1em 1em 0em 0em;
+			}
+		#larchives div div{
+			background-color: lightgray ;
+			*background-color: LightGrey;
+			margin-left: 1em;
+			padding-left:1em;
+			padding-right:1em;
+			display:inline-block;
+			vertical-align: top;
+			height:100%;
+			zoom:1; *display: inline; _height: 30px;
+			border:1px solid gray;
+			border-top:1px solid transparent;
+			border-radius: 0em 0em 1em 1em;
+				-moz-border-radius: 1em 1em 0em 0em;
+			}
+		#lresources div div.selected, #larchives div div.selected, #lselect div div.selected{
+			background-color: darkgrey ;
+			}
+		#lresources div div:hover,#larchives div div:hover{
+			background-color:white;
+			}
+
+	#lresources {
+/* 		margin-left: 1em; */
+/* 		border-left:1px solid gray; */
+		}
+
+#supportingText {
+	display:block;
+	background-color: #E9F1F7;
+	text-align:justify;
+	border: 1px solid gray;
+	border-radius: 0em 0em 1em 1em;
+		-moz-border-radius: 0em 0em 1em 1em;
+	}
+
+	#supportingText h3
+		{
+		background-color: LightGrey;
+		background-color: rgba(211,211,211,0.7);
+		display: block;
+		border-radius: 1em 0em 0em 0em;
+			-moz-border-radius: 1em 0em 0em 0em;
+		border: 1px solid gray;
+		border-right:0px;
+		padding-left: 0.5em;
+		margin-left: -1px;
+		}
+
+
+	#quickSummary {
+		display:inline-block;
+		background-color: darkgrey;
+		border-radius: 0em 0em 1em 1em;
+			-moz-border-radius: 0em 0em 1em 1em;
+		border: 1px solid gray;
+		border-top:0px;
+/* 		margin-top:0px; */
+		padding-left:1em;
+		padding-right:1em;
+		margin-left:1em;
+		}
+
+		#quickSummary:hover
+			{
+			background-color: LightGrey;
+			}
+
+		#quickSummary p
+			{
+			margin: 0px;
+			color:black;
+			}
+			
+		#quickSummary p:hover
+			{
+			background-color: transparent;
+			}
+			
+		#quickSummary p a
+			{
+			background-color: yellow;
+			border-radius:0.5em ;
+				-moz-border-radius:0.5em;
+			}
+			
+		#quickSummary p.p2
+			{
+			display:block;
+		/* 	text-align:right; */
+			}

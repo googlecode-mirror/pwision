@@ -1,0 +1,16 @@
+<?php
+include_once("inc/PRedirectSection.inc");
+/** 	The Root class is designed to model the main section.
+	*	\latexonly \label{PWision:Sections:Root} \index{Root} \index{guest} \index{user} \endlatexonly
+	*	\brief the <i>Root</i> section.
+	*	\version 1.0.0
+	*/
+class Root extends PRedirect2Section
+	{
+	function Root()
+		{
+		PRedirect2Section::PRedirect2Section("FindOffice");
+		}
+	}
+
+?>
