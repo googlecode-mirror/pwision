@@ -1,0 +1,26 @@
+<?php
+include_once("inc/PSection.inc");
+/** 	The test class is designed to be a test section.
+	*	\latexonly \label{PWision:Sections:test}\endlatexonly
+	*	\brief a test section.
+	*	\version 1.0.0
+	*/
+class test extends PSection
+	{
+	function getDescription()
+		{
+		return "static Description text";
+		}
+	function Chapter1Title()
+		{
+		return PSection::Chapter1Title()
+			->Insert( new PText("Static Chapter1 title") );
+		}
+	function Chapter1()
+		{
+		return PSection::Chapter1()
+			->Insert( new PText("This is the static Chapter1 text.") )
+			;
+		}
+	}
+?>
