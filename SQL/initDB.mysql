@@ -1,0 +1,133 @@
+#Users table
+DROP TABLE IF EXISTS `Users`;
+CREATE TABLE `Users` (
+`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id number of the user',
+`Name` VARCHAR( 64 ) NOT NULL COMMENT 'name of the user',
+`Password` VARCHAR( 64 ) NOT NULL COMMENT 'password of the user' DEFAULT '',
+`CreatorUserID` INT(10) UNSIGNED NOT NULL COMMENT 'user id of the creator of the user'  DEFAULT '0',
+INDEX ( `ID` ),
+`Theme` VARCHAR( 64 ) NOT NULL DEFAULT 'default' COMMENT 'the theme of the user'
+)COMMENT = 'Users of the website';
+INSERT INTO `Users` (`Name`, `Password`) VALUES 
+	('Guest', ''),
+	('admin', 'admin')
+	;
+UPDATE `Users` SET `ID` = '0' WHERE `Name` ='Guest' LIMIT 1 ;
+UPDATE `Users` SET `ID` = '1' WHERE `Name` ='admin' LIMIT 1 ;
+ALTER TABLE `Users`  AUTO_INCREMENT =2;
+
+#Inactive table
+DROP TABLE IF EXISTS `Inactive`;
+CREATE TABLE `Inactive`(
+`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id com',
+`UserID` INT(10) UNSIGNED NOT NULL COMMENT 'id of the user',
+INDEX ( `ID` )
+)COMMENT = 'Inactive users of the website';
+
+#Groups table
+DROP TABLE IF EXISTS `Groups`;
+CREATE TABLE `Groups`(
+`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'group id',
+`Name` VARCHAR( 64 ) NOT NULL COMMENT 'name of the group',
+`Description` VARCHAR( 128 ) NOT NULL COMMENT ' group',
+INDEX ( `ID` )
+)COMMENT='Groups of the website';
+INSERT INTO `Groups` (`ID`,`Name`,`Description`) VALUES 
+	(1, 'Public', 'public group'),
+	(2, 'Guest', 'guest group'),
+	(3, 'Users', 'user group'),
+	(4, 'UserManagers', 'user managers(creators and editors) group'),
+	(5, 'UserCreators', 'user creator group'),
+	(6, 'UserEditors', 'user editor group'),
+	(7, 'UserActivators', 'user activator group'),
+	(8, 'UserFullManagers', 'full user manager group'),
+	(9, 'SectionManagers', 'section manager group')
+	;
+
+#GroupUsers table
+DROP TABLE IF EXISTS `GroupUsers`;
+CREATE TABLE `GroupUsers`(
+`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id com',
+`UserID` INT(10) UNSIGNED NOT NULL COMMENT 'id of the user',
+`GroupID` INT(10) UNSIGNED NOT NULL COMMENT 'id of the group',
+INDEX ( `ID` )
+)COMMENT='Groups that a user belongs';
+INSERT INTO `GroupUsers`(`UserID`,`GroupID`) VALUES 
+	(0,1),#Guest in Public
+	(0,2),#Guest in Guest
+	(1,1),#admin in Public
+	(1,3),#admin in Users
+	(1,4),#admin in UserManagers
+	(1,5),#admin in UserCreators
+	(1,6),#admin in UserEditors
+	(1,7),#admin in UserActivators
+	(1,8),#admin in UserFullManagers
+	(1,9)#admin in SectionManagers
+	;
+
+#Sections table
+DROP TABLE IF EXISTS `Sections`;
+CREATE TABLE `Sections`(
+`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id com',
+`Name` VARCHAR( 64 ) NOT NULL COMMENT 'name of the section',
+`Owner` VARCHAR( 64 ) NOT NULL COMMENT 'Owner of the section' DEFAULT 'Root',
+`Type` VARCHAR( 8 ) NOT NULL COMMENT 'type of the section' DEFAULT 'section',
+`Description` VARCHAR( 128 ) NOT NULL COMMENT 'description of the section' DEFAULT '',
+INDEX ( `ID` )
+)COMMENT='Sections of the website';
+INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`) VALUES 
+	('login', 'UserAccess', 'section', 'Login a user'),
+	('logout', 'UserAccess', 'section', 'Log out'),
+	('UserAccess', 'Root', 'section', 'user access to the website'),
+	('SectionManagement', 'Root', 'section', 'section management'),
+	('CreateSection', 'SectionManagement', 'section', 'create a section'),
+	('EditSection', 'SectionManagement', 'section', 'edit a section'),
+	('UserManagement', 'Root', 'section', 'user management'),
+	('CreateUser', 'UserManagement', 'section', ''),
+	('EditUser', 'UserManagement', 'section', 'edit an existing user')
+	;
+#HiddenSections table
+DROP TABLE IF EXISTS `HiddenSections`;
+CREATE TABLE `HiddenSections`(
+`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id com',
+`SectionName` VARCHAR( 64 ) NOT NULL COMMENT 'name of the section',
+INDEX ( `ID` )
+)COMMENT='The hidden sections table';
+INSERT INTO `HiddenSections`(`SectionName`) VALUES 
+	('UserAccess');
+
+#GroupSections table
+DROP TABLE IF EXISTS `GroupSections`;
+CREATE TABLE `GroupSections`(
+`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id com',
+`SectionName` VARCHAR( 64 ) NOT NULL COMMENT 'name of the section',
+`GroupID` INT(10) UNSIGNED NOT NULL COMMENT 'id of the group',
+INDEX ( `ID` )
+)COMMENT='Groups that a section belongs';
+INSERT INTO `GroupSections`(`SectionName`,`GroupID`) VALUES 
+	('Root',1),#Root in Public
+	('UserAccess', 1),#UserAccess in Public
+	('login', 2),#login in Guest
+	('logout', 3),#logout in Users
+	('SectionManagement',9),#SectionManagement in SectionManagers
+	('CreateSection',9),#CreateSection in SectionManagers
+	('EditSection',9),#EditSection in SectionManagers
+	('UserManagement', 4),#UserManagement in UserManagers
+	('CreateUser', 5),#CreateUser in UserCreators
+	('CreateUser', 8),#CreateUser in UserFullManagers
+	('EditUser', 6),#EditUser in UserEditors
+	('EditUser', 8)#EditUser in UserFullManagers
+	;
+
+#UserBookmarkedSections
+DROP TABLE IF EXISTS `UserBookmarkedSections`;
+CREATE TABLE `UserBookmarkedSections` (
+`ID` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`SectionName` VARCHAR( 64 ) NOT NULL COMMENT 'section name',
+`UserID` INT NOT NULL COMMENT 'user id',
+`Class` VARCHAR( 64 ) NOT NULL COMMENT 'CSS class'
+) COMMENT = 'Bookmarked sections of users';
+INSERT INTO `UserBookmarkedSections` (`SectionName`, `UserID`, `Class`) VALUES 
+	('login', 0, ''),
+	('logout', 0, '')
+	;
