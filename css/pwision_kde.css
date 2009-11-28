@@ -205,9 +205,14 @@ th {
 		#ltools
 			{
 			background: #eeeeee;
+			border-top: #bcbcbc 1px solid;
+			border-right: #bcbcbc 1px solid;
 			border-bottom: #bcbcbc 1px dotted;
+			border-radius: 0 1em 0 0;
+				-moz-border-radius: 0px 1em 0em 0em;
 			margin: 0 auto;
-			padding: 0;
+			padding-top: .25em;
+			padding-right: .25em;
 			text-align:left;
 			display:inline-block;
 			height:100%;
