@@ -184,7 +184,6 @@ th {
 	text-align:left;
 	margin: 0 1em 0 1em;
 	max-width: 70em;
-/* 	min-width: 770px; */
 	height:100%;
 	border: #bcbcbc solid;
 	border-width: 0 1px 1px 1px;
@@ -197,14 +196,9 @@ th {
 		background: #eeeeee;
 			margin: 0 auto;
 			padding: 0;
-/* 			width: 60em; */
-			min-width: 770px;
-/* 			max-width: 45em; */
 			vertical-align: middle;
 			color: #ffffff;
-/* 			background: url(http://kde.org/media/images/top.jpg) repeat-x bottom; */
 			background-color: #0057ae;
-/* 			background: url(http://backgroundsarchive.com/images/pub/0/74fcrewqkjuj.jpg) repeat-x bottom; */
 		}
 
 	#pageHeader:hover{
@@ -284,7 +278,6 @@ th {
 			font-size: 1.1em;
 			font-weight: bold;
 			line-height: normal;
-/* 			padding: 0px 0px 0px 1em; */
 			text-align: left;
 			}
 			#lselect div div:hover{
