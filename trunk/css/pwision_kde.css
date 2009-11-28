@@ -192,13 +192,11 @@ th {
 	#pageHeader {
 		text-align:left;
 		width: 100%;
-		color: #535353;
-		background: #eeeeee;
-			margin: 0 auto;
-			padding: 0;
-			vertical-align: middle;
-			color: #ffffff;
-			background-color: #0057ae;
+		margin: 0 auto;
+		padding: 0;
+		vertical-align: middle;
+		color: #ffffff;
+		background-color: #0057ae;
 		}
 
 	#pageHeader:hover{
