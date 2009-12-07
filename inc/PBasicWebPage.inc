@@ -40,11 +40,11 @@ abstract class PMostBasicWebPage extends PDrawable
 		*	\brief start the database connection.
 		*	\par Example code:
 \code
-	protected function StartDBConnection()
-		{
-		$this->DB=new PMySQLConsole($UserName,$PassWord,$Host);
-		$this->DB->SelectDB($DatabaseName);
-		}
+protected function StartDBConnection()
+	{
+	$this->DB=new PMySQLConsole($UserName,$PassWord,$Host);
+	$this->DB->SelectDB($DatabaseName);
+	}
 \endcode
 		*/
 	abstract protected function StartDBConnection();
@@ -63,6 +63,31 @@ abstract class PMostBasicWebPage extends PDrawable
 	*	\latexonly \label{PWision:PSitemap} \index{PSitemap} \index{sitemap} \endlatexonly
 	*	\brief the sitemap webpage.
 	*	\version 1.0.0
+	*	\par Example:
+\code
+include_once("pwision.inc");
+class PMySitemap extends PSitemap
+	{
+	protected function StartDBConnection()
+		{
+		$this->DB=new PMySQLConsole($UserName,$PassWord,$Host);
+		$this->DB->SelectDB($DatabaseName);
+		}
+	function SiteURL()
+		{
+		return 'http://www.example.com/';
+		}
+	}
+
+print( new PMySitemap );
+\endcode
+	*	\par Output:
+\verbatim
+http://www.example.com/
+http://www.example.com/index.php?section=s1
+http://www.example.com/index.php?section=s2
+http://www.example.com/index.php?section=s3
+\endverbatim
 	*/
 abstract class PSitemap extends PMostBasicWebPage
 	{
@@ -120,9 +145,9 @@ abstract class PSitemap extends PMostBasicWebPage
 		*	\par Example:
 \code
 function SiteURL()
-   {
-   return 'http://www.example.com/';
-   }
+	{
+	return 'http://www.example.com/';
+	}
 \endcode
 		*/
 	abstract function SiteURL();
