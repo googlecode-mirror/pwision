@@ -25,15 +25,49 @@ include_once("PForm.inc");
 include_once("IMessage.inc");
 include_once("PStaticSection.inc");
 
+/** 	The PMostBasicWebPage class is designed to be a model the most basic webpage: a PDrawable with a database connection.
+	*	\latexonly \label{PWision:PMostBasicWebPage} \index{PMostBasicWebPage} \index{database} \endlatexonly
+	*	\brief a PDrawable with database connection.
+	*	\version 1.0.0
+	*	\par Example:
+	*		See PBasicWebPage class.
+	*/
+abstract class PMostBasicWebPage extends PDrawable
+	{
+	///database console
+	public $DB;
+	/**	Starts the database connection, gets the console into $this->DB and selects the database. See PMySQLConsole.
+		*	\brief start the database connection.
+		*	\par Example code:
+\code
+	protected function StartDBConnection()
+		{
+		$this->DB=new PMySQLConsole($UserName,$PassWord,$Host);
+		$this->DB->SelectDB($DatabaseName);
+		}
+\endcode
+		*/
+	abstract protected function StartDBConnection();
+	/**	Constructs the PDrawable and starts the database connection.
+		*	\brief constructor
+		*/
+	function PMostBasicWebPage()
+		{
+		PMainComponent::$Main=&$this;
+		PDrawable::PDrawable();
+		$this->StartDBConnection();
+		}
+	}
+
 /** 	The PBasicWebPage class is designed to model a webpage. Main atributes of a webpage are: title, motto, message, section and the language.
 	*	\latexonly \label{PWision:PBasicWebPage} \index{PBasicWebPage} \index{webpage} \index{section} \endlatexonly
 	*	\brief a basic web page.
-	*	\version 1.6.0
+	*	\version 1.7.0
 	*	\note  Themed webpages will extend this class.
 	*	\par Example:
 	*		see PCSSZenWebPage class.
 	*/
-abstract class PBasicWebPage extends PDrawable implements IMessage
+abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 	{
 	/**	\brief textual representation of the object
 		*	\return a string
@@ -57,9 +91,7 @@ abstract class PBasicWebPage extends PDrawable implements IMessage
 		*/
 	function PBasicWebPage()
 		{
-		PMainComponent::$Main=&$this;
-		PDrawable::PDrawable();
-		$this->StartDBConnection();
+		PMostBasicWebPage::PMostBasicWebPage();
 		$this->ProcessSessionAndArguments();
 		}
 	/// Current User Information
@@ -114,20 +146,6 @@ abstract class PBasicWebPage extends PDrawable implements IMessage
 		$this->UserInfo=Users::UserInfo( $_SESSION['userID'] );
 		return $this;
 		}
-	///database console
-	public $DB;
-	/**	Starts the database connection, gets the console into $this->DB and selects the database. See PMySQLConsole.
-		*	\brief start the database connection.
-		*	\par Example code:
-\code
-	protected function StartDBConnection()
-		{
-		$this->DB=new PMySQLConsole($UserName,$PassWord,$Host);
-		$this->DB->SelectDB($DatabaseName);
-		}
-\endcode
-		*/
-	abstract protected function StartDBConnection();
 	/// the current section name
 	private $SectionName="Root";
 	/**	\brief gets the name of the current section.
