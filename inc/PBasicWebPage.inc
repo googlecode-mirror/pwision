@@ -59,6 +59,76 @@ abstract class PMostBasicWebPage extends PDrawable
 		}
 	}
 
+/** 	The Sitemap class is designed to model the sitemap webpage.
+	*	\latexonly \label{PWision:PSitemap} \index{PSitemap} \index{sitemap} \endlatexonly
+	*	\brief the sitemap webpage.
+	*	\version 1.0.0
+	*/
+abstract class PSitemap extends PMostBasicWebPage
+	{
+	/**	\brief textual representation of the object
+		*	\return a string
+		*/
+	function Draw()
+		{
+		/// the links element
+		$ul=$this->ListStructure() ;
+		$SectsArray=Main()->DB->fetch_all_query(
+			"SELECT * FROM Sections WHERE ".
+					"( Sections.Name NOT IN " .
+						"(select SectionName from HiddenSections ) ".
+					")".
+				" and ".
+					"(".
+					"select Count(*) from GroupSections where SectionName=Sections.Name ".
+						" and GroupID in ".
+							"(select GroupID from GroupUsers where UserID='0')".
+					")>0"
+			);
+		$li=$ul->newKid();
+		$li->Insert(
+			new PText(
+				$this->SiteURL().
+				"\n"
+				)
+			);
+		if(count($SectsArray)>0)
+			foreach($SectsArray as $section)
+				{
+				$li=$ul->newKid();
+				$li->Insert(
+					new PText(
+						$this->SiteURL().
+						Sections::Link2SQLSection($section)->getAtr('href').
+						"\n"
+						)
+					);
+				}
+		return $ul->Draw();
+		}
+	/**	Constructs a list structure.
+		*	\brief a list structure.
+		*	\return an  PStructure
+		*/
+	protected function ListStructure()
+		{
+		return new PStructure( new PContent, new PContent );
+		}
+	/**
+		*	\brief the site's name.
+		*	\return an PText containing the site's root url
+		*	\par Example:
+\code
+function SiteURL()
+   {
+   return 'http://www.example.com/';
+   }
+\endcode
+		*/
+	abstract function SiteURL();
+	}
+
+
 /** 	The PBasicWebPage class is designed to model a webpage. Main atributes of a webpage are: title, motto, message, section and the language.
 	*	\latexonly \label{PWision:PBasicWebPage} \index{PBasicWebPage} \index{webpage} \index{section} \endlatexonly
 	*	\brief a basic web page.
