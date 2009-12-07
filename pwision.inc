@@ -69,8 +69,17 @@ else
     header("Content-Type: text/html; charset=utf-8");*/
 session_start();
 
+/** 	The PautoloadPaths class is designed to hold the $paths array.
+	*	\latexonly \label{PWision:PautoloadPaths} \index{PautoloadPaths} \index{autoload} \endlatexonly
+	*	\brief holder of autoload paths.
+	*/
+final class PautoloadPaths
+	{
+	/// autoload paths
+	static public $paths=array('sections','sections/pwision');
+	}
 /**	Load the php file that contains the section class definition. The file is searched first in sections directory then in sections/pwision, thus allowing redefitions of the default classes like login.
-	*	\latexonly \label{PWision:autoload} \endlatexonly
+	*	\latexonly \label{PWision:autoload} \index{autoload} \index{__autoload} \endlatexonly
 	*	\brief Load a section.
 	*	\version 2.0.0
 	*	\param $class_name the name of the class
@@ -78,8 +87,7 @@ session_start();
 	*/
 function __autoload($class_name)
 	{
-	$paths=array('sections','sections/pwision');
-	foreach($paths as $path)
+	foreach(PautoloadPaths::$paths as $path)
 		{
 		$filename = $path."/".$class_name.".inc";
 		if(file_exists($filename))
