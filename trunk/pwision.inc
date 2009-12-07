@@ -25,7 +25,7 @@ ini_set("display_errors", 1);
 PWision is an advanced toolkit that is used to make HTML webpages. It is an object oriented hierarchy of PHP classes that is used for building webpages using the information from the database and the HTML outputting classes, that it defines.
 \author Becheru Petru-Ioan
 \note The source code is released under <a href="http://www.gnu.org/licenses/gpl.txt" title='text of GNU GENERAL PUBLIC LICENSE Version 3'>GNU GENERAL PUBLIC LICENSE Version 3</a>.
-	\version 4.0.9 Release Candidate
+	\version 4.0.10 Release Candidate
 */
 
 /** 	The PWision class is designed to be a model class for documentation of the code.
@@ -71,7 +71,7 @@ session_start();
 
 /** 	The PautoloadPaths class is designed to hold the $paths array.
 	*	\latexonly \label{PWision:PautoloadPaths} \index{PautoloadPaths} \index{autoload} \endlatexonly
-	*	\brief holder of autoload paths.
+	*	\brief holder of __autoload() paths.
 	*/
 final class PautoloadPaths
 	{
@@ -81,7 +81,7 @@ final class PautoloadPaths
 /**	Load the php file that contains the section class definition. The file is searched first in sections directory then in sections/pwision, thus allowing redefitions of the default classes like login.
 	*	\latexonly \label{PWision:autoload} \index{autoload} \index{__autoload} \endlatexonly
 	*	\brief Load a section.
-	*	\version 2.0.0
+	*	\version 2.1.0
 	*	\param $class_name the name of the class
 	*	\note may be triggered from PBasicWebPage::setSection()
 	*/
