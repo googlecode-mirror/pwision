@@ -91,19 +91,18 @@ http://www.example.com/index.php?section=s3
 	*/
 abstract class PSitemap extends PMostBasicWebPage
 	{
-	/**	\brief textual representation of the object
-		*	\return a string
+	/**	Constructs a textual list of hyperlinks to the sections of the website.
+		*	\brief the sitemap txt
+		*	\version 1.1.0
+		*	\return Accesible sections of the website
 		*/
 	function Draw()
 		{
 		/// the links element
 		$ul=$this->ListStructure() ;
+		/// the list of accessible sections, including the hidden ones
 		$SectsArray=Main()->DB->fetch_all_query(
 			"SELECT * FROM Sections WHERE ".
-					"( Sections.Name NOT IN " .
-						"(select SectionName from HiddenSections ) ".
-					")".
-				" and ".
 					"(".
 					"select Count(*) from GroupSections where SectionName=Sections.Name ".
 						" and GroupID in ".
