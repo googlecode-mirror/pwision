@@ -400,7 +400,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 /** 	The PWebPageDefault class is designed to be a model class for documentation of the code.
 	*	\latexonly \label{PWebPageDefault:PWebPageDefault} \index{PWebPageDefault} \endlatexonly
 	*	\brief a .
-	*	\version 1.0.0
+	*	\version 1.1.0
 	*	\par Example:
 \code
 include_once("inc/PCSSZenWebPage.inc");
@@ -412,6 +412,12 @@ print( );
 	*/
 abstract class PWebPageDefault extends PCSSZenWebPage
 	{
+		protected function Head_Css()
+			{
+			return PBasicWebPage::Head_Css()
+				->Insert(new PText(" @import \"css/pwision_lightgray.css\"; "))
+				;
+			}
 	protected function UserBookmarks()
 		{
 		return null;
