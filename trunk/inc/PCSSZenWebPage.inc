@@ -397,9 +397,9 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 		}
 	}
 
-/** 	The PWebPageDefault class is designed to be a model class for documentation of the code.
+/** 	The PWebPageDefault class is designed to be the default themed webpage of PWision. The layout described by this theme is derived from PCSSZenWebPage layout.
 	*	\latexonly \label{PWebPageDefault:PWebPageDefault} \index{PWebPageDefault} \endlatexonly
-	*	\brief a .
+	*	\brief PWision's default themed webpage.
 	*	\version 1.1.0
 	*	\par Example:
 \code
