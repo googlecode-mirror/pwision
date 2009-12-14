@@ -165,6 +165,7 @@ abstract class PFormSection extends PBasicFormSection
 		*	\param $arg_name argument name
 		*	\return reference to $this
 		*	\note called form setArguments() in derived classes
+		*	\todo use PSection::Params
 		*/
 	protected function & addArgument($arg_name)
 		{
@@ -174,6 +175,7 @@ abstract class PFormSection extends PBasicFormSection
 	/**	This method is called by the constructor to set the arguments of the form, using addArgument(), for future extraction.
 		*	\brief sets the arguments of the form.
 		*	\note pure virtual method, to be implement in derived classes
+		*	\todo move to PSection
 		*/
 	abstract function setArguments();//pure virtual
 

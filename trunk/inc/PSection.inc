@@ -36,11 +36,24 @@ class PSection
 		*/
 	protected function CheckParams()
 		{}
+			/// parameters of the section
+			protected $Params;
+			/**
+				*	\brief adds a parameter for the section.
+				*	\param $param_name the name of the parameter
+				*	\param $reg_exp the regular expresion that must be matched
+				*/
+			protected function & addArgument($param_name,$reg_exp="")
+				{
+				$this->Params->setAtr($param_name,$reg_exp);
+				return $this;
+				}
 	/**
 		*	\brief  initialisation method.
 		*/
 	function PSection()
 		{
+		$this->Params=new PAttributes;
 		$this->CheckParams();
 		//print("{PSection ");
 		$this->Info = Sections::Section( $this->getName() );
