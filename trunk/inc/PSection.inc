@@ -19,23 +19,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 include_once("PMainComponent.inc");
 include_once("PBubble.inc");
 
+/**	The PSection_ParamNCheck class is thrown by PSection::CheckParams() function if a parameter of a section doesn't check the associated regular expresion.
+	*	\latexonly \label{PWision:PSection_ParamNCheck} \index{PSection} \index{section} \index{website} \index{webpage} \index{parameters} \endlatexonly
+	*	\brief parameter doesn't check.
+	*/
+class PSection_ParamNCheck extends Exception
+	{
+	}
+
 /** 	The PSection class is designed to model a section of the website. A section has a name, a description and is splitted in 5 chapters (numbered 0 to 4).
 	*	\latexonly \label{PWision:PSection} \index{PSection} \index{section} \index{website} \endlatexonly
 	*	\brief a section of the website.
 	*	\version 2.3.0
 	*	\note it will be derived in files X.inc from sections/ as X class
-	*	\todo check parameters for all sections see function PSection::CheckParams(). Use IAttributes interface to make pairs (params, reg_exp) that need to be checked. If params do not check throw exception!
 	*/
 class PSection
 	{
 	/// section information from DB
 	protected $Info;
 
-	/**
-		*	\brief checks the arguments of the sections.
-		*/
-	protected function CheckParams()
-		{}
 			/// parameters of the section
 			protected $Params;
 			/**
@@ -43,11 +45,17 @@ class PSection
 				*	\param $param_name the name of the parameter
 				*	\param $reg_exp the regular expresion that must be matched
 				*/
-			protected function & addArgument($param_name,$reg_exp="")
+			protected function & addArgument( $param_name, $reg_exp="" )
 				{
-				$this->Params->setAtr($param_name,$reg_exp);
+				$this->Params->setAtr( $param_name, $reg_exp );
 				return $this;
 				}
+	/**
+		*	\brief checks the arguments of the sections.
+		*	\todo check all Params and throw exception if a param doesn't check
+		*/
+	protected function CheckParams()
+		{}
 	/**
 		*	\brief  initialisation method.
 		*/
