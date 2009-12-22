@@ -28,7 +28,7 @@ include_once("PStaticSection.inc");
 /** 	The PMostBasicWebPage class is designed to be a model the most basic webpage: a PDrawable with a database connection.
 	*	\latexonly \label{PWision:PMostBasicWebPage} \index{PMostBasicWebPage} \index{database} \endlatexonly
 	*	\brief a PDrawable with database connection.
-	*	\version 1.0.0
+	*	\version 1.1.0
 	*	\par Example:
 	*		See PBasicWebPage class.
 	*/
@@ -260,7 +260,7 @@ abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 		}
 	/**	Tries to change the current section to sectionName. if sectionName exists and the current user has access to it the current section is changed.
 		*	\brief set the current section
-		*	\version 1.0.2
+		*	\version 1.1.0
 		*	\param $sectionName the new section name
 		*	\return reference to $this
 		*/
@@ -280,7 +280,10 @@ abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 		if(file_exists($filename.".html"))
 				$this->Section= new PStaticSection($sectionName);
 			elseif(class_exists($sectionName,true))//tries to autoload the class
-				$this->Section= new $sectionName();
+				{
+				try{$this->Section= new $sectionName();}
+				catch(Exception $e){$this->Section= new PSection();}
+				}
 			else
 				$this->Section= new PSection();
 		return $this;
