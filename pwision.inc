@@ -72,21 +72,31 @@ session_start();
 /** 	The PautoloadPaths class is designed to hold the $paths array.
 	*	\latexonly \label{PWision:PautoloadPaths} \index{PautoloadPaths} \index{autoload} \endlatexonly
 	*	\brief holder of __autoload() paths.
+	*	\version 2.0.0
 	*/
 final class PautoloadPaths
 	{
 	/// autoload paths
-	static public $paths=array('sections','sections/pwision');
+	static public $paths=array();
 	}
-/**	Load the php file that contains the section class definition. The file is searched first in sections directory then in sections/pwision, thus allowing redefitions of the default classes like login.
+/**	Load the php file that contains the section class definition. The file is searched first in <b>sections</b> directory, then in <b>PautoloadPaths::$paths</b> and finally in <b>sections/pwision</b>, thus allowing redefitions of the default classes like login.
 	*	\latexonly \label{PWision:autoload} \index{autoload} \index{__autoload} \endlatexonly
 	*	\brief Load a section.
-	*	\version 2.1.0
+	*	\version 3.0.0
 	*	\param $class_name the name of the class
 	*	\note may be triggered from PBasicWebPage::setSection()
 	*/
 function __autoload($class_name)
 	{
+	//first in 'sections'
+	$path='sections';
+		$filename = $path."/".$class_name.".inc";
+		if(file_exists($filename))
+			{
+			include($filename);
+			return;
+			}
+	//then in PautoloadPaths::$paths
 	foreach(PautoloadPaths::$paths as $path)
 		{
 		$filename = $path."/".$class_name.".inc";
@@ -96,6 +106,14 @@ function __autoload($class_name)
 			return;
 			}
 		}
+	//finally in 'sections/pwision'
+	$path='sections/pwision';
+		$filename = $path."/".$class_name.".inc";
+		if(file_exists($filename))
+			{
+			include($filename);
+			return;
+			}
 	}
 
 
