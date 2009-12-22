@@ -24,7 +24,7 @@ include_once("PBubble.inc");
 	*	\brief a section of the website.
 	*	\version 2.3.0
 	*	\note it will be derived in files X.inc from sections/ as X class
-	*	\todo check parameters for all sections see function PSection::CheckParams(). Use IAttributes interface to make pairs (params, reg_exp) that need to be checked. Find solution if params do not check!
+	*	\todo check parameters for all sections see function PSection::CheckParams(). Use IAttributes interface to make pairs (params, reg_exp) that need to be checked. If params do not check throw exception!
 	*/
 class PSection
 	{
