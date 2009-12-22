@@ -59,7 +59,12 @@ class PSection
 		*/
 	protected function CheckParams()
 		{
-		
+		foreach($this->Params as $param)
+			{
+			$check=preg_match( $param[1], $_REQUEST[$param[0]] );
+			if($check==0 || $check==FALSE)
+				throw PSection_ParamNCheck($param[2]);
+			}
 		}
 	/**
 		*	\brief  initialisation method.
