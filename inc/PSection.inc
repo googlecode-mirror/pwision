@@ -30,7 +30,7 @@ class PSection_ParamNCheck extends Exception
 /** 	The PSection class is designed to model a section of the website. A section has a name, a description and is splitted in 5 chapters (numbered 0 to 4).
 	*	\latexonly \label{PWision:PSection} \index{PSection} \index{section} \index{website} \endlatexonly
 	*	\brief a section of the website.
-	*	\version 2.3.0
+	*	\version 2.4.0
 	*	\note it will be derived in files X.inc from sections/ as X class
 	*/
 class PSection
@@ -39,15 +39,18 @@ class PSection
 	protected $Info;
 
 			/// parameters of the section
-			protected $Params;
+			protected $Params=array();
 			/**
 				*	\brief adds a parameter for the section.
+				*	\version 1.1.0
 				*	\param $param_name the name of the parameter
 				*	\param $reg_exp the regular expresion that must be matched
+				*	\param $error_message the message if the parameter doesn't check
 				*/
-			protected function & addArgument( $param_name, $reg_exp="" )
+			protected function & addArgument( $param_name, $reg_exp="", $error_message=null )
 				{
-				$this->Params->setAtr( $param_name, $reg_exp );
+				if($error_message==null)$error_message="Parammeter '$param_name' has an illegal value!";
+				array_push( $this->Params, array($param_name, $reg_exp, $error_message ) );
 				return $this;
 				}
 	/**
@@ -55,7 +58,9 @@ class PSection
 		*	\todo check all Params and throw exception if a param doesn't check
 		*/
 	protected function CheckParams()
-		{}
+		{
+		
+		}
 	/**
 		*	\brief  initialisation method.
 		*/
