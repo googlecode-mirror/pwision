@@ -55,25 +55,23 @@ class PSection
 				}
 	/**
 		*	\brief checks the arguments of the sections.
-		*	\version 1.0.1
+		*	\version 1.0.2
 		*/
 	protected function CheckParams()
 		{
 		foreach($this->Params as $param)
-			{
-			if( ! isset($_REQUEST[$param[0]]) )
-				throw PSection_ParamNCheck($param[2]);
-			$check=preg_match( $param[1], $_REQUEST[$param[0]] );
-			if($check==0 || $check==FALSE)
-				throw PSection_ParamNCheck($param[2]);
-			}
+			if( isset($_REQUEST[$param[0]]) )
+				{
+				$check=preg_match( $param[1], $_REQUEST[$param[0]] );
+				if($check==0 || $check==FALSE)
+					throw PSection_ParamNCheck($param[2]);
+				}
 		}
 	/**
 		*	\brief  initialisation method.
 		*/
 	function PSection()
 		{
-		$this->Params=new PAttributes;
 		$this->CheckParams();
 		//print("{PSection ");
 		$this->Info = Sections::Section( $this->getName() );
