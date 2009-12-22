@@ -27,14 +27,11 @@ include_once("inc/Users.inc");
 	*/
 class login extends PFormSection
 	{
-	/**	This method is called by the constructor to set the arguments of the form, using addArgument(), for future extraction.
-		*	\brief sets the arguments of the form.
-		*/
-	function setArguments()
+	function setParams()
 		{
 		$this
-			->addArgument("username")
-			->addArgument("password")
+			->addParam("username",'/^[-@._a-z0-9 ]{1,64}$/i')
+			->addParam("password",'/^[a-z0-9 ]{1,64}$/i')
 			;
 		}
 	function ProcessOK()
@@ -52,9 +49,9 @@ class login extends PFormSection
 		$this->AddMessage("User/Password not ok! Try again");
 		return false;
 		}
-	function createForm()
+	function & createForm()
 		{
-		PFormSection::createForm()
+		return PFormSection::createForm()
 			->setAtr("method","post")
 			->Insert(
 				Object(new PFieldSet(new PText("Please identify:")))

@@ -26,6 +26,7 @@ PWision is an advanced toolkit that is used to make HTML webpages. It is an obje
 \author Becheru Petru-Ioan
 \note The source code is released under <a href="http://www.gnu.org/licenses/gpl.txt" title='text of GNU GENERAL PUBLIC LICENSE Version 3'>GNU GENERAL PUBLIC LICENSE Version 3</a>.
 	\version 4.0.11 alpha
+\todo analize all classes derived from PSection to use params and exceptions
 */
 
 /** 	The PWision class is designed to be a model class for documentation of the code.

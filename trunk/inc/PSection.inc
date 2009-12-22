@@ -46,6 +46,7 @@ class PSection
 				*	\param $param_name the name of the parameter
 				*	\param $reg_exp the regular expresion that must be matched
 				*	\param $error_message the message if the parameter doesn't check
+				*	\return reference to $this
 				*/
 			protected function & addParam( $param_name, $reg_exp="", $error_message=null )
 				{
@@ -53,29 +54,50 @@ class PSection
 				array_push( $this->Params, array($param_name, $reg_exp, $error_message ) );
 				return $this;
 				}
+	/**	This method is called by the constructor to set the arguments of the form, using addParam(), for future extraction.
+		*	\brief sets the arguments of the form.
+		*/
+	function setParams(){}
 	/**	Checks all the params that are set if they match the asociate regular expresion. If a param doesn't check, exception PSection_ParamNCheck with the apropiate message is thrown.
 		*	\brief checks the arguments of the sections.
-		*	\version 1.0.2
+		*	\version 1.1.0
+		*	\return true if all parameters are set and match their regular expresion
 		*/
 	protected function CheckParams()
 		{
+		$parameters_are_set=true;
 		foreach($this->Params as $param)
 			if( isset($_REQUEST[$param[0]]) )
 				{
 				$check=preg_match( $param[1], $_REQUEST[$param[0]] );
 				if($check==0 || $check==FALSE)
-					throw PSection_ParamNCheck($param[2]);
+					throw new PSection_ParamNCheck($param[2]);
 				}
+				else
+					$parameters_are_set=false;
+		return $parameters_are_set;
 		}
+	/**	This method is called by the constructor if all par of the section are set <i>and matched</i>.
+		*	\brief if parameters are set.
+		*/
+	function if_parameters_are_set(){}
+	/**	This method is called by the constructor if not all par of the section are set, <i>but all that are set are also matched with their regular expresion</i>.
+		*	\brief if not all parameters are set.
+		*/
+	function if_not_all_parameters_are_set(){}
 	/**
 		*	\brief  initialisation method.
+		*	\version 2.0.0
 		*/
 	function PSection()
 		{
-		$this->CheckParams();
-		//print("{PSection ");
 		$this->Info = Sections::Section( $this->getName() );
-		//print(" PSection}");
+		$this->setParams();
+		$parameters_are_set=$this->CheckParams();
+		if($parameters_are_set)
+				$this->if_parameters_are_set();
+			else
+				$this->if_not_all_parameters_are_set();
 		}
 	/**	The section name is the name of the class.
 		*	\brief get section name.

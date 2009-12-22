@@ -60,7 +60,6 @@ abstract class PBasicFormSection extends PSection implements IMessage
 		*/
 	function PBasicFormSection()
 		{
-		PSection::PSection();
 		$this->
 			TheForm=Object(new PForm())
 				//->setAtr("name",get_class($this))
@@ -68,6 +67,7 @@ abstract class PBasicFormSection extends PSection implements IMessage
 				->setAtr("method","get")
 				->Insert(new PInput("hidden",$this->getName(),"section"))
 				;
+		PSection::PSection();
 		}
 	function Chapter1Title()
 		{
@@ -115,7 +115,7 @@ class PStepFormSection extends PBasicFormSection
 
 /** 	The PFormSection  class is designed to model a section of a website that has only PSection::Chapter1() with a <b>form</b> element. The form is created if not all of the arguments are set or form processing ProcessOK() was not successful.
 	*	\brief a section with a form.
-	*	\version 1.1.1
+	*	\version 2.0.0
 	*	\par Example:
 	*		see the login class
 	*	\latexonly \label{PWision:PFormSection} \index{PFormSection} \endlatexonly
@@ -123,23 +123,27 @@ class PStepFormSection extends PBasicFormSection
 	*/
 abstract class PFormSection extends PBasicFormSection
 	{
+	/**	This method is called by the constructor if all par of the section are set <i>and matched</i>.
+		*	\brief if parameters are set.
+		*/
+	function if_parameters_are_set()
+		{
+		if($this->ProcessOK()==false)
+			$this->createForm();
+		}
+	/**	This method is called by the constructor if not all par of the section are set, <i>but all that are set are also matched with their regular expresion</i>.
+		*	\brief if not all parameters are set.
+		*/
+	function if_not_all_parameters_are_set()
+		{
+		$this->createForm();
+		}
 	/**	Constructs the basic form section and creates the form. The form is created if not all of the arguments are set or form processing ProcessOK() was not successful.
 		*	\brief constructor
 		*/
 	function PFormSection()
 		{
 		PBasicFormSection::PBasicFormSection();
-		$this->Arguments=array();
-		$this->setArguments();
-		//if( !$this->ArgumentsAreSet() || $this->ProcessOK()==false )
-				//$this->createForm();
-		if($this->ArgumentsAreSet())
-			{
-			if($this->ProcessOK()==false)
-				$this->createForm();
-			}
-			else
-				$this->createForm();
 		}
 	/**	Processes the transmited form arguments and returns true on success.
 		*	\brief form processing.
@@ -158,39 +162,6 @@ abstract class PFormSection extends PBasicFormSection
 	function & createForm()
 		{
 		return $this->TheForm;
-		}
-	/// array containing the arguments of the form
-	protected $Arguments;
-	/**	Inserts a new argument in $Arguments.
-		*	\brief add a form argument.
-		*	\param $arg_name argument name
-		*	\return reference to $this
-		*	\note called form setArguments() in derived classes
-		*	\todo use PSection::Params
-		*/
-	protected function & addArgument($arg_name)
-		{
-		array_push($this->Arguments,$arg_name);
-		return $this;
-		}
-	/**	This method is called by the constructor to set the arguments of the form, using addArgument(), for future extraction.
-		*	\brief sets the arguments of the form.
-		*	\note pure virtual method, to be implement in derived classes
-		*	\todo move to PSection
-		*/
-	abstract function setArguments();//pure virtual
-
-	/**	Checks in the _REQUEST array if all argument names from Arguments are transmited.
-		*	\brief checks if all arguments are transmited.
-		*	\return true if all arguments are transmited, false if exists one argument not transmited or no arguments are add to Arguments array
-		*/
-	function ArgumentsAreSet()
-		{
-		foreach($this->Arguments as $arg_name)
-			if(!isset($_REQUEST[$arg_name]))
-				return false;
-		if(count($this->Arguments))return true;
-		return false;
 		}
 	}
 ?>
