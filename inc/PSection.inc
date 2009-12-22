@@ -55,12 +55,14 @@ class PSection
 				}
 	/**
 		*	\brief checks the arguments of the sections.
-		*	\todo check all Params and throw exception if a param doesn't check
+		*	\version 1.0.1
 		*/
 	protected function CheckParams()
 		{
 		foreach($this->Params as $param)
 			{
+			if( ! isset($_REQUEST[$param[0]]) )
+				throw PSection_ParamNCheck($param[2]);
 			$check=preg_match( $param[1], $_REQUEST[$param[0]] );
 			if($check==0 || $check==FALSE)
 				throw PSection_ParamNCheck($param[2]);
