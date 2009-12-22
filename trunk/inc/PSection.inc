@@ -85,6 +85,13 @@ class PSection
 		*	\brief if not all parameters are set.
 		*/
 	function if_not_all_parameters_are_set(){}
+	/**	This method is called by the constructor if PSection_ParamNCheck is thrown.
+		*	\brief PSection_ParamNCheck thrown.
+		*/
+	function param_NCheck(PSection_ParamNCheck &$e)
+		{
+		throw $e;
+		}
 	/**
 		*	\brief  initialisation method.
 		*	\version 2.0.0
@@ -93,11 +100,15 @@ class PSection
 		{
 		$this->Info = Sections::Section( $this->getName() );
 		$this->setParams();
-		$parameters_are_set=$this->CheckParams();
-		if($parameters_are_set)
-				$this->if_parameters_are_set();
-			else
-				$this->if_not_all_parameters_are_set();
+		try
+			{
+			$parameters_are_set=$this->CheckParams();
+			if($parameters_are_set)
+					$this->if_parameters_are_set();
+				else
+					$this->if_not_all_parameters_are_set();
+			}
+		catch(PSection_ParamNCheck $e) { $this->param_NCheck($e);}
 		}
 	/**	The section name is the name of the class.
 		*	\brief get section name.
