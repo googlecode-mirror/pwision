@@ -138,6 +138,13 @@ abstract class PFormSection extends PBasicFormSection
 		{
 		$this->createForm();
 		}
+	/**	This method is called by the constructor if PSection_ParamNCheck is thrown.
+		*	\brief PSection_ParamNCheck thrown.
+		*/
+	function param_NCheck(PSection_ParamNCheck &$e)
+		{
+		$this->createForm();
+		}
 	/**	Constructs the basic form section and creates the form. The form is created if not all of the arguments are set or form processing ProcessOK() was not successful.
 		*	\brief constructor
 		*/
