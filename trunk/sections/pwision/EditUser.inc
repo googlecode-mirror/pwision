@@ -23,16 +23,23 @@ include_once('inc/PRedirectSection.inc');
 /** 	The EditUser class is designed to model the section that allows a user to edit an appointer.
 	*	\latexonly \label{PWision:Sections:EditUser} \index{EditUser} \index{office} \endlatexonly
 	*	\brief Edit an appointer .
-	*	\version 1.0.0
-	*	\todo user edit
+	*	\version 1.1.0
+	*	\todo implement user edit
 	*/
 class EditUser extends PStepFormSection
 	{
+	function setParams()
+		{
+		$this
+			->addParam('ID','/^[0-9]{1,10}$/')
+			->addParam('action','/^[a-z]{1,64}$/i')
+			;
+		}
 	/// constructor
 	function EditUser()
 		{
 		PBasicFormSection::PBasicFormSection();
-		if( isset($_REQUEST['ID']) && preg_match('/^[0-9]{1,10}$/',$_REQUEST['ID'])==1 && ($userinfo=Users::UserInfo($_REQUEST['ID'])) )
+		if( isset($_REQUEST['ID']) && ($userinfo=Users::UserInfo($_REQUEST['ID'])) )
 				if( isset($_REQUEST['action']) )
 						if($_REQUEST['action']=='remove')
 								{
@@ -59,14 +66,14 @@ class EditUser extends PStepFormSection
 					else// $_REQUEST['action'] not set
 						{
 						$this->Step='Step 2 - Select the action';
-						
+
 						//show user info
 						$table=Object(new PTable())
 							->setAtr("border",'1');
-						
+
 						$table->addCell()->Insert(new PText("ID") );
 						$table->addCell()->Insert(new PText($userinfo['ID']) );
-						
+
 						$table->addRow();
 						$table->addCell()->Insert(new PText("name") );
 						$table->addCell()->Insert(new PText($userinfo['Name']) );
@@ -74,7 +81,7 @@ class EditUser extends PStepFormSection
 						$table->addRow();
 						$table->addCell()->Insert(new PText("Member of ") );
 							$grps=Main()->DB->fetch_all_query
-								("	SELECT DISTINCT Name 
+								("	SELECT DISTINCT Name
 									FROM Groups, GroupUsers
 									WHERE
 									Groups.ID=GroupUsers.GroupID and
@@ -83,9 +90,9 @@ class EditUser extends PStepFormSection
 							foreach($grps as $a_gr)
 								$gr.=$a_gr['Name'].", ";
 						$table->addCell()->Insert(new PText($gr) );
-						
+
 						$this->TheForm
-							->Insert( 
+							->Insert(
 								El('p')
 									->Insert( El('span')->Insert(
 										new PText(' Here is some info about the user you want to edit or remove:') ) )
