@@ -244,7 +244,7 @@ final class Sections
 		*/
 	static function CheckName( $section_name="Root" )
 		{
-		if(eregi("^[a-z][a-z ]{1,62}$",$section_name) == false || $section_name=="")
+		if(preg_match('/^[a-z][_a-z ]{1,62}$/i',$section_name) == false || $section_name=="")
 				{
 				//print("checking of $section_name failed");
 				return false;
@@ -267,7 +267,7 @@ final class Sections
 		if(
 			!Sections::CheckName($name) ||
 			!Sections::CheckName($owner) ||
-			(eregi("^[a-z ]{0,127}$",$descr)==false) ||
+			//(eregi("^[a-z ]{0,127}$",$descr)==false) ||
 			(count($grp_arr)==0) ||
 			Sections::Exists($name) ||
 			!Sections::Exists($owner) /*||
