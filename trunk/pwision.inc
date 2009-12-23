@@ -25,8 +25,7 @@ ini_set("display_errors", 1);
 PWision is an advanced toolkit that is used to make HTML webpages. It is an object oriented hierarchy of PHP classes that is used for building webpages using the information from the database and the HTML outputting classes, that it defines.
 \author Becheru Petru-Ioan
 \note The source code is released under <a href="http://www.gnu.org/licenses/gpl.txt" title='text of GNU GENERAL PUBLIC LICENSE Version 3'>GNU GENERAL PUBLIC LICENSE Version 3</a>.
-	\version 4.0.11 alpha
-\todo analize all classes derived from PSection to use params and exceptions
+	\version 4.0.12 Release Candidate
 */
 
 /** 	The PWision class is designed to be a model class for documentation of the code.
@@ -46,7 +45,7 @@ class PWision
 	{
 	/**	Constructs
 		*	\brief constructor
-		*	\param $a 
+		*	\param $a
 		*/
 	function PWision($a)
 		{
@@ -54,7 +53,7 @@ class PWision
 	/**	YY
 		*	\brief a
 		*	\version 1.0.0
-		*	\param $a 
+		*	\param $a
 		*	\return reference to $this
 		*/
 	function & Y($a)
