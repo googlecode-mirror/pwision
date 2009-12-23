@@ -233,7 +233,7 @@ class PSection
 /**	A namespace for section relation functions.
 	*	\latexonly \label{PWision:Sections} \endlatexonly
 	*	\brief section's namespace.
-	*	\version 2.1.0
+	*	\version 2.1.1
 	*/
 final class Sections
 	{
@@ -355,6 +355,7 @@ final class Sections
 		}
 	/**	Checks if a section is in UserBookmarkedSections table.
 		*	\brief checks if a section is bookmarked.
+		*	\version 1.0.1
 		*	\param $section_name name of the section
 		*	\param $UserID the user's id
 		*	\return true or false
@@ -364,7 +365,7 @@ final class Sections
 		if(!Sections::CheckName($section_name))return false;
 		if(!eregi("^[0-9]{1,10}$",$UserID))return false;
 		$row=Main()->DB->fetch_array_query(
-			"select SectionName from UserBookmarkedSections where UserID='$UserID' or UserID='0'"
+			"select SectionName from UserBookmarkedSections where `SectionName` = '$section_name' and (UserID='$UserID' or UserID='0')"
 			);
 		if($row) return true;
 		return false;
