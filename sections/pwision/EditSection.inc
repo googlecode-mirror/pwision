@@ -22,10 +22,23 @@ include_once("inc/Users.inc");
 /** 	The EditSection class is designed to model the section that allows a user to edit the sections of the website.
 	*	\latexonly \label{PWision:Sections:EditSection} \index{EditSection} \endlatexonly
 	*	\brief a section editor.
-	*	\version 1.1.1
+	*	\version 1.2.0
 	*/
 class EditSection extends PStepFormSection
 	{
+	function setParams()
+		{
+		$this
+			->addParam('sectionname','/^[a-z][_a-z ]{1,62}$/i')
+			->addParam('owner','/^[a-z][_a-z ]{1,62}$/i')
+			->addParam('description','/^[a-z0-9 ]{0,127}$/i')
+			->addParam('groups')
+			->addParam('attr')
+
+			->addParam('action','/^[a-z]{1,64}$/i')
+			->addParam('confirm','/^[a-z]{1,3}$/i')
+			;
+		}
 	function EditSection()
 		{
 		PBasicFormSection::PBasicFormSection();
@@ -162,7 +175,7 @@ class EditSection extends PStepFormSection
 									$attr=$_REQUEST['attr'];
 									if(array_key_exists('Hidden',$attr) && $attr['Hidden']=='Hidden')
 										Sections::Hide($_REQUEST['sectionname']);
-									if(array_key_exists('Bookmarked',$attr) && $attr['Bookmarked']=='Bookmarked') 
+									if(array_key_exists('Bookmarked',$attr) && $attr['Bookmarked']=='Bookmarked')
 										Sections::Bookmark($_REQUEST['sectionname']);
 									$this->TheForm->Insert(new PText("Section '".$_REQUEST['sectionname']."' modified."));
 									}
