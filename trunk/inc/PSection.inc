@@ -48,7 +48,7 @@ class PSection
 				*	\param $error_message the message if the parameter doesn't check
 				*	\return reference to $this
 				*/
-			protected function & addParam( $param_name, $reg_exp="", $error_message=null )
+			protected function & addParam( $param_name, $reg_exp='', $error_message=null )
 				{
 				if($error_message==null)$error_message="Parammeter '$param_name' has an illegal value!";
 				array_push( $this->Params, array($param_name, $reg_exp, $error_message ) );
@@ -60,7 +60,7 @@ class PSection
 	function setParams(){}
 	/**	Checks all the params that are set if they match the asociate regular expresion. If a param doesn't check, exception PSection_ParamNCheck with the apropiate message is thrown.
 		*	\brief checks the arguments of the sections.
-		*	\version 1.1.0
+		*	\version 1.2.0
 		*	\return true if all parameters are set and match their regular expresion
 		*/
 	protected function CheckParams()
@@ -69,9 +69,12 @@ class PSection
 		foreach($this->Params as $param)
 			if( isset($_REQUEST[$param[0]]) )
 				{
-				$check=preg_match( $param[1], $_REQUEST[$param[0]] );
-				if($check==0 || $check==FALSE)
-					throw new PSection_ParamNCheck($param[2]);
+				if( $param[1]!='' )
+					{
+					$check=preg_match( $param[1], $_REQUEST[$param[0]] );
+					if($check==0 || $check==FALSE)
+						throw new PSection_ParamNCheck($param[2]);
+					}
 				}
 				else
 					$parameters_are_set=false;
@@ -135,7 +138,7 @@ class PSection
 		*/
 	function AccesibleSubSections(IContent $mother=null, IInsertAbleCloneAble $kid=null)
 		{ if($mother==null)$mother=new PElement("ul"); if($kid==null)$kid=new PElement("li");
-		
+
 		$ret= new PFieldSet(Sections::PathLinks($this->getName()));
 		$SubSects=new PStructure($kid,$mother);
 		$SubSectsArray=Sections::AccesibleNotHiddenSubSections($this->getName(),$_SESSION['userID']);
@@ -202,22 +205,22 @@ class PSection
 			}
 		return $ret;
 		}
-	
+
 	/// \brief title of chapter 1 of the section
 	function	Chapter1Title(){return new PContent;}
 	/// \brief chapter 1 of the section
 	function	Chapter1(){return new PContent;}
-	
+
 	/// \brief title of chapter 2 of the section
 	function	Chapter2Title(){return new PContent;}
 	/// \brief chapter 2 of the section
 	function	Chapter2(){return new PContent;}
-	
+
 	/// \brief title of chapter 3 of the section
 	function	Chapter3Title(){return new PContent;}
 	/// \brief chapter 3 of the section
 	function	Chapter3(){return new PContent;}
-	
+
 	/// \brief title of chapter 4 of the section
 	function	Chapter4Title(){return new PContent;}
 	/// \brief chapter 4 of the section
@@ -237,7 +240,7 @@ final class Sections
 	/**	Check if $section_name is formed only of maximum 63 letters and space.
 		*	\brief section name check
 		*	\param $section_name the name of the section
-		*	\return true if ok, else false 
+		*	\return true if ok, else false
 		*/
 	static function CheckName( $section_name="Root" )
 		{
@@ -416,7 +419,7 @@ final class Sections
 		return Sections::Owner($section_name) != false;
 		//return true;
 		}
-		
+
 	/**	Gets the sections that have as Owner $section_name.
 		*	\brief the subsections of a section.
 		*	\param $section_name the name of the section
@@ -469,7 +472,7 @@ final class Sections
 					")>0"
 			);
 		}
-	
+
 	/**	the bookmarked sections of a user combined with those of used 0(guest).
 		*	\brief the accesible bookmarked sections.
 		*	\param $UserID the user's id
@@ -503,7 +506,7 @@ final class Sections
 		if($section['Type']=='section')
 				return Sections::Link2($section['Name'],$section['Description']);
 			else
-				return 
+				return
 					El("a")
 							->setAtr("href","index.php?section=". $section['Owner']. "#". $section['Name'])
 							->setAtr("title",$section['Description'])
