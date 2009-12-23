@@ -22,16 +22,16 @@ include_once("inc/Users.inc");
 /** 	The CreateUser class is designed to model the section that allows a user to create users of the website.
 	*	\latexonly \label{PWision:Sections:CreateUser} \index{CreateUser} \index{user} \endlatexonly
 	*	\brief an user creator.
-	*	\version 1.0.0
+	*	\version 1.1.0
 	*/
 class CreateUser extends PFormSection
 	{
-	function setArguments()
+	function setParams()
 		{
 		$this
-			->addArgument("username")
-			->addArgument("password")
-			->addArgument("groups")
+			->addParam("username",'/^[-@._a-z0-9 ]{1,64}$/i')
+			->addParam("password",'/^[a-z0-9 ]{1,64}$/i')
+			->addParam("groups")//this param is checked in Users::Add2groups()
 			;
 		}
 	function ProcessOK()
@@ -56,7 +56,7 @@ class CreateUser extends PFormSection
 	function createForm()
 		{
 		$GroupBox=Groups::GroupsFieldSet();
-		
+
 		$T=new PTable();
 				$T->AddCell()->Insert(new PText("User Name:"));
 				$T->AddCell()->Insert(new PInput("text","","username"));

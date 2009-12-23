@@ -23,7 +23,7 @@ include_once("inc/Users.inc");
 /** 	The login class is designed to model the login section. The login section is the section of the website where guest users can log in with their username and password.
 	*	\latexonly \label{PWision:Sections:login} \index{login}  \index{guest} \index{user}\endlatexonly
 	*	\brief the login section.
-	*	\version 1.1.0
+	*	\version 1.2.0
 	*/
 class login extends PFormSection
 	{
