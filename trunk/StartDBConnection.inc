@@ -19,6 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //NOTE: EDIT with the correct values for DB user/pass/name
 $DB=new PMySQLConsole("DBuserName","DBPassword","sql server url");
-	$DB->SelectDB(("DBName");
+	$DB->SelectDB("DBName");
 return $DB;
 ?>
