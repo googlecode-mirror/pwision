@@ -32,7 +32,7 @@ include_once("PStaticSection.inc");
 	*	\par Example:
 	*		See PBasicWebPage class.
 	*/
-abstract class PMostBasicWebPage extends PDrawable
+class PMostBasicWebPage extends PDrawable
 	{
 	///database console
 	public $DB;
@@ -47,7 +47,10 @@ protected function StartDBConnection()
 	}
 \endcode
 		*/
-	abstract protected function StartDBConnection();
+	protected function StartDBConnection()
+		{
+		$this->DB=include('StartDBConnection.inc');
+		}
 	/**	Constructs the PDrawable and starts the database connection.
 		*	\brief constructor
 		*/
