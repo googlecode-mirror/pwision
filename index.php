@@ -69,11 +69,6 @@ class PMyWebPage extends PWebPageDefault
 			->setRootName("&#x27F0;")
 			;
 		}
-	protected function StartDBConnection()
-		{
-		$this->DB=new PMySQLConsole("DBuserName","DBPassword","sql server url");
-			$this->DB->SelectDB("DBName");
-		}
 	}
 
 $page=new PMyWebPage();

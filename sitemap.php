@@ -22,8 +22,7 @@ class PMySitemap extends PSitemap
 	{
 	protected function StartDBConnection()
 		{
-		$this->DB=new PMySQLConsole("DBuserName","DBPassword","sql server url");
-			$this->DB->SelectDB("DBName");
+		$this->DB=include('StartDBConnection.inc');
 		}
 	function SiteURL()
 		{
