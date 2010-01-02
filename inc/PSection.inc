@@ -234,7 +234,7 @@ class PSection
 /**	A namespace for section relation functions.
 	*	\latexonly \label{PWision:Sections} \endlatexonly
 	*	\brief section's namespace.
-	*	\version 2.1.1
+	*	\version 3.0.0
 	*/
 final class Sections
 	{
@@ -256,6 +256,7 @@ final class Sections
 	/**	Creates a new section of the website by adding it to Sections table and to its groups.
 		*	\latexonly \label{PWision:Sections:Create} \endlatexonly
 		*	\brief create a section
+		*	\version 2.0.0
 		*	\param name name of the new section(must not exist, e.g. a new name)
 		*	\param owner owner section of the new section(must exist)
 		*	\param descr description text "^[a-z ]{0,127}$"
@@ -263,8 +264,10 @@ final class Sections
 		*	\param $attr attributes(bookmarked,hidden)
 		*	\return true if success
 		*/
-	static function Create( $name, $owner, $descr="", $grp_arr=array(),$attr=array() )
+	static function Create( $name, $owner, $descr="", $grp_arr=null,$attr=null )
 		{
+		if($grp_arr==null)$grp_arr=array();
+		if($attr==null)$attr=array();
 		if(
 			!Sections::CheckName($name) ||
 			!Sections::CheckName($owner) ||
