@@ -22,7 +22,7 @@ include_once("inc/Users.inc");
 /** 	The EditSection class is designed to model the section that allows a user to edit the sections of the website.
 	*	\latexonly \label{PWision:Sections:EditSection} \index{EditSection} \endlatexonly
 	*	\brief a section editor.
-	*	\version 1.2.0
+	*	\version 1.2.1
 	*/
 class EditSection extends PStepFormSection
 	{
@@ -41,7 +41,7 @@ class EditSection extends PStepFormSection
 		}
 	function EditSection()
 		{
-		PBasicFormSection::PBasicFormSection();
+		PStepFormSection::PStepFormSection();
 
 		if(
 			!isset($_REQUEST['sectionname']) ||
