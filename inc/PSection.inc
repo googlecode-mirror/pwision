@@ -116,7 +116,7 @@ class PSection
 	/**	The section name is the name of the class.
 		*	\brief get section name.
 		*	\version 1.1.0
-		*	\note not using get_class($this) because PHTMLSection class is used to load static sections!
+		*	\note not using get_class($this) because PStaticSection class is used to load static sections!
 		*/
 	function getName()
 		{
