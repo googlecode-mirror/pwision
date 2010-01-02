@@ -177,7 +177,7 @@ abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 			->Insert($this->Head())
 			->Insert($this->Body())
 			;
-		return 
+		return
 			"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" ".
 			"\"http://www.w3.org/TR/xhtml11/DTD/xhtml1.dtd\">\n".
 			$html->Draw();
@@ -270,7 +270,7 @@ abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 	function & setSection($sectionName)
 		{
 		if(
-			Sections::Exists($sectionName) && 
+			Sections::Exists($sectionName) &&
 			Users::hasAccess($_SESSION['userID'],$sectionName) )
 				$this->SectionName=$sectionName;
 			else
@@ -284,8 +284,15 @@ abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 				$this->Section= new PStaticSection($sectionName);
 			elseif(class_exists($sectionName,true))//tries to autoload the class
 				{
-				try{$this->Section= new $sectionName();}
-				catch(Exception $e){$this->Section= new PSection();}
+				try
+					{
+					$this->Section= new $sectionName();
+					}
+				catch(Exception $e)
+					{
+					$this->AddMessage( $e->getMessage() );
+					$this->Section= new PSection();
+					}
 				}
 			else
 				$this->Section= new PSection();
@@ -486,7 +493,7 @@ new google.translate.TranslateElement({
 			*/
 		protected function Head_Css()
 			{
-			return 
+			return
 				Object(new PElement("style"))
 						->setAtr("type","text/css")
 						->setAtr("title","currentStyle")
