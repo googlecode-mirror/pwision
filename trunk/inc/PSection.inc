@@ -155,8 +155,9 @@ class PSection
 		return $ret->Insert($SubSects);
 		}
 
-	/**	The returned object will be inserted into the head element of the webpage.
+	/**	The returned object will be inserted into the head element of the webpage. This function can be used to add an additional CSS or JavaScript that is needed for the section to display/work.
 		*	\brief head content.
+		*	\return a PDrawable object
 		*/
 	function Head()
 		{
