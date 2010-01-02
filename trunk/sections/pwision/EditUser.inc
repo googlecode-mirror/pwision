@@ -21,7 +21,7 @@ include_once("inc/PTable.inc");
 include_once("inc/Users.inc");
 include_once('inc/PRedirectSection.inc');
 /** 	The EditUser class is designed to model the section that allows a user to edit an appointer.
-	*	\latexonly \label{PWision:Sections:EditUser} \index{EditUser} \index{office} \endlatexonly
+	*	\latexonly \label{PWision:Sections:EditUser} \index{EditUser} \index{user} \endlatexonly
 	*	\brief Edit an appointer .
 	*	\version 1.1.1
 	*	\todo implement user edit
