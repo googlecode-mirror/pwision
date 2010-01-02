@@ -23,7 +23,7 @@ include_once('inc/PRedirectSection.inc');
 /** 	The EditUser class is designed to model the section that allows a user to edit an appointer.
 	*	\latexonly \label{PWision:Sections:EditUser} \index{EditUser} \index{office} \endlatexonly
 	*	\brief Edit an appointer .
-	*	\version 1.1.0
+	*	\version 1.1.1
 	*	\todo implement user edit
 	*/
 class EditUser extends PStepFormSection
@@ -38,7 +38,7 @@ class EditUser extends PStepFormSection
 	/// constructor
 	function EditUser()
 		{
-		PBasicFormSection::PBasicFormSection();
+		PStepFormSection::PStepFormSection();
 		if( isset($_REQUEST['ID']) && ($userinfo=Users::UserInfo($_REQUEST['ID'])) )
 				if( isset($_REQUEST['action']) )
 						if($_REQUEST['action']=='remove')
