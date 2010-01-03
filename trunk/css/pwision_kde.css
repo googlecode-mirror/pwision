@@ -103,9 +103,13 @@ pre {
 input, textarea, select {
     margin: 0.2em;
     padding: 0.1em;
-    color: #888888;
-    background: #ffffff;
-    border: 1px solid;
+    color: black;
+    background: #ffc;
+    border: 1px solid #888888;
+}
+input:hover{
+	color:black;
+	border-color:black;
 }
 
 blockquote {
