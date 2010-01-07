@@ -267,7 +267,7 @@ final class Sections
 	/**	Creates a new section of the website by adding it to Sections table and to its groups.
 		*	\latexonly \label{PWision:Sections:Create} \endlatexonly
 		*	\brief create a section
-		*	\version 2.0.0
+		*	\version 2.0.1
 		*	\param name name of the new section(must not exist, e.g. a new name)
 		*	\param owner owner section of the new section(must exist)
 		*	\param descr description text "^[a-z ]{0,127}$"
@@ -289,7 +289,7 @@ final class Sections
 			(eregi("^[01]{1}$",$hidden)==false)*/
 			)
 				return false;
-		Main()->DB->query("INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`) VALUES ('$name', '$owner', 'section', '$descr');");
+		Main()->DB->query("INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`) VALUES ('$name', '$owner', 'section', '$descr')");
 		Sections::Add2Groups($name,$grp_arr);
 		if(array_key_exists('Hidden',$attr) && $attr['Hidden']=='Hidden')Sections::Hide($name);
 		if(array_key_exists('Bookmarked',$attr) && $attr['Bookmarked']=='Bookmarked')Sections::Bookmark($name);
