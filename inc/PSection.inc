@@ -30,7 +30,7 @@ class PSection_ParamNCheck extends Exception
 /** 	The PSection class is designed to model a section of the website. A section has a name, a description and is splitted in 5 chapters (numbered 0 to 4).
 	*	\latexonly \label{PWision:PSection} \index{PSection} \index{section} \index{website} \endlatexonly
 	*	\brief a section of the website.
-	*	\version 3.0.0
+	*	\version 3.1.0
 	*	\note it will be derived in files X.inc from sections/ as X class
 	*/
 class PSection
@@ -129,6 +129,14 @@ class PSection
 	function getTitle()
 		{
 		return $this->getName();
+		}
+	/**	Get the content of a param if set.
+		*	\brief get the content of a section parameter.
+		*	\return parameter value or '' if the parameter is not set
+		*/
+	function getParam($param_name)
+		{
+		return isset($_REQUEST[$param_name])?$_REQUEST[$param_name]:'';
 		}
 	/**	Gets the subsections of current section.
 		*	\brief the subsections
