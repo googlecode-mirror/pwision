@@ -60,7 +60,7 @@ class PSection
 	function setParams(){}
 	/**	Checks all the params that are set if they match the asociate regular expresion. If a param doesn't check, exception PSection_ParamNCheck with the apropiate message is thrown.
 		*	\brief checks the arguments of the sections.
-		*	\version 1.2.0
+		*	\version 1.2.1
 		*	\return true if all parameters are set and match their regular expresion
 		*/
 	protected function CheckParams()
@@ -77,7 +77,10 @@ class PSection
 					}
 				}
 				else
+					{
+					$this->AddMessage('Parammeter '.$param[0].' is not set!');
 					$parameters_are_set=false;
+					}
 		return $parameters_are_set;
 		}
 	/**	This method is called by the constructor if all par of the section are set <i>and matched</i>.

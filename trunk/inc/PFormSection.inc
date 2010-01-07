@@ -23,7 +23,7 @@ include_once("IMessage.inc");
 /** 	The PFormSection  class is designed to model a section of a website that has only PSection::Chapter1() with a <b>form</b> element.
 	*	\latexonly \label{PWision:PBasicFormSection} \index{PBasicFormSection} \endlatexonly
 	*	\brief a section with a form.
-	*	\version 3.0.0
+	*	\version 3.0.1
 	*/
 abstract class PBasicFormSection extends PSection implements IMessage
 	{
@@ -64,7 +64,7 @@ abstract class PBasicFormSection extends PSection implements IMessage
 			TheForm=Object(new PForm())
 				//->setAtr("name",get_class($this))
 				->setAtr("action","index.php")
-				->setAtr("method","get")
+				->setAtr("method","post")
 				->Insert(new PInput("hidden",$this->getName(),"section"))
 				;
 		PSection::PSection();
@@ -143,6 +143,7 @@ abstract class PFormSection extends PBasicFormSection
 		*/
 	function param_NCheck(PSection_ParamNCheck &$e)
 		{
+		$this->AddMessage($e->getMessage());
 		$this->createForm();
 		}
 	/**	Constructs the basic form section and creates the form. The form is created if not all of the arguments are set or form processing ProcessOK() was not successful.
