@@ -107,10 +107,14 @@ input, textarea, select {
     background: #ffc;
     border: 1px solid #888888;
 }
-input:hover{
+textarea{
+	width:100%;
+	}
+input:hover,textarea:hover, select:hover {
 	color:black;
 	border-color:black;
 }
+
 
 blockquote {
     margin: 0.3em;
