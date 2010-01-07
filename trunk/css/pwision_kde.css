@@ -109,6 +109,7 @@ input, textarea, select {
 }
 textarea{
 	width:100%;
+	text-align:justify;
 	}
 input:hover,textarea:hover, select:hover {
 	color:black;
