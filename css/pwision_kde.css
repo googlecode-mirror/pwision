@@ -350,6 +350,7 @@ th {
 
 
 #supportingText {
+    text-align: justify;
 	}
 
 	#supportingText h3
