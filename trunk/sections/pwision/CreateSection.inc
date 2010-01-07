@@ -22,7 +22,7 @@ include_once("inc/Users.inc");
 /** 	The CreateSection class is designed to model a section that allows a user to create sections of the website. It provides an intuitive interface with textboxes (for section name and description) and checkboxes (that display the groups that the section will be member of).
 	*	\latexonly \label{PWision:Sections:CreateSection} \index{CreateSection} \index{section} \endlatexonly
 	*	\brief a section creator.
-	*	\version 1.1.1
+	*	\version 1.1.2
 	*/
 class CreateSection extends PFormSection
 	{
@@ -43,7 +43,7 @@ class CreateSection extends PFormSection
 						$_REQUEST['owner'],
 						$_REQUEST['description'],
 						$_REQUEST['groups'],
-						$_REQUEST['attr']
+						isset($_REQUEST['attr'])?$_REQUEST['attr']:array()
 						) )
 				{
 				$this->AddMessage("Section '".$_REQUEST['sectionname']."' created as subsection of '".$_REQUEST['owner']."' ! ");
