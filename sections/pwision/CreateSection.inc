@@ -20,7 +20,7 @@ include_once("inc/PFormSection.inc");
 include_once('inc/PRedirectSection.inc');
 include_once("inc/PTable.inc");
 include_once("inc/Users.inc");
-/** 	The CreateSection class is designed to model a section that allows a user to create sections of the website. It provides an intuitive interface with textboxes (for section name and description) and checkboxes (that display the groups that the section will be member of).
+/** 	The CreateSection class is designed to model a section that allows a user to create sections of the website.
 	*	\latexonly \label{PWision:Sections:CreateSection} \index{CreateSection} \index{section} \endlatexonly
 	*	\brief a section creator.
 	*	\version 2.0.0
