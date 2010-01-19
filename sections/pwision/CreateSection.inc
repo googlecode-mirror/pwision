@@ -17,13 +17,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 include_once("inc/PFormSection.inc");
+include_once('inc/PRedirectSection.inc');
 include_once("inc/PTable.inc");
 include_once("inc/Users.inc");
 /** 	The CreateSection class is designed to model a section that allows a user to create sections of the website. It provides an intuitive interface with textboxes (for section name and description) and checkboxes (that display the groups that the section will be member of).
 	*	\latexonly \label{PWision:Sections:CreateSection} \index{CreateSection} \index{section} \endlatexonly
 	*	\brief a section creator.
-	*	\version 1.1.2
-	*	\todo just create a section as a subsection of Root and then redirect to edit section
+	*	\version 2.0.0
 	*/
 class CreateSection extends PFormSection
 	{
@@ -31,23 +31,19 @@ class CreateSection extends PFormSection
 		{
 		$this
 			->addParam('sectionname','/^[a-z][_a-z ]{1,62}$/i')
-			->addParam('owner','/^[a-z][_a-z ]{1,62}$/i')
-			->addParam('description','/^[a-z0-9 ]{0,127}$/i')
-			->addParam('groups')
-// 			->addParam('attr')
 			;
 		}
 	function ProcessOK()
 		{
-		if( Sections::Create(
-						$_REQUEST['sectionname'],
-						$_REQUEST['owner'],
-						$_REQUEST['description'],
-						$_REQUEST['groups'],
-						isset($_REQUEST['attr'])?$_REQUEST['attr']:array()
-						) )
+		if( Sections::Create( $_REQUEST['sectionname'], 'Root') )
 				{
-				$this->AddMessage("Section '".$_REQUEST['sectionname']."' created as subsection of '".$_REQUEST['owner']."' ! ");
+				$this->AddMessage("Section '".$_REQUEST['sectionname']."' created ! ".
+					JSRedirect2Section('EditSection',
+						Object(new PURLAttributes)
+							->setAtr('sectionname',$_REQUEST['sectionname'])
+							->setAtr('action','edit')
+						) 
+					);
 				return true;
 				}
 		$this->AddMessage("Section '".$_REQUEST['sectionname']."' NOT created!");
@@ -63,27 +59,6 @@ class CreateSection extends PFormSection
 				$T->AddCell()->Insert(new PText("Section Name:"));
 				$T->AddCell()->Insert(new PInput("text","","sectionname"));
 				$T->AddCell()->Insert(new PText("use ' a-z' 63 chars max"));
-			$T->AddRow();
-				$T->AddCell()->Insert(new PText("Description:"));
-				$T->AddCell()->Insert(new PInput("text","","description"));
-				$T->AddCell()->Insert(new PText("use ' a-z' 127 chars max"));
-			$T->AddRow();
-				$T->AddCell()
-					->Insert(
-						Object(new PFieldSet(new PText('Attributes')))
-							->Insert(
-								Array2Inputs(
-									array(
-										array('text'=>'Hidden', 'value'=>'Hidden'),
-										array('text'=>'Bookmarked', 'value'=>'Bookmarked', 'checked'=>'checked')
-										),
-									'attr'
-									)
-							)
-						)
-					;
-				$T->AddCell()->Insert($SectionBox);
-				$T->AddCell()->Insert($GroupBox);
 			$T->AddRow();
 				$T->AddCell();
 				$T->AddCell()->Insert(new PInput("submit","Create!",""));

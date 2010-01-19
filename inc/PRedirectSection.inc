@@ -34,14 +34,16 @@ function JSRedirect($URL)
 	}
 /**	This function creates a script that redirects to a section.
 	*	\brief redirect to a section.
-	*	\version 1.0.0
+	*	\version 2.0.0
 	*	\param $section_name name of the section
+		*\param attr attributes(param) to URL, besides <b>section=<i>section_name</i></b>
 	*	\param $webpage name of the webpage
 	*	\return an \<script\> element that contains a java-script code that redirects the browser.
 	*/
-function JSRedirect2Section($section_name="Root", $webpage="index.php")
+function JSRedirect2Section($section_name="Root" , PURLAttributes $attr=null, $webpage="index.php")
 	{
-	return JSRedirect("$webpage?section=$section_name");
+	if($attr==null)$attr=new PURLAttributes();
+	return JSRedirect( "$webpage?section=$section_name".$attr->Draw() );
 	}
 
 

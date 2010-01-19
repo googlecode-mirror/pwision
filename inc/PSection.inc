@@ -267,7 +267,7 @@ final class Sections
 	/**	Creates a new section of the website by adding it to Sections table and to its groups.
 		*	\latexonly \label{PWision:Sections:Create} \endlatexonly
 		*	\brief create a section
-		*	\version 2.0.1
+		*	\version 2.0.2
 		*	\param name name of the new section(must not exist, e.g. a new name)
 		*	\param owner owner section of the new section(must exist)
 		*	\param descr description text "^[a-z ]{0,127}$"
@@ -283,7 +283,7 @@ final class Sections
 			!Sections::CheckName($name) ||
 			!Sections::CheckName($owner) ||
 			//(eregi("^[a-z ]{0,127}$",$descr)==false) ||
-			(count($grp_arr)==0) ||
+			//(count($grp_arr)==0) ||
 			Sections::Exists($name) ||
 			!Sections::Exists($owner) /*||
 			(eregi("^[01]{1}$",$hidden)==false)*/
