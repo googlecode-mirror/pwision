@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 include_once("inc/PFormSection.inc");
 include_once("inc/PTable.inc");
 include_once("inc/Users.inc");
-/** 	The EditSection class is designed to model the section that allows a user to edit the sections of the website.
+/** 	The EditSection class is designed to model the section that allows a user to edit the sections of the website. It provides an intuitive interface with textboxes (for section name and description) and checkboxes (that display the groups that the section will be member of).
 	*	\latexonly \label{PWision:Sections:EditSection} \index{EditSection} \endlatexonly
 	*	\brief a section editor.
 	*	\version 1.2.2
