@@ -79,9 +79,9 @@ class PMySQLConsole
 		*/
 	function query($query)
 		{
-		//print("{query [$query]");
+		//print("{query [$query]");$start = microtime(true);
 		$ret=mysql_query($query,$this->connection);
-		//print($ret." "); print(mysql_error().mysql_num_rows($ret)." query}<hr/>");
+		//print($ret." "); print(mysql_error().mysql_num_rows($ret)." query}<hr/>");print(microtime(true)-$start.'+');
 		return $ret;
 		}
 	/**	Gets the next result row from a sql resource,

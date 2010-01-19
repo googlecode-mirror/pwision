@@ -119,7 +119,6 @@ class PStepFormSection extends PBasicFormSection
 	*	\par Example:
 	*		see the login class
 	*	\latexonly \label{PWision:PFormSection} \index{PFormSection} \endlatexonly
-	*	\todo use params and arguments from PSection
 	*/
 abstract class PFormSection extends PBasicFormSection
 	{
