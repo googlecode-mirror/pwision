@@ -22,7 +22,7 @@ include_once("inc/Users.inc");
 /** 	The EditSection class is designed to model the section that allows a user to edit the sections of the website.
 	*	\latexonly \label{PWision:Sections:EditSection} \index{EditSection} \endlatexonly
 	*	\brief a section editor.
-	*	\version 1.2.1
+	*	\version 1.2.2
 	*/
 class EditSection extends PStepFormSection
 	{
@@ -68,7 +68,7 @@ class EditSection extends PStepFormSection
 					;
 				$this->TheForm->Insert(new PInput("submit","Go",""));
 				}
-			else//$_REQUEST['sectionname'] != "" si $_REQUEST['action'] == edit sau remove
+			else//$_REQUEST['sectionname'] != "" and ( $_REQUEST['action'] == edit or remove )
 				{
 				$this->TheForm
 					->Insert(new PInput("hidden","yes","confirm"))
@@ -90,7 +90,7 @@ class EditSection extends PStepFormSection
 									"(select GroupID from GroupSections where SectionName='".$_REQUEST['sectionname']."')"
 									);
 								$gr="";
-								foreach($grps as $a_gr);
+								foreach($grps as $a_gr)
 									$gr.=$a_gr['Name'].", ";
 								$T=new PTable();
 										$T->addCell()->Insert(new PText("Section Name:"));
