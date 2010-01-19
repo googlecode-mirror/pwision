@@ -23,6 +23,7 @@ include_once("inc/Users.inc");
 	*	\latexonly \label{PWision:Sections:CreateSection} \index{CreateSection} \index{section} \endlatexonly
 	*	\brief a section creator.
 	*	\version 1.1.2
+	*	\todo just create a section as a subsection of Root and then redirect to edit section
 	*/
 class CreateSection extends PFormSection
 	{
