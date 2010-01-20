@@ -42,7 +42,7 @@ class PSection
 			protected $Params=array();
 			/**
 				*	\brief adds a parameter for the section.
-				*	\version 1.1.0
+				*	\version 1.1.1
 				*	\param $param_name the name of the parameter
 				*	\param $reg_exp the regular expresion that must be matched
 				*	\param $error_message the message if the parameter doesn't check
@@ -51,7 +51,13 @@ class PSection
 			protected function & addParam( $param_name, $reg_exp='', $error_message=null )
 				{
 				if($error_message==null)$error_message="Parammeter '$param_name' has an illegal value!";
-				array_push( $this->Params, array($param_name, $reg_exp, $error_message ) );
+				$this->Params[$param_name]=array(
+					$param_name, // parameter name
+					$reg_exp,  // regular expresion
+					$error_message, // error message text
+					false , // true if this param was set at last CheckParams()
+					false // true if this param checked the reg_exp at last CheckParams()
+					);
 				return $this;
 				}
 	/**	This method is called by the constructor to set the arguments of the form, using addParam(), for future extraction.
@@ -60,24 +66,28 @@ class PSection
 	function setParams(){}
 	/**	Checks all the params that are set if they match the asociate regular expresion. If a param doesn't check, exception PSection_ParamNCheck with the apropiate message is thrown.
 		*	\brief checks the arguments of the sections.
-		*	\version 1.2.1
+		*	\version 1.2.2
 		*	\return true if all parameters are set and match their regular expresion
 		*/
 	protected function CheckParams()
 		{
 		$parameters_are_set=true;
-		foreach($this->Params as $param)
+		foreach($this->Params as $param_name => &$param)
 			if( isset($_REQUEST[$param[0]]) )
 				{
+				$param[3]=true;
 				if( $param[1]!='' )
 					{
+					$param[4]=false;
 					$check=preg_match( $param[1], $_REQUEST[$param[0]] );
 					if($check==0 || $check==FALSE)
 						throw new PSection_ParamNCheck($param[2]);
+					$param[4]=true;
 					}
 				}
 				else
 					{
+					$param[3]=false;
 					$this->AddMessage('Parammeter '.$param[0].' is not set!');
 					$parameters_are_set=false;
 					}
