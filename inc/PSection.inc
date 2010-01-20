@@ -30,7 +30,7 @@ class PSection_ParamNCheck extends Exception
 /** 	The PSection class is designed to model a section of the website. A section has a name, a description and is splitted in 5 chapters (numbered 0 to 4).
 	*	\latexonly \label{PWision:PSection} \index{PSection} \index{section} \index{website} \endlatexonly
 	*	\brief a section of the website.
-	*	\version 3.1.0
+	*	\version 3.1.1
 	*	\note it will be derived in files X.inc from sections/ as X class
 	*/
 class PSection
@@ -110,7 +110,7 @@ class PSection
 		}
 	/**
 		*	\brief  initialisation method.
-		*	\version 2.0.0
+		*	\version 2.0.1
 		*/
 	function PSection()
 		{
@@ -118,8 +118,7 @@ class PSection
 		$this->setParams();
 		try
 			{
-			$parameters_are_set=$this->CheckParams();
-			if($parameters_are_set)
+			if($this->CheckParams())
 					$this->if_parameters_are_set();
 				else
 					$this->if_not_all_parameters_are_set();
