@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 include_once("inc/PRedirectSection.inc");
 /** 	
-	*	\latexonly \label{PWision:Sections:Root} \index{Root} \index{guest} \index{user} \endlatexonly
+	*	\latexonly \label{PWision:Sections:UserAccess} \index{Root} \index{UserAccess} \endlatexonly
 	*	\brief redirect to the <i>Root</i> section.
 	*	\version 1.0.0
 	*/
