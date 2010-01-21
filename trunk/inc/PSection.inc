@@ -75,7 +75,7 @@ class PSection
 		foreach($this->Params as $param_name => &$param)
 			if( isset($_REQUEST[$param[0]]) )
 				{
-				$param[3]=true;
+				$param[3]=true; // $param[0] set
 				if( $param[1]!='' )
 					{
 					$param[4]=false;
@@ -87,7 +87,8 @@ class PSection
 				}
 				else
 					{
-					$param[3]=false;
+					$param[3]=false;// $param[0] not set
+					//$param[4]=false;// if a param is not set then it does not check the reg_exp
 					$this->AddMessage('Parammeter '.$param[0].' is not set!');
 					$parameters_are_set=false;
 					}
