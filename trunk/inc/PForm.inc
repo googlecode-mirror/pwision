@@ -265,8 +265,8 @@ function TextArea($name,$text='',$rows=20)
 	{
 	return
 		El('textarea')
-				->setAtr('rows',$rows)
 				->setAtr('name',$name)
+				->setAtr('rows',$rows)
 			->Insert(new PText($text) )
 		;
 	}

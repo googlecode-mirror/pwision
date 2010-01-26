@@ -30,7 +30,7 @@ class PSection_ParamNCheck extends Exception
 /** 	The PSection class is designed to model a section of the website. A section has a name, a description and is splitted in 5 chapters (numbered 0 to 4).
 	*	\latexonly \label{PWision:PSection} \index{PSection} \index{section} \index{website} \endlatexonly
 	*	\brief a section of the website.
-	*	\version 3.1.1
+	*	\version 3.2.0
 	*	\note it will be derived in files X.inc from sections/ as X class
 	*/
 class PSection
@@ -64,6 +64,13 @@ class PSection
 		*	\brief sets the arguments of the form.
 		*/
 	function setParams(){}
+	/**	This method is called by the CheckParams() before checking the regexp.
+		*	\brief preprocess a param.
+		*	\param $param_name a parameter that is set
+		*	\return nothing
+		*/
+	protected function preprocessParam($param_name)
+		{}
 	/**	Checks all the params that are set if they match the asociate regular expresion. If a param doesn't check, exception PSection_ParamNCheck with the apropiate message is thrown.
 		*	\brief checks the arguments of the sections.
 		*	\version 1.2.2
@@ -76,6 +83,7 @@ class PSection
 			if( isset($_REQUEST[$param[0]]) )
 				{
 				$param[3]=true; // $param[0] set
+				$this->preprocessParam($param_name);
 				if( $param[1]!='' )
 					{
 					$param[4]=false;
