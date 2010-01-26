@@ -186,6 +186,11 @@ th {
     border: #cccccc solid;
     border-width: 0 0 3px 0;
 }
+td
+	{
+	vertical-align:middle;
+	valign:middle;
+	}
 
 
 

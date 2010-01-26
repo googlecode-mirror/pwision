@@ -253,4 +253,21 @@ function FieldSet($legend_text='')
 	{
 	return new PFieldSet( new PText($legend_text) );
 	}
+
+/**	Constructs a textarea input element.
+	*	\brief a textarea.
+	*	\param $name name of the textarea
+	*	\param $text initial text content of textarea
+	*	\param $rows number of visible rows of the textarea
+	*	\return an textarea PElement
+	*/
+function TextArea($name,$text='',$rows=20)
+	{
+	return
+		El('textarea')
+				->setAtr('rows',$rows)
+				->setAtr('name',$name)
+			->Insert(new PText($text) )
+		;
+	}
 ?>
