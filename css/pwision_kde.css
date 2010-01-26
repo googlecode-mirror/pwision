@@ -108,7 +108,7 @@ input, textarea, select {
     border: 1px solid #888888;
 }
 textarea{
-	width:100%;
+	width:90%;
 	text-align:justify;
 	}
 input:hover,textarea:hover, select:hover {
@@ -177,8 +177,6 @@ img {
     border: 0;
 }
 table {
-    border-collapse: collapse;
-    font-size: 1em;
 }
 th {
     text-align: left;
