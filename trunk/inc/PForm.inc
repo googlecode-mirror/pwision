@@ -221,7 +221,6 @@ class PFieldSet extends PElement
 	/**	It constructs a fieldset element with a legend.
 		*	\brief initialisation method.
 		*	\param $legend the legend PText
-		*	\param $arr the PContent::SubElements member initial value
 		*/
 	function PFieldSet($legend)
 		{
