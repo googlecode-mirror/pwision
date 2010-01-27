@@ -81,7 +81,7 @@ class PRedirectingSection extends PSection
 /** 	The PRedirect2Section class is designed to model a section that redirects the client browser to the url of a section.
 	*	\latexonly \label{PWision:PRedirect2Section} \index{PRedirect2Section} \label{redirect} \label{section} \endlatexonly
 	*	\brief a section that redirects to a section.
-	*	\version 1.1.0
+	*	\version 1.1.1
 	*/
 class PRedirect2Section extends PSection
 	{
@@ -100,6 +100,8 @@ class PRedirect2Section extends PSection
 	function PRedirect2Section($section_name="Root", PURLAttributes $attr=null, $webpage="index.php")
 		{
 		$this->section_name=$section_name;
+		$this->attr=$attr;
+		$this->webpage=$webpage;
 		PSection::PSection();
 		}
 	function Chapter1Title()
@@ -112,7 +114,7 @@ class PRedirect2Section extends PSection
 		return
 			PSection::Chapter1()
 				->Insert(
-					JSRedirect2Section($this->section_name,$attr,$webpage)
+					JSRedirect2Section($this->section_name,$this->attr,$this->webpage)
 					);
 		}
 	}
