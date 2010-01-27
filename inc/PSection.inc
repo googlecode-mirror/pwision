@@ -61,7 +61,6 @@ class PSection
 				else return $ret."<hr/>";
 			}
 
-
 			/// parameters of the section
 			protected $Params=array();
 			/**
@@ -246,7 +245,7 @@ class PSection
 		*/
 	function	Chapter0(){
 		$ret=new PContent();
-			$ret->Insert(new PText($this->getMessages()))
+			$ret->Insert(new PText($this->getMessages()));
 		if(get_class($this)=="PSection")
 			{
 			$ul=new PStructure(new PElement("li"), new PElement("ul"));
