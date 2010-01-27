@@ -22,7 +22,7 @@ ini_set("display_errors", 1);
 
 /**
 \mainpage PWision toolkit
-PWision is an advanced toolkit that is used to make HTML webpages. It is an object oriented hierarchy of PHP classes that is used for building webpages using the information from the database and the HTML outputting classes, that it defines.
+<a href='http://pwision.googlecode.com/'>PWision</a> is an advanced toolkit that is used to make HTML webpages. It is an object oriented hierarchy of PHP classes that is used for building webpages using the information from the database and the HTML outputting classes, that it defines.
 \author Becheru Petru-Ioan
 \note The source code is released under <a href="http://www.gnu.org/licenses/gpl.txt" title='text of GNU GENERAL PUBLIC LICENSE Version 3'>GNU GENERAL PUBLIC LICENSE Version 3</a>.
 	\version 4.0.15 Release Candidate
