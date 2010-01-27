@@ -30,13 +30,37 @@ class PSection_ParamNCheck extends Exception
 /** 	The PSection class is designed to model a section of the website. A section has a name, a description and is splitted in 5 chapters (numbered 0 to 4).
 	*	\latexonly \label{PWision:PSection} \index{PSection} \index{section} \index{website} \endlatexonly
 	*	\brief a section of the website.
-	*	\version 3.2.0
+	*	\version 3.3.0
 	*	\note it will be derived in files X.inc from sections/ as X class
 	*/
 class PSection
 	{
 	/// section information from DB
 	protected $Info;
+
+	/// The Message
+	private $Message="";
+		/**	Adds a new message.
+			*	\brief Adds a new message.
+			*	\param $text the message text
+			*	\return reference to $this
+			*/
+		function AddMessage($text)
+			{
+			$this->Message.=($text."<br/>");
+			return $this;
+			}
+		/**	Gets the Message, followed , if != "", by a horizontal line
+			*	\brief gets all the messages
+			*	\version 1.1.0
+			*/
+		function getMessages()
+			{
+			$ret=$this->Message;
+			if($ret=="")return $ret;
+				else return $ret."<hr/>";
+			}
+
 
 			/// parameters of the section
 			protected $Params=array();
@@ -222,6 +246,7 @@ class PSection
 		*/
 	function	Chapter0(){
 		$ret=new PContent();
+			$ret->Insert(new PText($this->getMessages()))
 		if(get_class($this)=="PSection")
 			{
 			$ul=new PStructure(new PElement("li"), new PElement("ul"));

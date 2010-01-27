@@ -27,32 +27,6 @@ include_once("IMessage.inc");
 	*/
 abstract class PBasicFormSection extends PSection implements IMessage
 	{
-	/// The Message
-	private $Message="";
-		/**	Adds a new message.
-			*	\brief Adds a new message.
-			*	\param $text the message text
-			*	\return reference to $this
-			*/
-		function AddMessage($text)
-			{
-			$this->Message.=($text."<br/>");
-			return $this;
-			}
-		/**	Gets the Message, followed , if != "", by a horizontal line
-			*	\brief gets all the messages
-			*	\version 1.1.0
-			*/
-		function getMessages()
-			{
-			$ret=$this->Message;
-			if($ret=="")return $ret;
-				else return $ret."<hr/>";
-			}
-	function	Chapter0()
-		{
-		return PSection::Chapter0()->Insert(new PText($this->getMessages()));
-		}
 	/// the PForm that will be in the section
 	protected $TheForm=null;
 	/**	Constructs the section, setArguments() and creates the form.
