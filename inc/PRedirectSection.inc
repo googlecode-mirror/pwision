@@ -36,7 +36,7 @@ function JSRedirect($URL)
 	*	\brief redirect to a section.
 	*	\version 2.0.0
 	*	\param $section_name name of the section
-		*\param attr attributes(param) to URL, besides <b>section=<i>section_name</i></b>
+	*	\param attr attributes(param) to URL, besides <b>section=<i>section_name</i></b>
 	*	\param $webpage name of the webpage
 	*	\return an \<script\> element that contains a java-script code that redirects the browser.
 	*/
@@ -81,17 +81,23 @@ class PRedirectingSection extends PSection
 /** 	The PRedirect2Section class is designed to model a section that redirects the client browser to the url of a section.
 	*	\latexonly \label{PWision:PRedirect2Section} \index{PRedirect2Section} \label{redirect} \label{section} \endlatexonly
 	*	\brief a section that redirects to a section.
-	*	\version 1.0.0
+	*	\version 1.1.0
 	*/
 class PRedirect2Section extends PSection
 	{
 	/// redirect section name
 	private $section_name;
+	/// attributes(param) to URL
+	private $attr;
+	/// name of the webpage
+	private $webpage;
 	/**	Constructs a redirecting section.
 		*	\brief constructor
 		*	\param $section_name section name
+		*	\param attr attributes(param) to URL, besides <b>section=<i>section_name</i></b>
+		*	\param $webpage name of the webpage
 		*/
-	function PRedirect2Section($section_name="Root")
+	function PRedirect2Section($section_name="Root", PURLAttributes $attr=null, $webpage="index.php")
 		{
 		$this->section_name=$section_name;
 		PSection::PSection();
@@ -106,7 +112,7 @@ class PRedirect2Section extends PSection
 		return
 			PSection::Chapter1()
 				->Insert(
-					JSRedirect2Section($this->section_name)
+					JSRedirect2Section($this->section_name,$attr,$webpage)
 					);
 		}
 	}
