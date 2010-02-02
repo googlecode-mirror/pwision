@@ -62,10 +62,10 @@ protected function StartDBConnection()
 		}
 	}
 
-/** 	The Sitemap class is designed to model the sitemap webpage.
+/** 	The PSitemap class is designed to model the sitemap webpage.
 	*	\latexonly \label{PWision:PSitemap} \index{PSitemap} \index{sitemap} \endlatexonly
 	*	\brief the sitemap webpage.
-	*	\version 1.0.0
+	*	\version 1.1.0
 	*	\par Example:
 \code
 include_once("pwision.inc");
@@ -94,15 +94,28 @@ http://www.example.com/index.php?section=s3
 	*/
 abstract class PSitemap extends PMostBasicWebPage
 	{
-	/**	Constructs a textual list of hyperlinks to the sections of the website.
-		*	\brief the sitemap txt
-		*	\version 1.1.0
-		*	\return Accesible sections of the website
-		*/
+	/// the list of links
+	protected $ul;
 	function Draw()
 		{
-		/// the links element
-		$ul=$this->ListStructure() ;
+		$this->ConstructList();
+		return $this->ul->Draw();
+		}
+	/**	Constructs a textual list of hyperlinks to the sections of the website.
+		*	\brief the sitemap txt
+		*	\version 1.0.0
+		*	\return Accesible sections of the website
+		*/
+	protected function ConstructList()
+		{
+		$this->ul=$this->ListStructure() ;
+		$li=$this->ul->newKid();
+		$li->Insert(
+			new PText(
+				$this->SiteURL().
+				"\n"
+				)
+			);
 		/// the list of accessible sections, including the hidden ones
 		$SectsArray=Main()->DB->fetch_all_query(
 			"SELECT * FROM Sections WHERE ".
@@ -112,17 +125,10 @@ abstract class PSitemap extends PMostBasicWebPage
 							"(select GroupID from GroupUsers where UserID='0')".
 					")>0"
 			);
-		$li=$ul->newKid();
-		$li->Insert(
-			new PText(
-				$this->SiteURL().
-				"\n"
-				)
-			);
 		if(count($SectsArray)>0)
 			foreach($SectsArray as $section)
 				{
-				$li=$ul->newKid();
+				$li=$this->ul->newKid();
 				$li->Insert(
 					new PText(
 						$this->SiteURL().
@@ -131,7 +137,6 @@ abstract class PSitemap extends PMostBasicWebPage
 						)
 					);
 				}
-		return $ul->Draw();
 		}
 	/**	Constructs a list structure.
 		*	\brief a list structure.
