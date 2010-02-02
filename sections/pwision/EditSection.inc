@@ -157,9 +157,9 @@ class EditSection extends PStepFormSection
 									$this->TheForm->Insert(new PText("Owner Section '".$_REQUEST['owner']."' does not exits."));
 									return;
 									}
-								if(eregi("^[a-z ]{0,127}$",$_REQUEST['description'])==false)
+								if(eregi("^[&#259;a-z0-9 ]{0,127}$",$_REQUEST['description'])==false)
 									{
-									$this->TheForm->Insert(new PText("'".$_REQUEST['description']."' does not follow '^[a-z ]{0,127}$'"));
+									$this->TheForm->Insert(new PText("'".$_REQUEST['description']."' does not follow '^[&#259;a-z0-9 ]{0,127}$'"));
 									return;
 									}
 								Sections::RemoveFromGroups($_REQUEST['sectionname']);
