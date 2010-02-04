@@ -175,7 +175,7 @@ class PSection
 		*/
 	function getTitle()
 		{
-		return $this->getName();
+		return lang($this->getName());
 		}
 	/**	Get the content of a param if set.
 		*	\brief get the content of a section parameter.
@@ -225,9 +225,7 @@ class PSection
 			*/
 	function getDescription()
 		{
-		$ret=$this->Info['Description'];
-		if($ret == null || $ret== "") $ret="<br/><br/>";
-		return $ret;
+		return lang($this->Info['Description']);
 		}
 
 	/**
@@ -238,7 +236,7 @@ class PSection
 		$ret=new PContent();
 		if(get_class($this)=="PSection")
 			{
-			$ret->Insert(new PText(Main()->SubsectionsTitle.' '.$this->getName() ) );
+			$ret->Insert(PTextlang('Subsections of').' '.lang($this->getName()) );
 			}
 		return $ret;
 		}
@@ -571,7 +569,7 @@ final class Sections
 					El("a")
 							->setAtr("href","index.php?section=". $section['Owner']. "#". $section['Name'])
 							->setAtr("title",$section['Description'])
-						->Insert(new PText($section['Name']));
+						->Insert(PTextlang($section['Name']));
 		}
 	/**	Constructs an hyperlink to a section.
 		*	\brief hyperlink to a section.
@@ -594,10 +592,7 @@ final class Sections
 				->setAtr( "href", "index.php?section=$section_name".$attr->Draw() )
 				->setAtr( "title", $title ) ;
 		if($text=="")
-			if($section_name!="Root")
-					$text=$section_name;
-				else//$section_name == "Root"
-					$text=Main()->getRootName();
+					$text=lang($section_name);
 		return $lnk->Insert(new PText($text));
 		}
 	/**	Gets the path to a section, starting with the Root section. Each section in the path is the owner of the next section in the path.

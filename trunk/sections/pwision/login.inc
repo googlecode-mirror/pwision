@@ -20,6 +20,7 @@ include_once("inc/PFormSection.inc");
 include_once("inc/PRedirectSection.inc");
 include_once("inc/PTable.inc");
 include_once("inc/Users.inc");
+include_once("inc/PMainComponent.inc");
 /** 	The login class is designed to model the login section. The login section is the section of the website where guest users can log in with their username and password.
 	*	\latexonly \label{PWision:Sections:login} \index{login}  \index{guest} \index{user}\endlatexonly
 	*	\brief the login section.
@@ -54,10 +55,10 @@ class login extends PFormSection
 		return PFormSection::createForm()
 			->setAtr("method","post")
 			->Insert(
-				Object(new PFieldSet(new PText("Please identify:")))
+				Object(new PFieldSet(PTextlang("Please identify")))
 					->Insert(new PInput("text","","username"))->Insert(new PText(" UserName [use '-@._a-z0-9' ; 64 chars max]"))->Insert(new PSimpleTag("br"))
 					->Insert(new PInput("password","","password"))->Insert(new PText(" Password [use 'a-z0-9' ; 64 chars max]"))->Insert(new PSimpleTag("br"))
-					->Insert(new PInput("submit","Log in!",""))
+					->Insert(new PInput("submit",lang("Log in!"),""))
 				)
 			;
 		}

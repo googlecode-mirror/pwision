@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /** 	The PMainComponent is a final class that holds the static variable PMainComponent::$Main.
 	*	\latexonly \label{PWision:PMainComponent} \index{PMainComponent} \endlatexonly
 	*	\brief the holder of the Main variable .
+	*	\version 1.1.0
 	*/
 final class PMainComponent
 	{
@@ -26,6 +27,10 @@ final class PMainComponent
 		*	\brief reference to the webpage object.
 		*/
 	static public $Main;
+	/**	Used by lang() function.
+		*	\brief language array
+		*/
+	static public $Lang=array();
 	}
 /** 	
 	*	\brief reference to the webpage object.
@@ -34,5 +39,26 @@ final class PMainComponent
 function & Main()
 	{
 	return PMainComponent::$Main;
+	}
+
+/**
+	*	\brief translate a text.
+	*	\param $text the text
+	*	\return the translate text, if translation is defined.
+	*/
+function lang($text)
+	{
+	return isset(PMainComponent::$Lang[$text])
+		?PMainComponent::$Lang[$text]
+		:$text;
+	}
+/**
+	*	\brief translate a text.
+	*	\param $text the text
+	*	\return a new PText object with text
+	*/
+function PTextlang($text)
+	{
+	return new PText(lang($text));
 	}
 ?>
