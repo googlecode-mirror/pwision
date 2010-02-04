@@ -32,11 +32,11 @@ class EditSection extends PStepFormSection
 			->addParam('sectionname','/^[a-z][_a-z ]{1,62}$/i')
 			->addParam('owner','/^[a-z][_a-z ]{1,62}$/i')
 			->addParam('description','/^[&#;a-z0-9 ]{0,127}$/i')
-			->addParam('groups')
-			->addParam('attr')
+			->addParam('groups','','')
+			->addParam('attr','','')
 
-			->addParam('action','/^[a-z]{1,64}$/i')
-			->addParam('confirm','/^[a-z]{1,3}$/i')
+			->addParam('action','/^[a-z]{1,64}$/i','')
+			->addParam('confirm','/^[a-z]{1,3}$/i','')
 			;
 		}
 	function EditSection()
