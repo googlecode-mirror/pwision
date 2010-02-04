@@ -30,7 +30,7 @@ class PSection_ParamNCheck extends Exception
 /** 	The PSection class is designed to model a section of the website. A section has a name, a description and is splitted in 5 chapters (numbered 0 to 4).
 	*	\latexonly \label{PWision:PSection} \index{PSection} \index{section} \index{website} \endlatexonly
 	*	\brief a section of the website.
-	*	\version 3.3.0
+	*	\version 4.0.0
 	*	\note it will be derived in files X.inc from sections/ as X class
 	*/
 class PSection
@@ -42,12 +42,13 @@ class PSection
 	private $Message="";
 		/**	Adds a new message.
 			*	\brief Adds a new message.
+			*	\version 1.0.1
 			*	\param $text the message text
 			*	\return reference to $this
 			*/
 		function AddMessage($text)
 			{
-			$this->Message.=($text."<br/>");
+			if($text && $text!='')$this->Message.=($text."<br/>");
 			return $this;
 			}
 		/**	Gets the Message, followed , if != "", by a horizontal line
@@ -65,21 +66,23 @@ class PSection
 			protected $Params=array();
 			/**
 				*	\brief adds a parameter for the section.
-				*	\version 1.1.1
+				*	\version 2.0.0
 				*	\param $param_name the name of the parameter
 				*	\param $reg_exp the regular expresion that must be matched
 				*	\param $error_message the message if the parameter doesn't check
 				*	\return reference to $this
 				*/
-			protected function & addParam( $param_name, $reg_exp='', $error_message=null )
+			protected function & addParam( $param_name, $reg_exp='', $not_set_message=null, $error_message=null )
 				{
-				if($error_message==null)$error_message="Parammeter '$param_name' has an illegal value!";
+				if($error_message===null)$error_message="Parammeter '$param_name' has an illegal value!";
+				if($not_set_message===null)$not_set_message="Parammeter '$param_name' is not set!";
 				$this->Params[$param_name]=array(
 					$param_name, // parameter name
 					$reg_exp,  // regular expresion
 					$error_message, // error message text
 					false , // true if this param was set at last CheckParams()
-					false // true if this param checked the reg_exp at last CheckParams()
+					false ,// true if this param checked the reg_exp at last CheckParams()
+					$not_set_message
 					);
 				return $this;
 				}
@@ -96,7 +99,7 @@ class PSection
 		{}
 	/**	Checks all the params that are set if they match the asociate regular expresion. If a param doesn't check, exception PSection_ParamNCheck with the apropiate message is thrown.
 		*	\brief checks the arguments of the sections.
-		*	\version 1.2.2
+		*	\version 1.2.3
 		*	\return true if all parameters are set and match their regular expresion
 		*/
 	protected function CheckParams()
@@ -120,7 +123,7 @@ class PSection
 					{
 					$param[3]=false;// $param[0] not set
 					//$param[4]=false;// if a param is not set then it does not check the reg_exp
-					$this->AddMessage('Parammeter '.$param[0].' is not set!');
+					$this->AddMessage($param[5]);
 					$parameters_are_set=false;
 					}
 		return $parameters_are_set;
