@@ -307,13 +307,13 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 		{
 		return Object(new PElement("div"))
 				->setAtr("id","lselect")
-				->setAtr("title",$this->BookmarksTitle)
+				->setAtr("title",lang('Bookmarks'))
 			->Insert(
 				Object(new PElement("h3"))
 						->setAtr("class","select")
 					->Insert(
 						Object(new PElement("span"))
-							->Insert(new PText($this->BookmarksTitle))
+							->Insert(PTextlang('Bookmarks'))
 						)
 				)
 			->Insert( $this->BookmarksListWithTS() )
@@ -340,13 +340,13 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 			}
 		return Object(new PElement("div"))
 				->setAtr("id","larchives")
-				->setAtr("title",$this->WebsiteSectionsTitle)
+				->setAtr("title",lang('Website\'s sections'))
 			->Insert(
 				Object(new PElement("h3"))
 						->setAtr("class","archives")
 					->Insert(
 						Object(new PElement("span"))
-							->Insert(new PText($this->WebsiteSectionsTitle))
+							->Insert(new PText(lang('Website\'s sections')))
 						)
 				)
 			->Insert($ul)
@@ -361,7 +361,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 		{
 		$ret=Object(new PElement("div"))
 				->setAtr("id","lresources")
-				->setAtr("title",$this->SubsectionsTitle." ".$this->getSectionName())
+				->setAtr("title",lang('Subsections of')." ".$this->getSectionName())
 				;
 		//if current section is Root the subsections are displayed by idLarchives()
 		if($this->getSectionName()!="Root")
@@ -379,7 +379,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 							->setAtr("class","resources")
 						->Insert(
 							Object(new PElement("span"))
-								->Insert(new PText($this->SubsectionsTitle." ".$this->getSectionName()))
+								->Insert(new PText(lang('Subsections of')." ".lang($this->getSectionName())))
 							)
 					)
 				->Insert($ul);
@@ -401,14 +401,6 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 	*	\latexonly \label{PWision:PWebPageDefault} \index{PWebPageDefault} \endlatexonly
 	*	\brief PWision's default themed webpage.
 	*	\version 1.1.0
-	*	\par Example:
-\code
-include_once("inc/PCSSZenWebPage.inc");
-print( );
-\endcode
-	*	\par Output:
-\verbatim
-\endverbatim
 	*/
 abstract class PWebPageDefault extends PCSSZenWebPage
 	{

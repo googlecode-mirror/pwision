@@ -33,7 +33,7 @@ class logout extends PRedirect2Section
 	function Chapter1Title()
 		{
 		return PRedirect2Section::Chapter1Title()
-			->Insert( new PText("You are now logged out.") );
+			->Insert( new PText(lang("You are now logged out.")) );
 		}
 	}
 ?>

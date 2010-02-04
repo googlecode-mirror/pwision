@@ -29,6 +29,11 @@ include_once("inc/PCSSZenWebPage.inc");
 	*/
 class PMyWebPage extends PWebPageDefault
 	{
+	function setLanguage()
+		{
+		$this->Language='en';
+		parent::setLanguage();
+		}
 		/**	Gives the <b>style</b> tag with the text/css type.
 			*	\brief the css.
 			*	\return \<style type="text/css"\> tag
@@ -63,7 +68,6 @@ class PMyWebPage extends PWebPageDefault
 		{
 		PCSSZenWebPage::PCSSZenWebPage();
 		$this
-			->setLanguage("en")
 			->setTitle("PWision")
 			->setMotto("change the code by extending it")
 			->setRootName("&#x27F0;")

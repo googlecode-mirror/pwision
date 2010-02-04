@@ -28,7 +28,7 @@ include_once("PStaticSection.inc");
 /** 	The PMostBasicWebPage class is designed to be a model the most basic webpage: a PDrawable with a database connection.
 	*	\latexonly \label{PWision:PMostBasicWebPage} \index{PMostBasicWebPage} \index{database} \endlatexonly
 	*	\brief a PDrawable with database connection.
-	*	\version 1.1.0
+	*	\version 2.0.0
 	*	\par Example:
 	*		See PBasicWebPage class.
 	*/
@@ -194,7 +194,7 @@ abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 	function PBasicWebPage()
 		{
 		PMostBasicWebPage::PMostBasicWebPage();
-		$this->ProcessSessionAndArguments();
+		$this->setLanguage();
 		}
 	/// Current User Information
 	public $UserInfo;
@@ -219,6 +219,64 @@ abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 			$ret=$this->Message;
 			if($ret=="")return $ret;
 				else return $ret."<hr/>";
+			}
+	///language of the webpage, by default <b>en</b>
+	protected $Language="en";
+		/**	Sets Language to lang.
+			*	\brief set the language of the webpage
+			*	\version 2.0.0
+			*	\return reference to $this
+			*/
+		function & setLanguage()
+			{
+			$filename='languages/Lang-'.$this->Language.'.inc';
+			if(file_exists($filename)){include($filename);}
+			$this->ProcessSessionAndArguments();
+			return $this;
+			}
+		/**	gets the Language.
+			*	\brief gets the language of the webpage.
+			*	\return the language code
+			*/
+		function getLanguage()
+			{
+			return $this->Language;
+			}
+		/**	The translate gadget from google is a script.
+			*	\brief makes the <i>Translate Page</i> element.
+			*	\return the translate gadget from google
+			*/
+		protected function TranslateElement()
+			{
+			return new PText(
+'<div id="google_translate_element"></div><script>
+function googleTranslateElementInit() {
+new google.translate.TranslateElement({
+	pageLanguage: \''.$this->getLanguage().'\'
+}, \'google_translate_element\');
+}
+</script><script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>');
+			}
+		/**	The translate gadget from google is a script.
+			*	\brief <i>Translate Page</i> element with Public check.
+			*	\return the TranslateElement() if the current section is member of public or Guest
+			*/
+		protected function TranslateElementWithCheck()
+			{
+			$row = Main()->DB->fetch_array_query(
+				"
+				SELECT COUNT(*)>0 '0'
+				FROM Groups, GroupSections
+				WHERE
+					GroupID = Groups.ID  and
+					SectionName ='".$this->getSectionName()."' and
+					( Groups.Name = 'Guest' or Groups.Name = 'Public' )
+				"
+				);
+			if($row[0]==1)// checks the '0' field returned by the query
+					return $this->TranslateElement();
+				else
+					return null;
 			}
 	/**	Initial session and arguments processing. Also sets the UserID & the Message.
 		*	\brief Session and Arguments Processing.
@@ -371,68 +429,6 @@ abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 			{
 			return $this->Motto;
 			}
-	///language of the webpage, by default <b>en</b>
-	private $Language="en";
-		/**	Sets Language to lang.
-			*	\brief set the language of the webpage
-			*	\param $lang the language code
-			*	\return reference to $this
-			*/
-		function & setLanguage($lang="en")
-			{
-			$this->Language=$lang;
-			return $this;
-			}
-		/**	gets the Language.
-			*	\brief gets the language of the webpage.
-			*	\return the language code
-			*/
-		function getLanguage()
-			{
-			return $this->Language;
-			}
-		/**	The translate gadget from google is a script.
-			*	\brief makes the <i>Translate Page</i> element.
-			*	\return the translate gadget from google
-			*/
-		protected function TranslateElement()
-			{
-			return new PText(
-'<div id="google_translate_element"></div><script>
-function googleTranslateElementInit() {
-new google.translate.TranslateElement({
-	pageLanguage: \''.$this->getLanguage().'\'
-}, \'google_translate_element\');
-}
-</script><script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>');
-			}
-		/**	The translate gadget from google is a script.
-			*	\brief <i>Translate Page</i> element with Public check.
-			*	\return the TranslateElement() if the current section is member of public or Guest
-			*/
-		protected function TranslateElementWithCheck()
-			{
-			$row = Main()->DB->fetch_array_query(
-				"
-				SELECT COUNT(*)>0 '0'
-				FROM Groups, GroupSections
-				WHERE
-					GroupID = Groups.ID  and
-					SectionName ='".$this->getSectionName()."' and
-					( Groups.Name = 'Guest' or Groups.Name = 'Public' )
-				"
-				);
-			if($row[0]==1)// checks the '0' field returned by the query
-					return $this->TranslateElement();
-				else
-					return null;
-			}
-	/// text "Bookmarks" in local language
-	public $BookmarksTitle="Bookmarks";
-	/// text "Website's sections" in local language
-	public $WebsiteSectionsTitle="Website's sections";
-	/// text "Subsections of" in local language
-	public $SubsectionsTitle="Subsections of";
 	/// the keywords of the webpage
 	private $Keywords;
 		/**	Sets the keywords of the webpage to $keywords.
@@ -466,7 +462,12 @@ new google.translate.TranslateElement({
 		// insert the title
 			$ret->Insert(
 				Object(new PElement("title"))
-					->Insert(new PText( $this->getTitle()." : ".$this->getSection()->getTitle() ))
+					->Insert(
+						new PText( 
+							$this->getTitle()." : "
+							.$this->getSection()->getTitle() 
+							)
+						)
 				);
 		// the CSS theme
 			$ret->Insert($this->Head_Css());
