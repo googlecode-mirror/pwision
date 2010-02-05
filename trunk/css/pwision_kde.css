@@ -184,8 +184,8 @@ th {
     border: #cccccc solid;
     border-width: 0 0 3px 0;
 }
-td
-	{
+td{
+	text-align: justify;
 	vertical-align:middle;
 	valign:middle;
 	}
