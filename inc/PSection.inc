@@ -30,7 +30,7 @@ class PSection_ParamNCheck extends Exception
 /** 	The PSection class is designed to model a section of the website. A section has a name, a description and is splitted in 5 chapters (numbered 0 to 4).
 	*	\latexonly \label{PWision:PSection} \index{PSection} \index{section} \index{website} \endlatexonly
 	*	\brief a section of the website.
-	*	\version 4.0.0
+	*	\version 4.0.1
 	*	\note it will be derived in files X.inc from sections/ as X class
 	*/
 class PSection
@@ -230,13 +230,13 @@ class PSection
 
 	/**
 		*	\brief title of preamble of the section
-		*	\version 1.2.0
+		*	\version 1.2.1
 		*/
 	function	Chapter0Title(){
 		$ret=new PContent();
 		if(get_class($this)=="PSection")
 			{
-			$ret->Insert(PTextlang('Subsections of').' '.lang($this->getName()) );
+			$ret->Insert(new PText( lang('Subsections of').' '.lang($this->getName()) ) );
 			}
 		return $ret;
 		}
