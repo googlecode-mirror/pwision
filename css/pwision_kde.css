@@ -1,6 +1,6 @@
 /*
 pwision_kde.css
-	- version 1.1.0
+	- version 1.1.1
 	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
 part of PWision toolkit: http://pwision.googlecode.com/
 Copyright (C) 2009 Becheru Petru-Ioan
@@ -180,20 +180,24 @@ hr {
 
 img {
     border: 0;
-}
-table {
-}
-th {
-    text-align: left;
-    padding-right: 1em;
-    border: #cccccc solid;
-    border-width: 0 0 3px 0;
-}
-td{
-	text-align: justify;
-	vertical-align:middle;
-	valign:middle;
 	}
+
+table {
+	}
+	tbody{
+		width:100%;
+		}
+	th {
+		text-align: left;
+		padding-right: 1em;
+		border: #cccccc solid;
+		border-width: 0 0 3px 0;
+		}
+	td{
+		text-align: justify;
+		vertical-align:middle;
+		valign:middle;
+		}
 
 
 
