@@ -255,7 +255,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 		}
 	/**	Constructs a list structure.
 		*	\brief a list structure.
-		*	\return an  PStructure 
+		*	\return an  PStructure
 		*/
 	protected function ListStructure()
 		{
@@ -279,7 +279,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 						Sections::Link2SQLSection($section)
 							//->setAtr("class","c")
 						);
-				
+
 				return $ul;
 				}
 			/**	an \<ul\> element with the <b>T</b>ranslateElement(),<b>S</b>earchForm() and the bookmarked sections.
@@ -296,7 +296,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 
 				if($trE=$this->TranslateElementWithCheck() )
 					$ul->newFirstKid()->Insert($trE);
-				
+
 				return $ul;
 				}
 	/**	The accesible user's bookmarks. The translate element appears only if the current section is member of Guest or Public group.
@@ -400,7 +400,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 /** 	The PWebPageDefault class is designed to be the default themed webpage of PWision. The layout described by this theme is derived from PCSSZenWebPage layout.
 	*	\latexonly \label{PWision:PWebPageDefault} \index{PWebPageDefault} \endlatexonly
 	*	\brief PWision's default themed webpage.
-	*	\version 1.1.0
+	*	\version 1.2.0
 	*/
 abstract class PWebPageDefault extends PCSSZenWebPage
 	{
@@ -419,7 +419,7 @@ abstract class PWebPageDefault extends PCSSZenWebPage
 // 				->Insert(new PText(" | ["))
 				->Insert(Sections::PathLinks($this->getSectionName()))
 // 				->Insert(new PText("] | "))
-				
+
 			;
 		}
 	/// \brief container div
@@ -442,7 +442,7 @@ abstract class PWebPageDefault extends PCSSZenWebPage
 		}
 	/**	Constructs a list structure.
 		*	\brief a list structure.
-		*	\return an  PStructure 
+		*	\return an  PStructure
 		*/
 	protected function ListStructure()
 		{
@@ -464,7 +464,7 @@ abstract class PWebPageDefault extends PCSSZenWebPage
 		return El("div")
 					->setAtr("id","pageHeader")
 				->Insert( $this->idLTools() )
-				->Insert( 
+				->Insert(
 					PCSSZenWebPage::idPageHeader()
 						->setAtr('id','pageTitle')
 					)
@@ -506,13 +506,11 @@ abstract class PWebPageDefault extends PCSSZenWebPage
 				$ul->newKid()->Insert(
 					$this->SearchForm()
 					);
-				
+
 				return $ul;
 				}
 	/// text "Tools" in local language
 	public $ToolsTitle="Tools";
-	/**	\brief ltools div
-		*/
 	protected function idLtools()
 		{
 		return Object(new PElement("div"))
@@ -523,11 +521,15 @@ abstract class PWebPageDefault extends PCSSZenWebPage
 						->setAtr("class","select")
 					->Insert(
 						Object(new PElement("span"))
-							->Insert(new PText($this->ToolsTitle))
+							->Insert(PTextlang($this->ToolsTitle))
 						)
 				)
 			->Insert( $this->ToolsList() )
 			;
+		}
+	function PWebPageDefault()
+		{
+		PCSSZenWebPage::PCSSZenWebPage();
 		}
 	}
 
