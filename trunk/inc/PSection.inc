@@ -69,6 +69,7 @@ class PSection
 				*	\version 2.0.0
 				*	\param $param_name the name of the parameter
 				*	\param $reg_exp the regular expresion that must be matched
+				*	\param $not_set_message the message if the parameter is not set(defined)
 				*	\param $error_message the message if the parameter doesn't check
 				*	\return reference to $this
 				*/
@@ -82,7 +83,7 @@ class PSection
 					$error_message, // error message text
 					false , // true if this param was set at last CheckParams()
 					false ,// true if this param checked the reg_exp at last CheckParams()
-					$not_set_message
+					$not_set_message // not set message
 					);
 				return $this;
 				}
