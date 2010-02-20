@@ -153,10 +153,6 @@ abstract class PFormSection extends PBasicFormSection
 	*/
 function charset_decode_utf_8 ($string) 
 	{ 
-	/* Only do the slow convert if there are 8-bit characters */ 
-	/* avoid using 0xA0 (\240) in ereg ranges. RH73 does not like that */ 
-	if (! ereg("[\200-\237]", $string) and ! ereg("[\241-\377]", $string)) 
-		return $string; 
 
 	// decode three byte unicode characters 
 	$string = preg_replace("/([\340-\357])([\200-\277])([\200-\277])/e",
@@ -166,7 +162,10 @@ function charset_decode_utf_8 ($string)
 	// decode two byte unicode characters 
 	$string = preg_replace("/([\300-\337])([\200-\277])/e",
 	"'&#'.((ord('\\1')-192)*64+(ord('\\2')-128)).';'",
-	$string); 
+	$string);
+
+	//decode ASCII extended
+	$string = preg_replace("/([\x7F-\277])/e", "'&#'.(ord('\\1')).';'", $string);
 
 	return $string; 
 	} 
