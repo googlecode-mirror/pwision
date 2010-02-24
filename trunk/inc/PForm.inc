@@ -106,6 +106,7 @@ class PInput extends PSimpleTag
 	*	\param $separator the IDrawAble that sepates the generated inputs
 	*	\param $sEl_name the name of the simple element(by default <b>input</b>).
 	*	\return a PContent object that contains the inputs
+	*	\todo replace eregi with preg_match before foreach
 	*/
 function Array2Inputs($arr=null,$name='',$key4Value='value',$key4Text='text',$type="checkbox",IDrawAble $separator=null, $sEl_name="input")
 	{if($separator==null)$separator=new PSimpleTag("br");
