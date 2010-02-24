@@ -26,6 +26,7 @@ ini_set("display_errors", 1);
 \author Becheru Petru-Ioan
 \note The source code is released under <a href="http://www.gnu.org/licenses/gpl.txt" title='text of GNU GENERAL PUBLIC LICENSE Version 3'>GNU GENERAL PUBLIC LICENSE Version 3</a>.
 	\version 4.1.0
+*	\todo replace eregi by preg_match
 */
 
 /** 	The PWision class is designed to be a model class for documentation of the code.
