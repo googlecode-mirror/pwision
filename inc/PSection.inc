@@ -295,12 +295,13 @@ final class Sections
 	{
 	/**	Check if $section_name is formed only of maximum 63 letters and space.
 		*	\brief section name check
+		*	\version 1.0.1
 		*	\param $section_name the name of the section
 		*	\return true if ok, else false
 		*/
 	static function CheckName( $section_name="Root" )
 		{
-		if(preg_match('/^[a-z][_a-z ]{1,62}$/i',$section_name) == false || $section_name=="")
+		if(preg_match('/^[a-z][_a-z0-9 ]{1,62}$/i',$section_name) == false || $section_name=="")
 				{
 				//print("checking of $section_name failed");
 				return false;
