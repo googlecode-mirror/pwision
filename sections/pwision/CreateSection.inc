@@ -23,14 +23,14 @@ include_once("inc/Users.inc");
 /** 	The CreateSection class is designed to model a section that allows a user to create sections of the website.
 	*	\latexonly \label{PWision:Sections:CreateSection} \index{CreateSection} \index{section} \endlatexonly
 	*	\brief a section creator.
-	*	\version 2.0.0
+	*	\version 2.0.1
 	*/
 class CreateSection extends PFormSection
 	{
 	function setParams()
 		{
 		$this
-			->addParam('sectionname','/^[a-z][_a-z ]{1,62}$/i')
+			->addParam('sectionname','/^[a-z][_a-z0-9 ]{1,62}$/i')
 			;
 		}
 	function ProcessOK()
