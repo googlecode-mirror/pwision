@@ -19,31 +19,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 include_once("inc/PElement.inc");
 /**	This function creates a redirecting script.
 	*	\brief a redirecting script.
-	*	\version 1.0.0
+	*	\version 1.1.0
 	*	\param $URL redirect URL
+	*	\param $time_out time out in ms, default 3 seconds
 	*	\return an \<script\> element that contains a java-script code that redirects the browser.
 	*/
-function JSRedirect($URL)
+function JSRedirect($URL,$time_out=1000)
 	{
 	return
 		El("script")
 				->setAtr("type","text/javascript")
 			->Insert(
-				new PText('window.location="'.$URL.'"')
+				new PText('setTimeout("redir()",'.$time_out.');'."\n".'function redir(){window.location="'.$URL.'";}')
 				);
 	}
 /**	This function creates a script that redirects to a section.
 	*	\brief redirect to a section.
-	*	\version 2.0.0
+	*	\version 2.1.0
 	*	\param $section_name name of the section
 	*	\param attr attributes(param) to URL, besides <b>section=<i>section_name</i></b>
 	*	\param $webpage name of the webpage
+	*	\param $time_out time out in ms, default 3 seconds
 	*	\return an \<script\> element that contains a java-script code that redirects the browser.
 	*/
-function JSRedirect2Section($section_name="Root" , PURLAttributes $attr=null, $webpage="index.php")
+function JSRedirect2Section($section_name="Root" , PURLAttributes $attr=null, $webpage="index.php", $time_out=1000)
 	{
 	if($attr==null)$attr=new PURLAttributes();
-	return JSRedirect( "$webpage?section=$section_name".$attr->Draw() );
+	return JSRedirect( "$webpage?section=$section_name".$attr->Draw(), $time_out );
 	}
 
 
@@ -51,12 +53,22 @@ include_once("inc/PSection.inc");
 /** 	The PRedirectingSection class is designed to model a section that redirects the client browser to an url.
 	*	\latexonly \label{PWision:PRedirectingSection} \index{PRedirectingSection} \label{redirect} \label{URL} \endlatexonly
 	*	\brief a redirecting section.
-	*	\version 1.0.0
+	*	\version 1.0.1
 	*/
 class PRedirectingSection extends PSection
 	{
 	/// redirect URL
 	private $URL;
+
+	function Head()
+		{
+		return parent::Head()->Insert(
+			Object(new PSimpleTag('meta'))
+				->setAtr('http-equiv','refresh')
+				->setAtr('content','1;url='.$this->URL)
+			);
+		}
+
 	/**	Constructs a redirecting section.
 		*	\brief constructor
 		*	\param $URL redirect URL
@@ -91,6 +103,16 @@ class PRedirect2Section extends PSection
 	private $attr;
 	/// name of the webpage
 	private $webpage;
+
+/*	function Head()
+		{
+		return parent::Head()->Insert(
+			Object(new PSimpleTag('meta'))
+				->setAtr('http-equiv','refresh')
+				->setAtr('content','1;url='.$this->webpage."?section=".$this->section_name.$this->attr->Draw() )
+			);
+		}*/
+
 	/**	Constructs a redirecting section.
 		*	\brief constructor
 		*	\param $section_name section name
