@@ -86,7 +86,7 @@ class PAttributes extends PDrawable implements IAttributes
 		PDrawable::PDrawable();
 		$this->Associative=$asoc;
 		}
-	
+
 	/**	\brief draws a pair(key,value)
 		*	\param $key key name
 		*	\param $value value
@@ -122,7 +122,7 @@ class PAttributes extends PDrawable implements IAttributes
 /** 	The PURLAttributes is designed to make URL atributes.
 	*	\latexonly \label{PWision:PURLAttributes} \index{PURLAttributes} \index{attributes} \endlatexonly
 	*	\brief a list of URL attributes.
-	*	\version 1.0.0
+	*	\version 1.0.1
 	*	\par Example:
 \code
 include_once("inc/PAttributes.inc");
@@ -133,7 +133,7 @@ print( $A );
 \endcode
 	*	\par Output:
 \verbatim
-name1=value1&name2=value2
+name1=value1&amp;name2=value2
 \endverbatim
 	*/
 class PURLAttributes extends PAttributes
@@ -147,12 +147,14 @@ class PURLAttributes extends PAttributes
 		{
 		return $key."="."$value";
 		}
-	/**	\brief draws the separator
-		*	\return "&"
+	/**
+		*	\brief draws the separator
+		*	\version 1.0.1
+		*	\return "&amp;" = "&"
 		*/
 	function DrawSeparator()
 		{
-		return "&";
+		return "&amp;";
 		}
 	}
 ?>
