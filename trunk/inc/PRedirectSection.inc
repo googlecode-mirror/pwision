@@ -21,7 +21,7 @@ include_once("inc/PElement.inc");
 	*	\brief a redirecting script.
 	*	\version 1.1.0
 	*	\param $URL redirect URL
-	*	\param $time_out time out in ms, default 3 seconds
+	*	\param $time_out time out in ms, default 1 seconds
 	*	\return an \<script\> element that contains a java-script code that redirects the browser.
 	*/
 function JSRedirect($URL,$time_out=1000)
@@ -35,7 +35,7 @@ function JSRedirect($URL,$time_out=1000)
 	}
 /**	This function creates a script that redirects to a section.
 	*	\brief redirect to a section.
-	*	\version 2.1.0
+	*	\version 2.1.2
 	*	\param $section_name name of the section
 	*	\param attr attributes(param) to URL, besides <b>section=<i>section_name</i></b>
 	*	\param $webpage name of the webpage
@@ -45,6 +45,7 @@ function JSRedirect($URL,$time_out=1000)
 function JSRedirect2Section($section_name="Root" , PURLAttributes $attr=null, $webpage="index.php", $time_out=1000)
 	{
 	if($attr==null)$attr=new PURLAttributes();
+	$attr->setSeparator('&');
 	return JSRedirect( "$webpage?section=$section_name".$attr->Draw(), $time_out );
 	}
 

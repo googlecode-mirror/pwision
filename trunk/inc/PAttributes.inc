@@ -36,7 +36,7 @@ interface IAttributes
 /** 	The PAttributes  class is designed to model a list of pair(key,value). It uses an associative array that by default will be drawn as [attribute1="value1" attribute2="value2" ... attributeN="valueN"].
 	*	\latexonly \label{PWision:PAttributes} \index{PAttributes} \index{attributes} \endlatexonly
 	*	\brief a list of attributes.
-	*	\version 1.1.0
+	*	\version 1.2.0
 	*	\par Example:
 \code
 include_once("inc/PAttributes.inc");
@@ -76,15 +76,16 @@ class PAttributes extends PDrawable implements IAttributes
 			return $this->Associative[$atr];
 			}
 
-	/** \brief initialisation method.
-		*
-		* It constructs the PDrawable parent and then sets Associative.
-		* \param $asoc the PDrawable::Associative member initial value
+	/**	It constructs the PDrawable parent and then sets Associative.
+		*	\brief initialisation method.
+		*	\param $asoc the PAttributes::Associative member initial value
+		*	\param $Separator separator betwin pairs
 		*/
-	function PAttributes( $asoc=array() )
+	function PAttributes( $asoc=array(), $Separator=' ' )
 		{
-		PDrawable::PDrawable();
 		$this->Associative=$asoc;
+		$this->Separator=$Separator;
+		PDrawable::PDrawable();
 		}
 
 	/**	\brief draws a pair(key,value)
@@ -96,13 +97,27 @@ class PAttributes extends PDrawable implements IAttributes
 		{
 		return $key."="."\"$value\"";
 		}
-	/**	\brief draws the separator
-		*	\return space " "
-		*/
-	function DrawSeparator()
-		{
-		return " ";
-		}
+	///separator betwin pairs
+	protected $Separator;
+		/**	Set the $Separator member.
+			*	\brief set the separator.
+			*	\param $Separator the separator string
+			*	\return reference to $this pointer
+			*/
+		function & setSeparator($Separator)
+			{
+			$this->Separator=$Separator;
+			return $this;
+			}
+		/**	Gets the separation string.
+			*	\brief draws the separator
+			*	\version 1.0.1
+			*	\return $Separator member
+			*/
+		function DrawSeparator()
+			{
+			return $this->Separator;
+			}
 	/**	\brief draws the pairs
 		*
 		*	Draws the pairs using DrawPair() for each pair, separated by the separation string returned by DrawSeparator().
@@ -122,7 +137,7 @@ class PAttributes extends PDrawable implements IAttributes
 /** 	The PURLAttributes is designed to make URL atributes.
 	*	\latexonly \label{PWision:PURLAttributes} \index{PURLAttributes} \index{attributes} \endlatexonly
 	*	\brief a list of URL attributes.
-	*	\version 1.0.1
+	*	\version 1.1.0
 	*	\par Example:
 \code
 include_once("inc/PAttributes.inc");
@@ -138,6 +153,15 @@ name1=value1&amp;name2=value2
 	*/
 class PURLAttributes extends PAttributes
 	{
+	/**	Constructor.
+		*	\brief initialisation method.
+		*	\param $asoc the PDrawable::Associative member initial value
+		*	\param $Separator separator betwin pairs
+		*/
+	function PURLAttributes($asoc=array(), $Separator='&amp;' )
+		{
+		PAttributes::PAttributes($asoc,$Separator);
+		}
 	/**	\brief draws a pair(key,value)
 		*	\param $key key name
 		*	\param $value value
@@ -145,16 +169,7 @@ class PURLAttributes extends PAttributes
 		*/
 	function DrawPair($key="",$value="")
 		{
-		return $key."="."$value";
-		}
-	/**
-		*	\brief draws the separator
-		*	\version 1.0.1
-		*	\return "&amp;" = "&"
-		*/
-	function DrawSeparator()
-		{
-		return "&amp;";
+		return $key.'='.$value;
 		}
 	}
 ?>
