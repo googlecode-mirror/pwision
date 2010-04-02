@@ -164,7 +164,7 @@ function SiteURL()
 /** 	The PBasicWebPage class is designed to model a webpage. Main atributes of a webpage are: title, motto, message, section and the language.
 	*	\latexonly \label{PWision:PBasicWebPage} \index{PBasicWebPage} \index{webpage} \index{section} \endlatexonly
 	*	\brief a basic web page.
-	*	\version 1.7.0
+	*	\version 2.0.0
 	*	\note  Themed webpages will extend this class.
 	*	\par Example:
 	*		see PCSSZenWebPage class.
@@ -476,8 +476,9 @@ new google.translate.TranslateElement({
 		return $ret;
 		}
 		/**	Gives <b>meta</b> PElement's inserted into a simple PContent object.
-			*	\brief mets.
-			*	\return a PContent object containing the <b>meta</b> html elements content, robots and keywords.
+			*	\brief metas.
+			*	\version 2.0.0
+			*	\return a PContent object containing the <b>meta</b> html elements content and keywords.
 			*/
 		protected function Head_Metas()
 			{
@@ -485,9 +486,6 @@ new google.translate.TranslateElement({
 				$Meta->newKid()
 					->setAtr("http-equiv", "Content-Type")
 					->setAtr("content", "application/xhtml+xml;charset=utf-8");
-				$Meta->newKid()
-					->setAtr("name","robots")
-					->setAtr("content","all");
 				$Meta->newKid()
 					->setAtr("name","keywords")
 					->setAtr("content",$this->getKeywords());
