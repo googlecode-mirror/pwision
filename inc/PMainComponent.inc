@@ -44,7 +44,7 @@ function & Main()
 /**
 	*	\brief translate a text.
 	*	\param $text the text
-	*	\return the translate text, if translation is defined.
+	*	\return the translated text, if translation is defined; else the original text
 	*/
 function lang($text)
 	{
@@ -53,9 +53,9 @@ function lang($text)
 		:$text;
 	}
 /**
-	*	\brief translate a text.
+	*	\brief translated text in PText.
 	*	\param $text the text
-	*	\return a new PText object with text
+	*	\return a new PText object with a translated text
 	*/
 function PTextlang($text)
 	{
