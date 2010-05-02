@@ -83,7 +83,7 @@ class PInput extends PSimpleTag
 		*	\param $value value
 		*	\param $name nameid of the element
 		*/
-	function PInput($type="text",$value,$name)
+	function PInput($type,$value,$name)
 		{
 		PSimpleTag::PSimpleTag("input");
 		$this
