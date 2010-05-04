@@ -54,7 +54,7 @@ include_once("inc/PSection.inc");
 /** 	The PRedirectingSection class is designed to model a section that redirects the client browser to an url.
 	*	\latexonly \label{PWision:PRedirectingSection} \index{PRedirectingSection} \label{redirect} \label{URL} \endlatexonly
 	*	\brief a redirecting section.
-	*	\version 1.0.1
+	*	\version 1.1.0
 	*/
 class PRedirectingSection extends PSection
 	{
@@ -82,7 +82,12 @@ class PRedirectingSection extends PSection
 	function Chapter1Title()
 		{
 		return PSection::Chapter1Title()
-			->Insert( new PText("You are now being redirected to ".$this->URL) );
+			->Insert(
+				new PText(
+					lang("You are now being redirected to").' '.
+					$this->URL
+					)
+				);
 		}
 	function Chapter1()
 		{
@@ -94,7 +99,7 @@ class PRedirectingSection extends PSection
 /** 	The PRedirect2Section class is designed to model a section that redirects the client browser to the url of a section.
 	*	\latexonly \label{PWision:PRedirect2Section} \index{PRedirect2Section} \label{redirect} \label{section} \endlatexonly
 	*	\brief a section that redirects to a section.
-	*	\version 1.1.1
+	*	\version 1.2.0
 	*/
 class PRedirect2Section extends PSection
 	{
@@ -130,7 +135,12 @@ class PRedirect2Section extends PSection
 	function Chapter1Title()
 		{
 		return PSection::Chapter1Title()
-			->Insert( new PText("You are now being redirected to section '".$this->section_name."'... ") );
+			->Insert(
+				new PText(
+					lang("You are now being redirected to section").
+						" '".lang($this->section_name)."'... "
+					)
+				);
 		}
 	function Chapter1()
 		{
