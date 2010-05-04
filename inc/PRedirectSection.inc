@@ -54,7 +54,7 @@ include_once("inc/PSection.inc");
 /** 	The PRedirectingSection class is designed to model a section that redirects the client browser to an url.
 	*	\latexonly \label{PWision:PRedirectingSection} \index{PRedirectingSection} \label{redirect} \label{URL} \endlatexonly
 	*	\brief a redirecting section.
-	*	\version 1.1.0
+	*	\version 1.2.0
 	*/
 class PRedirectingSection extends PSection
 	{
@@ -63,10 +63,16 @@ class PRedirectingSection extends PSection
 
 	function Head()
 		{
-		return parent::Head()->Insert(
-			Object(new PSimpleTag('meta'))
-				->setAtr('http-equiv','refresh')
-				->setAtr('content','1;url='.$this->URL)
+		return parent::Head()
+			->Insert(
+				Object(new PSimpleTag('meta'))
+					->setAtr('http-equiv','refresh')
+					->setAtr('content','1;url='.$this->URL)
+				)
+			->Insert(
+				Object(new PSimpleTag("meta"))
+					->setAtr("name","robots")
+					->setAtr("content",'noindex')
 			);
 		}
 
@@ -99,7 +105,7 @@ class PRedirectingSection extends PSection
 /** 	The PRedirect2Section class is designed to model a section that redirects the client browser to the url of a section.
 	*	\latexonly \label{PWision:PRedirect2Section} \index{PRedirect2Section} \label{redirect} \label{section} \endlatexonly
 	*	\brief a section that redirects to a section.
-	*	\version 1.2.0
+	*	\version 1.3.0
 	*/
 class PRedirect2Section extends PSection
 	{
@@ -110,14 +116,14 @@ class PRedirect2Section extends PSection
 	/// name of the webpage
 	private $webpage;
 
-/*	function Head()
+	function Head()
 		{
 		return parent::Head()->Insert(
-			Object(new PSimpleTag('meta'))
-				->setAtr('http-equiv','refresh')
-				->setAtr('content','1;url='.$this->webpage."?section=".$this->section_name.$this->attr->Draw() )
+				Object(new PSimpleTag("meta"))
+					->setAtr("name","robots")
+					->setAtr("content",'noindex')
 			);
-		}*/
+		}
 
 	/**	Constructs a redirecting section.
 		*	\brief constructor
