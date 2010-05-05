@@ -24,7 +24,7 @@ include_once("inc/PMainComponent.inc");
 /** 	The login class is designed to model the login section. The login section is the section of the website where guest users can log in with their username and password.
 	*	\latexonly \label{PWision:Sections:login} \index{login}  \index{guest} \index{user}\endlatexonly
 	*	\brief the login section.
-	*	\version 1.2.2
+	*	\version 1.3.0
 	*/
 class login extends PFormSection
 	{
@@ -53,9 +53,7 @@ class login extends PFormSection
 		sleep( rand(1,5) );// ;)
 		if( $_SESSION['userID']>0 )
 			{
-			$this->TheForm->Insert(
-				JSRedirect2Section("Root")
-				);
+			$this->TheForm->Insert( $this->InsertOnSuccessfulLogin() );
 			return true;
 			}
 		$this->AddMessage("User/Password not ok! Try again");
@@ -72,6 +70,14 @@ class login extends PFormSection
 					->Insert(new PInput("submit",lang("Log in!"),""))
 				)
 			;
+		}
+	/**	This function sets the PDrawable that will be inserted on successful login.
+		*	\brief PDrawable inserted on login.
+		*	\return a PDrawable
+		*/
+	function InsertOnSuccessfulLogin()
+		{
+		return JSRedirect2Section("Root");
 		}
 	}
 ?>

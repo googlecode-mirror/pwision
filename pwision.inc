@@ -73,12 +73,21 @@ session_start();
 /** 	The PautoloadPaths class is designed to hold the $paths array.
 	*	\latexonly \label{PWision:PautoloadPaths} \index{PautoloadPaths} \index{autoload} \endlatexonly
 	*	\brief holder of __autoload() paths.
-	*	\version 2.0.0
+	*	\version 2.1.0
 	*/
 final class PautoloadPaths
 	{
 	/// autoload paths
 	static public $paths=array();
+	/**	Adds a path to autoload $paths array. The path is added as the first element so the __autoload() function will find a class from this path before others because this is the important one.
+		*	\brief add a path to autoload paths.
+		*	\param $path a text string(example: 'sections/sections_pw-newspaper' )
+		*	\return nothing
+		*/
+	static function AddPath($path)
+		{
+		array_unshift(PautoloadPaths::$paths,$path);
+		}
 	}
 /**	Load the php file that contains the section class definition. The file is searched first in <b>sections</b> directory, then in <b>PautoloadPaths::$paths</b> and finally in <b>sections/pwision</b>, thus allowing redefitions of the default classes like login.
 	*	\latexonly \label{PWision:autoload} \index{autoload} \index{__autoload} \endlatexonly
