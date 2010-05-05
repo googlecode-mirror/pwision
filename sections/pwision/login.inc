@@ -24,7 +24,7 @@ include_once("inc/PMainComponent.inc");
 /** 	The login class is designed to model the login section. The login section is the section of the website where guest users can log in with their username and password.
 	*	\latexonly \label{PWision:Sections:login} \index{login}  \index{guest} \index{user}\endlatexonly
 	*	\brief the login section.
-	*	\version 1.2.1
+	*	\version 1.2.2
 	*/
 class login extends PFormSection
 	{
@@ -34,6 +34,17 @@ class login extends PFormSection
 			->addParam("username",'/^[-@._a-z0-9 ]{1,64}$/i','')
 			->addParam("password",'/^[a-z0-9 ]{1,64}$/i','')
 			;
+		}
+	function Head()
+		{
+		return
+			parent::Head()
+				->Insert(
+					Object(new PSimpleTag("meta"))
+						->setAtr("name","robots")
+						->setAtr("content",'noindex')
+					)
+				;
 		}
 	function ProcessOK()
 		{
