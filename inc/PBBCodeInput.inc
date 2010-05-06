@@ -23,7 +23,7 @@ include_once('PForm.inc');
 /** 	The PBBCodeInput class is designed to be a BBCode input textarea with button for BBCode tags.
 	*	\latexonly \label{PBBCodeInput:PBBCodeInput} \index{PBBCodeInput} \index{BBCode} \index{textarea} \endlatexonly
 	*	\brief BBCode input textarea.
-	*	\version 1.0.0
+	*	\version 1.1.0
 	*	\par Example:
 \code
 include_once("PBBCodeInput.inc");
@@ -146,13 +146,13 @@ class PBBCodeInput extends PContent
 							->Insert(
 								El('script')
 										->setAtr('type','text/javascript')
-									->Insert(new PText('function scrolltoEnd(){el=document.getElementById("textContent");el.scrollTop=el.scrollHeight;}'))
-									->Insert(new PText('function insertText(txt){el=document.getElementById("textContent");el.value=el.value+(txt);}'))
-									->Insert(new PText('function clearText(){el=document.getElementById("textContent");if(confirm("Are you sure you want to clear the text content?"))el.value="";el.focus();}'))
+									->Insert(new PText('function scrolltoEnd(){el=document.getElementById("'.$id.'");el.scrollTop=el.scrollHeight;}'))
+									->Insert(new PText('function insertText(txt){el=document.getElementById("'.$id.'");el.value=el.value+(txt);}'))
+									->Insert(new PText('function clearText(){el=document.getElementById("'.$id.'");if(confirm("Are you sure you want to clear the text content?"))el.value="";el.focus();}'))
 									->Insert(new PText("
 function insertAtCursor( before, after)
 	{
-	myField=document.getElementById(\"textContent\");
+	myField=document.getElementById(\"$id\");
 	//IE support
 	if (document.selection)
 			{
@@ -182,16 +182,6 @@ function insertAtCursor( before, after)
 										"))
 								)
 			;
-		}
-	/**	YY
-		*	\brief a
-		*	\version 1.0.0
-		*	\param $a
-		*	\return reference to $this
-		*/
-	function & Y($a)
-		{
-		return $this;
 		}
 	}
 
