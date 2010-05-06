@@ -231,14 +231,10 @@ class PSection
 
 	/**
 		*	\brief title of preamble of the section
-		*	\version 1.2.1
+		*	\version 1.2.2
 		*/
 	function	Chapter0Title(){
 		$ret=new PContent();
-		if(get_class($this)=="PSection")
-			{
-			$ret->Insert(new PText( lang('Subsections of').' '.lang($this->getName()) ) );
-			}
 		return $ret;
 		}
 	/**
@@ -248,17 +244,7 @@ class PSection
 	function	Chapter0(){
 		$ret=new PContent();
 			$ret->Insert(new PText($this->getMessages()));
-		if(get_class($this)=="PSection")
-			{
-			$ul=new PStructure(new PElement("li"), new PElement("ul"));
-			$SectsArray=Sections::AccesibleNotHiddenSubSections($this->getName(),$_SESSION['userID']);
-			if(count($SectsArray)==0)return $ret;
-			foreach($SectsArray as $section)
-				{
-				$ul->newKid()->Insert(Sections::Link2SQLSection($section));
-				}
-			$ret->Insert($ul);
-			}
+			$ret->Insert( new PText($this->Info['HTML']) );
 		return $ret;
 		}
 
@@ -334,7 +320,7 @@ final class Sections
 			(eregi("^[01]{1}$",$hidden)==false)*/
 			)
 				return false;
-		Main()->DB->query("INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`) VALUES ('$name', '$owner', 'section', '$descr')");
+		Main()->DB->query("INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`, `BBCode`, `HTML`) VALUES ('$name', '$owner', 'section', '$descr', '', '')");
 		Sections::Add2Groups($name,$grp_arr);
 		if(array_key_exists('Hidden',$attr) && $attr['Hidden']=='Hidden')Sections::Hide($name);
 		if(array_key_exists('Bookmarked',$attr) && $attr['Bookmarked']=='Bookmarked')Sections::Bookmark($name);
@@ -342,6 +328,7 @@ final class Sections
 		}
 	/**	Gets the row of the section from the Sections database table.
 		*	\brief information about a section.
+		*	\version 1.1.0
 		*	\param $section_name the name of the section
 		*	\return an array containing the row, false if the $section_name does not check as a section name
 		*/
@@ -350,7 +337,7 @@ final class Sections
 		if(!Sections::CheckName($section_name))return false;
 		if($section_name!='Root')
 			return Main()->DB->fetch_array_query("SELECT * FROM Sections WHERE Name='$section_name'");
-			else return array('Name'=>'Root','Owner'=>'Root','Type'=>'section','Description'=>Main()->getRootName());
+			else return array('Name'=>'Root','Owner'=>'Root','Type'=>'section','Description'=>Main()->getRootName(), 'BBCode'=>'', 'HTML'=>'');
 		}
 	/**	For every group ID from $grp_arr this function creates a pair (<i>section name</i>, <i>group ID</i>) and inserts it in GroupSections database table, making section $section_name member of the group with that ID.
 		*	\latexonly \label{PWision:Sections:Add2Groups} \endlatexonly
@@ -403,6 +390,65 @@ final class Sections
 		{
 		Main()->DB->query("DELETE FROM `HiddenSections` WHERE `SectionName` = '$section_name'");
 		}
+
+	/**	Compile a BBCoded text to HTML.
+		*	\brief translate BBCode to HTML.
+		*	\version 1.2.1
+		*	\param $text BBCoded input text string
+		*	\return HTML encoded text string
+		*/
+	function BBCode2HTML($text)
+		{
+		// reg exp tested with http://www.solmetra.com/scripts/regex/index.php
+		$bbcode=array(// http://en.wikipedia.org/wiki/BBCode
+			"/\[p\](.*?)\[\/p\]/is"=> '<p class="pw_p">$1</p>' // paragraphs
+			,"/\[subtitle\](.*?)\[\/subtitle\]/is"=> '<h4>$1</h4>' // subtitle - h4
+			,"/\[subsubtitle\](.*?)\[\/subsubtitle\]/is"=> '<h5>$1</h5>' // subsubtitle - h5
+			,"/\[subsubsubtitle\](.*?)\[\/subsubsubtitle\]/is"=> '<h6>$1</h6>' // subsubsubtitle - h6
+			,"/\[kw\](.*?)\[\/kw\]/is" => '<a href="index.php?section=KeywordSearch&kw=$1" title="Search for [ $1 ]">$1</a>' //keyword
+
+			,"/\[notranslate\](.*?)\[\/notranslate\]/is" => '<span class="notranslate">$1</span>' //keyword
+
+			,"/\[br\]/is" => '<br/>' //newline
+
+			,"/\[b\](.*?)\[\/b\]/is" => '<span style="font-weight: bold;">$1</span>' //bold
+			,"/\[i\](.*?)\[\/i\]/is" => '<span style="font-style: italic;">$1</span>' //italic
+			,"/\[u\](.*?)\[\/u\]/is" => '<span style="text-decoration: underline;">$1</span>' //underline
+			,"/\[o\](.*?)\[\/o\]/is" => '<span style="text-decoration: overline;">$1</span>' //overline
+
+			,"/\[sub\](.*?)\[\/sub\]/is" => '<sub>$1</sub>' //subscript
+			,"/\[sup\](.*?)\[\/sup\]/is" => '<sup>$1</sup>' //superscript
+
+			,"/\[url=(http:\/\/[-=%&_?\/.a-z0-9]*)\](.*?)\[\/url\]/is" => '<a href="$1">$2</a>' //href
+			,"/\[[*]url=(http:\/\/[-=%&_?\/.a-z0-9]*)\](.*?)\[\/url\]/is" => '<a target="_blank" href="$1">$2</a>' //href in new window
+
+			,"/\[\](.*?)\[\/\]/is" => '<span class="simple">$1</span>' // span
+			,"/\[img](http:\/\/[\/.a-z0-9_]*)\[\/img\]/is" => '<img src="$1"/>' // simple image image
+			,"/\[img=(http:\/\/[\/.a-z0-9_]*)\][[:space:]]*\[\/img\]/is" => '<img src="$1"/>' // simple image image
+			,"/\[img=(http:\/\/[\/.a-z0-9_]*)\](.+?)\[\/img\]/is" => '<table><caption>$2</caption><tr><td><img src="$1"/></td></tr></table>'//image with text
+
+			,"/\[table\](.*?)\[\/table\]/is" => '<table>$1</table>' //table
+			,"/\[table border=([0-9]+)\](.*?)\[\/table\]/is" => '<table border=$1>$2</table>' //table with border
+			,"/\[caption\](.*?)\[\/caption\]/is" => '<caption>$1</caption>' //table row
+			,"/\[tr\](.*?)\[\/tr\]/is" => '<tr>$1</tr>' //table row
+			,"/\[td\](.*?)\[\/td\]/is" => '<td>$1</td>' //table cell
+			,"/\[td colspan=[\\\\]*['\"]?([0-9]+)[\\\\]*['\"]?\](.*?)\[\/td\]/is" => '<td colspan="$1">$2</td>' //table cell with colspan
+			,"/\[td rowspan=[\\\\]*['\"]?([0-9]+)[\\\\]*['\"]?\](.*?)\[\/td\]/is" => '<td rowspan="$1">$2</td>' //table cell with rowspan
+			,"/\[td (((col)|(row))span=[\\\\]*['\"]?[0-9]+[\\\\]*['\"]?) (((col)|(row))span=[\\\\]*['\"]?[0-9]+[\\\\]*['\"]?)\](.*?)\[\/td\]/is" => '<td $1 $5>$9</td>' //table cell
+
+			,"/\[li\](.*?)\[\/li\]/is" => '<li>$1</li>' //list item
+			,"/\[list\](.*?)\[\/list\]/is" => '<ul>$1</ul>' //unordered list
+			,"/\[list type=(.)\](.*?)\[\/list\]/is" => '<ol type=$1>$2</ol>' //unordered list
+			);
+		return
+			preg_replace(
+				array_keys($bbcode),
+				array_values($bbcode),
+				$text
+				)
+			;
+		}
+
 //---------BOOKMARKS
 	/**	Hide a section by inserting it in the HiddenSections table.
 		*	\brief hide a section.

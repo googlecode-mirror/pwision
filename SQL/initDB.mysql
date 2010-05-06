@@ -16,6 +16,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+# version 1.0.1
+
 #Users table
 DROP TABLE IF EXISTS `Users`;
 CREATE TABLE `Users` (
@@ -91,18 +93,20 @@ CREATE TABLE `Sections`(
 `Owner` VARCHAR( 64 ) NOT NULL COMMENT 'Owner of the section' DEFAULT 'Root',
 `Type` VARCHAR( 8 ) NOT NULL COMMENT 'type of the section' DEFAULT 'section',
 `Description` VARCHAR( 128 ) NOT NULL COMMENT 'description of the section' DEFAULT '',
+`BBCode` LONGTEXT NOT NULL COMMENT  'content of the section in BBCode',
+`HTML` LONGTEXT NOT NULL COMMENT  'the HTML content of the section compiled from the BBCode'
 INDEX ( `ID` )
 )COMMENT='Sections of the website';
-INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`) VALUES 
-	('login', 'UserAccess', 'section', 'Login a user'),
-	('logout', 'UserAccess', 'section', 'Log out'),
-	('UserAccess', 'Root', 'section', 'user access to the website'),
-	('SectionManagement', 'Root', 'section', 'section management'),
-	('CreateSection', 'SectionManagement', 'section', 'create a section'),
-	('EditSection', 'SectionManagement', 'section', 'edit a section'),
-	('UserManagement', 'Root', 'section', 'user management'),
-	('CreateUser', 'UserManagement', 'section', ''),
-	('EditUser', 'UserManagement', 'section', 'edit an existing user')
+INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`, `BBCode`, `HTML`) VALUES
+	('login', 'UserAccess', 'section', 'Login a user', '', ''),
+	('logout', 'UserAccess', 'section', 'Log out', '', ''),
+	('UserAccess', 'Root', 'section', 'user access to the website', '', ''),
+	('SectionManagement', 'Root', 'section', 'section management', '', ''),
+	('CreateSection', 'SectionManagement', 'section', 'create a section', '', ''),
+	('EditSection', 'SectionManagement', 'section', 'edit a section', '', ''),
+	('UserManagement', 'Root', 'section', 'user management', '', ''),
+	('CreateUser', 'UserManagement', 'section', 'Create a new user', '', ''),
+	('EditUser', 'UserManagement', 'section', 'edit an existing user', '', '')
 	;
 #HiddenSections table
 DROP TABLE IF EXISTS `HiddenSections`;
