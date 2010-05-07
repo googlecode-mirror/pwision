@@ -1,6 +1,6 @@
 /*
 pwision_kde.css
-	- version 1.2.0
+	- version 1.2.1
 	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
 part of PWision toolkit: http://pwision.googlecode.com/
 Copyright (C) 2009 Becheru Petru-Ioan
@@ -332,7 +332,6 @@ table {
 	}
 
 	#linkList h3 {
-		background: #0057AE url(http://kde.org/media/images/block_title_mid.png) repeat-y 100% 50%;
 		background-color: #0057AE;
 		color: white;
 		margin:.5em;
