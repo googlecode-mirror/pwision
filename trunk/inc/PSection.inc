@@ -275,7 +275,7 @@ class PSection
 /**	A namespace for section relation functions.
 	*	\latexonly \label{PWision:Sections} \endlatexonly
 	*	\brief section's namespace.
-	*	\version 3.0.0
+	*	\version 3.0.1
 	*/
 final class Sections
 	{
@@ -393,7 +393,7 @@ final class Sections
 
 	/**	Compile a BBCoded text to HTML.
 		*	\brief translate BBCode to HTML.
-		*	\version 1.2.1
+		*	\version 1.3.0
 		*	\param $text BBCoded input text string
 		*	\return HTML encoded text string
 		*/
@@ -421,6 +421,7 @@ final class Sections
 
 			,"/\[url=(http:\/\/[-=%&_?\/.a-z0-9]*)\](.*?)\[\/url\]/is" => '<a href="$1">$2</a>' //href
 			,"/\[[*]url=(http:\/\/[-=%&_?\/.a-z0-9]*)\](.*?)\[\/url\]/is" => '<a target="_blank" href="$1">$2</a>' //href in new window
+			,"/\[redirect=(http:\/\/[-=%&_?\/.a-z0-9]*)\](.*?)\[\/redirect\]/is" => '<a href="$1">$2</a><script type="text/javascript">setTimeout("redir()",1000);function redir(){window.location="$1";}</script>' //redirection to an url
 
 			,"/\[\](.*?)\[\/\]/is" => '<span class="simple">$1</span>' // span
 			,"/\[img](http:\/\/[\/.a-z0-9_]*)\[\/img\]/is" => '<img src="$1"/>' // simple image image
