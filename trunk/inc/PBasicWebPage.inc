@@ -164,7 +164,7 @@ function SiteURL()
 /** 	The PBasicWebPage class is designed to model a webpage. Main atributes of a webpage are: title, motto, message, section and the language.
 	*	\latexonly \label{PWision:PBasicWebPage} \index{PBasicWebPage} \index{webpage} \index{section} \endlatexonly
 	*	\brief a basic web page.
-	*	\version 2.0.1
+	*	\version 2.0.2
 	*	\note  Themed webpages will extend this class.
 	*	\par Example:
 	*		see PCSSZenWebPage class.
@@ -326,7 +326,7 @@ new google.translate.TranslateElement({
 		}
 	/**	Tries to change the current section to sectionName. if sectionName exists and the current user has access to it the current section is changed.
 		*	\brief set the current section
-		*	\version 1.1.0
+		*	\version 1.1.1
 		*	\param $sectionName the new section name
 		*	\return reference to $this
 		*/
@@ -339,7 +339,7 @@ new google.translate.TranslateElement({
 			else
 				{
 				$this->SectionName="Root";
-				$this->AddMessage("section '$sectionName' is not accessible");
+				$this->AddMessage(lang("Input section was not accessible. Root section loaded instead!"));
 				}
 		$sectionName=$this->getSectionName();
 		$filename = "sections/$sectionName";
