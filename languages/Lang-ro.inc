@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**	\file
 	*	\brief pwision translation to romanian.
-	*	\version 1.0.1
+	*	\version 1.1.0
 	*/
 
 // PCSSZenWebPage
@@ -29,7 +29,17 @@ PMainComponent::$Lang['Website\'s sections']='Sec&#x21B;iunile Principale';
 PMainComponent::$Lang['Subsections of']='Subsec&#x21B;iunile din';
  
 /// PWision's sections
+
+PMainComponent::$Lang['Parammeter']='Parametrul';
+PMainComponent::$Lang['has an illegal value!']='are o valoare nepermisa!';
+PMainComponent::$Lang['is not set!']='nu este setat!';
+
+PMainComponent::$Lang['subsection found']='subsec&#x21B;iune g&#259;sit&#259;';
+PMainComponent::$Lang['subsections found']='subsec&#x21B;iuni g&#259;site';
+
+
 PMainComponent::$Lang['Root']='Prima pagin&#259;';
+	PMainComponent::$Lang['Input section was not accessible. Root section loaded instead!']='Sectiunea data nu a fost accesibila. Sectiunea Root a fost incarcata!';
 PMainComponent::$Lang['login']='Conectare';
 	PMainComponent::$Lang['Login a user']='Conecteaz&#259; un utilizator';
 	PMainComponent::$Lang['Please identify']='Identificare';

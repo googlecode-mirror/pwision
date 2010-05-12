@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ class PSection_ParamNCheck extends Exception
 /** 	The PSection class is designed to model a section of the website. A section has a name, a description and is splitted in 5 chapters (numbered 0 to 4).
 	*	\latexonly \label{PWision:PSection} \index{PSection} \index{section} \index{website} \endlatexonly
 	*	\brief a section of the website.
-	*	\version 4.0.1
+	*	\version 4.0.2
 	*	\note it will be derived in files X.inc from sections/ as X class
 	*/
 class PSection
@@ -66,7 +66,7 @@ class PSection
 			protected $Params=array();
 			/**
 				*	\brief adds a parameter for the section.
-				*	\version 2.0.0
+				*	\version 2.0.1
 				*	\param $param_name the name of the parameter
 				*	\param $reg_exp the regular expresion that must be matched
 				*	\param $not_set_message the message if the parameter is not set(defined)
@@ -75,8 +75,8 @@ class PSection
 				*/
 			protected function & addParam( $param_name, $reg_exp='', $not_set_message=null, $error_message=null )
 				{
-				if($error_message===null)$error_message="Parammeter '$param_name' has an illegal value!";
-				if($not_set_message===null)$not_set_message="Parammeter '$param_name' is not set!";
+				if($error_message===null)$error_message=lang("Parammeter")." '$param_name' ".lang("has an illegal value!");
+				if($not_set_message===null)$not_set_message=lang("Parammeter")." '$param_name' ".lang("is not set!");
 				$this->Params[$param_name]=array(
 					$param_name, // parameter name
 					$reg_exp,  // regular expresion
@@ -205,7 +205,7 @@ class PSection
 		$subsect_no=count($SubSectsArray);
 		if($subsect_no==0)return null;
 		$SubSects->newKid()->Insert(
-				DivEText("$subsect_no subsection".( ($subsect_no!=1)?"s":"" )." found")
+				DivEText("$subsect_no ".lang("subsection".( ($subsect_no!=1)?"s":"" )." found") )
 					->setAtr("class","subsections_number")
 			);
 		return $ret->Insert($SubSects);
