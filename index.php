@@ -46,10 +46,10 @@ class PMyWebPage extends PWebPageDefault
 				->Insert(new PText(" @import \"css/pwision_lightgray.css\"; "))
 				;
 			}
-	function SearchForm()
+	function SearchForm($query='')
 		{
 		return null;
-		return PWebPageDefault::SearchForm();
+		return PWebPageDefault::SearchForm($query);
 		}
 	function SkyAdd()
 		{

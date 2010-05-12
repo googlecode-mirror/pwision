@@ -164,7 +164,7 @@ function SiteURL()
 /** 	The PBasicWebPage class is designed to model a webpage. Main atributes of a webpage are: title, motto, message, section and the language.
 	*	\latexonly \label{PWision:PBasicWebPage} \index{PBasicWebPage} \index{webpage} \index{section} \endlatexonly
 	*	\brief a basic web page.
-	*	\version 2.0.2
+	*	\version 2.1.0
 	*	\note  Themed webpages will extend this class.
 	*	\par Example:
 	*		see PCSSZenWebPage class.
@@ -516,11 +516,13 @@ new google.translate.TranslateElement({
 		}
 	/**	Gives a search engine form.
 		*	\brief a search engine form.
+		*	\version 1.1.0
+		*	\param $query text string
 		*	\return a PText containing the form.
 		*/
-	function SearchForm()
+	function SearchForm($query='')
 		{
-		return new PText('<form action="http://www.google.com/cse" id="cse-search-box"><div><input type="hidden" name="cx" value="partner-pub-7129915672699792:a172f3-rgi4" /><input type="hidden" name="ie" value="ISO-8859-1" /><input type="text" name="q" /><input type="submit" name="sa" value="Search" /></div></form><script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>');
+		return new PText('<form action="http://www.google.com/cse" id="cse-search-box"><div><input type="hidden" name="cx" value="partner-pub-7129915672699792:a172f3-rgi4" /><input type="hidden" name="ie" value="ISO-8859-1" /><input type="text" name="q" value="'.$query.'" /><input type="submit" name="sa" value="Search" /></div></form><script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>');
 		}
 	/**	Gives a long height add from google.
 		*	\brief a long height add.

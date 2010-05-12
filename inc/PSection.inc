@@ -30,7 +30,7 @@ class PSection_ParamNCheck extends Exception
 /** 	The PSection class is designed to model a section of the website. A section has a name, a description and is splitted in 5 chapters (numbered 0 to 4).
 	*	\latexonly \label{PWision:PSection} \index{PSection} \index{section} \index{website} \endlatexonly
 	*	\brief a section of the website.
-	*	\version 4.0.2
+	*	\version 4.1.0
 	*	\note it will be derived in files X.inc from sections/ as X class
 	*/
 class PSection
@@ -62,7 +62,17 @@ class PSection
 				else return $ret."<hr/>";
 			}
 
-			/// parameters of the section
+			/**	This is an arrays of arrays(matrix). For each parameter(identified by a string for example $name) we have the array $this->Params[$name] (see addParam() ):
+			<ul>
+				<li>$this->Params[$name][0] - parameter name</li>
+				<li>$this->Params[$name][1] - regular expresion</li>
+				<li>$this->Params[$name][2] - error message text</li>
+				<li>$this->Params[$name][3] - true if this param was set at last CheckParams()</li>
+				<li>$this->Params[$name][4] - true if this param checked the reg_exp at last CheckParams()</li>
+				<li>$this->Params[$name][5] - not set message</li>
+			</ul>
+				*	\brief parameters of the section
+				*/
 			protected $Params=array();
 			/**
 				*	\brief adds a parameter for the section.
@@ -180,11 +190,30 @@ class PSection
 		}
 	/**	Get the content of a param if set.
 		*	\brief get the content of a section parameter.
+		*	\param $param_name the name of the parameter
 		*	\return parameter value or '' if the parameter is not set
 		*/
 	function getParam($param_name)
 		{
 		return isset($_REQUEST[$param_name])?$_REQUEST[$param_name]:'';
+		}
+	/**	Get the value of $Params[$param_name][3].
+		*	\brief was a parameter set?
+		*	\param $param_name the name of the parameter
+		*	\return true or false
+		*/
+	function wasParamSet($param_name)
+		{
+		return $this->Params[$param_name][3];
+		}
+	/**	Get the value of $Params[$param_name][4].
+		*	\brief did a parameter checked its regular expresion?
+		*	\param $param_name the name of the parameter
+		*	\return true or false
+		*/
+	function didParamCheckedRegExp($param_name)
+		{
+		return $this->Params[$param_name][4];
 		}
 	/**	Gets the subsections of current section.
 		*	\brief the subsections
