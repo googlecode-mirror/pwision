@@ -61,6 +61,14 @@ class PMyWebPage extends PWebPageDefault
 		return null;
 		return PWebPageDefault::LongAdd();
 		}
+	function reCAPTCHAprivatekey()
+		{
+		return '';
+		}
+	function reCAPTCHApublickey()
+		{
+		return '';
+		}
 	/**	Settings for the webpage.
 		*	\brief constructor.
 		*/
