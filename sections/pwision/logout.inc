@@ -21,13 +21,13 @@ include_once("inc/Users.inc");
 /** 	The logout class is designed to model the section where a user logs out(becoming guest).
 	*	\latexonly \label{PWision:Sections:logout} \index{logout} \index{guest} \index{user} \endlatexonly
 	*	\brief a logout section.
-	*	\version 2.1.0
+	*	\version 2.1.1
 	*/
 class logout extends PRedirect2Section
 	{
 	function logout()
 		{
-		PRedirect2Section::PRedirect2Section("Root");
+		PRedirect2Section::PRedirect2Section("login");
 		Users::LogOut();
 		}
 	function Chapter1Title()

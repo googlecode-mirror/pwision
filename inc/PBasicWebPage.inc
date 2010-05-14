@@ -28,7 +28,7 @@ include_once("PStaticSection.inc");
 /** 	The PMostBasicWebPage class is designed to be a model the most basic webpage: a PDrawable with a database connection.
 	*	\latexonly \label{PWision:PMostBasicWebPage} \index{PMostBasicWebPage} \index{database} \endlatexonly
 	*	\brief a PDrawable with database connection.
-	*	\version 2.0.0
+	*	\version 2.1.0
 	*	\par Example:
 	*		See PBasicWebPage class.
 	*/
@@ -541,6 +541,24 @@ new google.translate.TranslateElement({
 		{
 		return new PText('<script type="text/javascript"><!--'."\n".
 		'google_ad_client = "pub-7129915672699792";google_ad_slot = "0902253010";google_ad_width = 728;google_ad_height = 90;//--></script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>');
+		}
+	/**	This function computes the reCAPTCHA private key. See http://recaptcha.net/plugins/php/ .
+		*	\brief the reCAPTCHA private key
+		*	\return a text string
+		*	\note this method should be reimplemented in derived classes
+		*/
+	function reCAPTCHAprivatekey()
+		{
+		return '';
+		}
+	/**	This function computes the reCAPTCHA public key. See http://recaptcha.net/plugins/php/ .
+		*	\brief the reCAPTCHA public key
+		*	\return a text string
+		*	\note this method should be reimplemented in derived classes
+		*/
+	function reCAPTCHApublickey()
+		{
+		return '';
 		}
 	}
 
