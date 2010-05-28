@@ -1,6 +1,6 @@
 /*
 pwision_kde.css
-	- version 1.3.0
+	- version 1.4.0
 	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
 part of PWision toolkit: http://pwision.googlecode.com/
 Copyright (C) 2009 Becheru Petru-Ioan
@@ -22,18 +22,16 @@ html{
 	}
 
 body{
-	margin: 0;
-	padding: 0;
-	text-align: center;
+	margin-top: 0;
 	font-size: 0.9em;
 	font-family: "Bitstream Vera Sans", "Lucida Grande", "Trebuchet MS", sans-serif;
 	color: #535353;
-	background: #ffffff;
+/* 	background-color: #8B9093; */
+	background-color: white;
 	}
 
 h1, h2, h3, h4, h5, h6
 	{
-	padding: 0;
 	text-align: justify;
 	font-weight: bold;
 	color: #f7800a;
@@ -54,7 +52,8 @@ h2 {
 
 h3 {
 	font-size: 1.4em;
-}
+	text-align:center;
+	}
 
 h4 {
 	font-size: 1.3em;
@@ -206,21 +205,14 @@ table {
 
 #container {
 	text-align:left;
-	margin: 0 1em 0 1em;
+		margin-left:auto;
+		margin-right:auto;
 	max-width: 70em;
 	height:100%;
-	border: #bcbcbc solid;
-	border-width: 0 1px 1px 1px;
 	}
 
 	#pageHeader {
 		text-align:left;
-		width: 100%;
-		margin: 0 auto;
-		padding: 0;
-		vertical-align: middle;
-		color: #ffffff;
-		background-color: #0057ae;
 		}
 
 	#pageHeader:hover{
@@ -229,18 +221,19 @@ table {
 		#ltools
 			{
 			background: #eeeeee;
-			border-top: #bcbcbc 1px solid;
-			border-right: #bcbcbc 1px solid;
-			border-bottom: #bcbcbc 1px dotted;
-			border-radius: 0 1em 0 0;
-				-moz-border-radius: 0px 1em 0em 0em;
-			margin: 0 auto;
-			padding-top: .25em;
-			padding-right: .25em;
+			border: white 1px solid;
+			border-top-width:0px;
+			border-radius: 0 0 1em 1em;
+				-moz-border-radius: 0 0 1em 1em;
+			box-shadow: 0px 0px 10px #000;
+				-webkit-box-shadow: 0px 0px 10px #000;
+				-moz-box-shadow: 0px 0px 10px #000;
+			margin-bottom:.5em;
+			padding: .5em;
 			text-align:left;
 			display:inline-block;
 			zoom:1; *display: inline; _height: 30px;
-			vertical-align: bottom;
+			vertical-align: top;
 			}
 			#ltools h3
 				{
@@ -250,8 +243,18 @@ table {
 		#pageTitle
 			{
 			display:inline-block;
+			margin:1em;
+			margin-top:0em;
+			padding:0 1em 0 1em;
 			vertical-align: middle;
-			height:100%;
+			border: white 1px solid;
+			border-top-width:0px;
+			border-radius: 0 0 1em 1em;
+				-moz-border-radius: 0 0 1em 1em;
+			box-shadow: 0px 0px 10px #000;
+				-webkit-box-shadow: 0px 0px 10px #000;
+				-moz-box-shadow: 0px 0px 10px #000;
+			background-color: #0057ae;
 			zoom:1; *display: inline; _height: 30px;
 			}
 			#pageTitle h1
@@ -267,7 +270,6 @@ table {
 					font-size: 1.7em;
 					font-weight: bold;
 					color: yellow;
-					padding-left:1em;
 					}
 					#pageTitle h1 span:hover{
 						text-shadow: black 0px 0px 10px;
@@ -283,13 +285,14 @@ table {
 				}
 		#lselect{
 				display:block;
-				margin: 0 auto;
-				padding: 0.1em 0em 0.3em 0;
-				width: 100%;
-				vertical-align: middle;
 				text-align: right;
 				color:black;
 				background: #eeeeee;
+				border-color: #bcbcbc;
+				border-width:1px 1px 0 1px;
+				border-style:solid;
+				border-radius: 1em 1em 0 0;
+					-moz-border-radius: 1em 1em 0 0;
 				}
 			#lselect h3{
 				display:none;
@@ -304,12 +307,12 @@ table {
 				white-space: nowrap;
 				}
 			#lselect div div.selected{
-			float: left;
-			font-size: 1.1em;
-			font-weight: bold;
-			line-height: normal;
-			text-align: left;
-			}
+				float:left;
+				clear: both;
+				font-weight: bold;
+				line-height: normal;
+				text-align: left;
+				}
 			#lselect div div:hover{
 				}
 			#lselect div div.selected{
@@ -319,13 +322,18 @@ table {
 #intro
 	{
 	margin-right:1em;
-	padding: ;
+	padding: 0 0 .5em 0;
 	background: #eeeeee;
 	border: #bcbcbc solid;
-	border-width:0px 1px 1px 0;
+	border-width:0px 1px 1px 1px;
 	border-top: #bcbcbc 1px dotted;
-	border-radius: 0 0 1em 0;
+	border-radius: 0 0 1em 1em;
+		-moz-border-radius: 0 0 1em 1em;
+	box-shadow:0px 0px 10px #888888;
+		-webkit-box-shadow:2px 2px 5px #888888;
+		-moz-box-shadow:2px 2px 5px #888888;
 	float:left;
+	clear: left;
 	}
 
 
@@ -339,10 +347,11 @@ table {
 	#linkList h3 {
 		background-color: #0057AE;
 		color: white;
-		margin:.5em;
+		margin-top:.5em;
 		margin-left:0;
 		padding: 0px;
-		border-radius: 0 1em 1em 0;
+		border-radius: 1em 1em 1em 1em;
+			-moz-border-radius: 1em 1em 1em 1em;
 		}
 	#linkList h3 span{
 		margin-left:1em;
@@ -356,9 +365,19 @@ table {
 
 	#larchives,#lresources{
 		}
-		#lresources div div,#larchives div div{
+		#lresources div,#larchives div{
 			margin-left:1em;
+			border-style:solid;
+			border-color:#0057AE;
+			border-width:0 0 0 1px;
+			border-radius: 0 0 0 1em;
+				-moz-border-radius: 0 0 0 1em;
+			padding-bottom:.3em;
+			}
+		#lresources div div,#larchives div div{
 			display:block;
+			border-width:0px;
+			padding-bottom:0em;
 			}
 			#lresources div div.selected a, #larchives div div.selected a{
 				border: #bcbcbc 1px solid;
@@ -369,7 +388,15 @@ table {
 
 
 #supportingText {
-    text-align: justify;
+	text-align: justify;
+	background-color: #E9F1F7;
+	border: #bcbcbc solid;
+	border-width: 0 1px 1px 1px;
+	border-radius: 0 0 1em 0;
+		-moz-border-radius: 0 0 1em 0;
+	box-shadow:inset 0px 0px 10px #888888;
+		-webkit-box-shadow:inset 0px 0px 10px #888888;
+		-moz-box-shadow:inset 0px 0px 10px #888888;
 	}
 
 	#supportingText h3
