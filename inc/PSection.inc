@@ -268,12 +268,31 @@ class PSection
 		}
 	/**
 		*	\brief preamble of the section
-		*	\version 1.1.1
+		*	\version 1.1.2
 		*/
 	function	Chapter0(){
 		$ret=new PContent();
 			$ret->Insert(new PText($this->getMessages()));
-			$ret->Insert( new PText($this->Info['HTML']) );
+		$html=new PText($this->Info['HTML']);
+			if( ($html==null || $html=='') && get_class($this)=='PSection' )
+				{
+				$html= new PContent;
+				$ul=new PStructure(new PElement("li"), new PElement("ul"));
+				$SectsArray=Sections::AccesibleNotHiddenSubSections($this->getName(),$_SESSION['userID']);
+				if(count($SectsArray)!=0)
+					{
+					$html
+						->Insert(
+							El('h4')
+								->Insert(new PText( lang('Subsections of').' '.lang($this->getName()) ) )
+							)
+						;
+					foreach($SectsArray as $section)
+						$ul->newKid()->Insert(Sections::Link2SQLSection($section));
+					}
+				$html->Insert($ul);
+				}
+		$ret->Insert( $html );
 		return $ret;
 		}
 
