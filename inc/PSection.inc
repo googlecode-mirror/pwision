@@ -323,7 +323,7 @@ class PSection
 /**	A namespace for section relation functions.
 	*	\latexonly \label{PWision:Sections} \endlatexonly
 	*	\brief section's namespace.
-	*	\version 3.0.1
+	*	\version 3.0.2
 	*/
 final class Sections
 	{
@@ -376,7 +376,7 @@ final class Sections
 		}
 	/**	Gets the row of the section from the Sections database table.
 		*	\brief information about a section.
-		*	\version 1.1.0
+		*	\version 1.1.1
 		*	\param $section_name the name of the section
 		*	\return an array containing the row, false if the $section_name does not check as a section name
 		*/
@@ -385,7 +385,7 @@ final class Sections
 		if(!Sections::CheckName($section_name))return false;
 		if($section_name!='Root')
 			return Main()->DB->fetch_array_query("SELECT * FROM Sections WHERE Name='$section_name'");
-			else return array('Name'=>'Root','Owner'=>'Root','Type'=>'section','Description'=>Main()->getRootName(), 'BBCode'=>'', 'HTML'=>'');
+			else return array('Name'=>'Root','Owner'=>'Root','Type'=>'section','Description'=>lang('Root'), 'BBCode'=>'', 'HTML'=>'');
 		}
 	/**	For every group ID from $grp_arr this function creates a pair (<i>section name</i>, <i>group ID</i>) and inserts it in GroupSections database table, making section $section_name member of the group with that ID.
 		*	\latexonly \label{PWision:Sections:Add2Groups} \endlatexonly
