@@ -164,7 +164,7 @@ function SiteURL()
 /** 	The PBasicWebPage class is designed to model a webpage. Main atributes of a webpage are: title, motto, message, section and the language.
 	*	\latexonly \label{PWision:PBasicWebPage} \index{PBasicWebPage} \index{webpage} \index{section} \endlatexonly
 	*	\brief a basic web page.
-	*	\version 2.1.0
+	*	\version 3.0.0
 	*	\note  Themed webpages will extend this class.
 	*	\par Example:
 	*		see PCSSZenWebPage class.
@@ -361,26 +361,6 @@ new google.translate.TranslateElement({
 				$this->Section= new PSection();
 		return $this;
 		}
-	/// name of the Root section
-	private $RootName="&#x27F0;";
-		/**	Sets the name of the Root section because some programmers might want to call it "home page", "home", "first page" etc.
-			*	\brief Sets the name of the Root section
-			*	\param rn new root name
-			*	\return reference to $this
-			*/
-		function & setRootName($rn="&#x27F0;")
-			{
-			$this->RootName=$rn;
-			return $this;
-			}
-		/**	Gets the name of the Root section.
-			*	\brief Get the Root Name.
-			*	\return the Root Name
-			*/
-		function getRootName()
-			{
-			return $this->RootName;
-			}
 	/// the title of the webpage
 	private $Title="PageTitle";
 		/**	Sets the Title of the webpage to $title.
