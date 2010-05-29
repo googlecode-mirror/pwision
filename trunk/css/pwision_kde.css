@@ -1,6 +1,6 @@
 /*
 pwision_kde.css
-	- version 1.4.0
+	- version 1.4.1
 	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
 part of PWision toolkit: http://pwision.googlecode.com/
 Copyright (C) 2009 Becheru Petru-Ioan
@@ -26,7 +26,6 @@ body{
 	font-size: 0.9em;
 	font-family: "Bitstream Vera Sans", "Lucida Grande", "Trebuchet MS", sans-serif;
 	color: #535353;
-/* 	background-color: #8B9093; */
 	background-color: white;
 	}
 
@@ -52,7 +51,6 @@ h2 {
 
 h3 {
 	font-size: 1.4em;
-	text-align:center;
 	}
 
 h4 {
@@ -185,6 +183,7 @@ img {
 	}
 
 table {
+	border-collapse:collapse;
 	}
 	tbody{
 		width:100%;
@@ -192,7 +191,7 @@ table {
 	th {
 		text-align: center;
 		padding-right: 1em;
-		border: #cccccc solid;
+		border-style:  solid;
 		border-width: 0 0 3px 0;
 		}
 	td{
@@ -200,6 +199,9 @@ table {
 		vertical-align:middle;
 		valign:middle;
 		}
+		td:hover{
+			border-color:black;
+			}
 
 
 
@@ -222,7 +224,6 @@ table {
 			{
 			background: #eeeeee;
 			border: white 1px solid;
-			border-top-width:0px;
 			border-radius: 0 0 1em 1em;
 				-moz-border-radius: 0 0 1em 1em;
 			box-shadow: 0px 0px 10px #000;
@@ -248,7 +249,6 @@ table {
 			padding:0 1em 0 1em;
 			vertical-align: middle;
 			border: white 1px solid;
-			border-top-width:0px;
 			border-radius: 0 0 1em 1em;
 				-moz-border-radius: 0 0 1em 1em;
 			box-shadow: 0px 0px 10px #000;
