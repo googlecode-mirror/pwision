@@ -20,33 +20,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**	\file
 	*	\brief pwision translation to romanian.
-	*	\version 1.1.0
+	*	\version 1.1.1
 	*/
 
 // PCSSZenWebPage
 PMainComponent::$Lang['Bookmarks']='Acces Rapid';
-PMainComponent::$Lang['Website\'s sections']='Sec&#x21B;iunile Principale';
-PMainComponent::$Lang['Subsections of']='Subsec&#x21B;iunile din';
- 
+PMainComponent::$Lang['Website\'s sections']='Sect&#x0326;iunile Principale';
+PMainComponent::$Lang['Subsections of']='Subsect&#x0326;iunile din';
+
 /// PWision's sections
 
 PMainComponent::$Lang['Parammeter']='Parametrul';
 PMainComponent::$Lang['has an illegal value!']='are o valoare nepermisa!';
 PMainComponent::$Lang['is not set!']='nu este setat!';
 
-PMainComponent::$Lang['subsection found']='subsec&#x21B;iune g&#259;sit&#259;';
-PMainComponent::$Lang['subsections found']='subsec&#x21B;iuni g&#259;site';
+PMainComponent::$Lang['subsection found']='subsect&#x0326;iune g&#259;sit&#259;';
+PMainComponent::$Lang['subsections found']='subsect&#x0326;iuni g&#259;site';
 
 
 PMainComponent::$Lang['Root']='Prima pagin&#259;';
-	PMainComponent::$Lang['Input section was not accessible. Root section loaded instead!']='Sectiunea data nu a fost accesibila. Sectiunea Root a fost incarcata!';
+	PMainComponent::$Lang['Input section was not accessible. Root section loaded instead!']='Sect&#x0326;iunea data nu a fost accesibila. Sect&#x0326;iunea Root a fost incarcata!';
 PMainComponent::$Lang['login']='Conectare';
 	PMainComponent::$Lang['Login a user']='Conecteaz&#259; un utilizator';
 	PMainComponent::$Lang['Please identify']='Identificare';
 	PMainComponent::$Lang['Log in!']='Logheaz&#259;-te!';
 PMainComponent::$Lang['UserAccess']='Access Utilizatori';
 
-	PMainComponent::$Lang['You are now being redirected to section']='Redirectare c&#259;tre sec&#x21B;iunea';
+	PMainComponent::$Lang['You are now being redirected to section']='Redirectare c&#259;tre sect&#x0326;iunea';
 	PMainComponent::$Lang['You are now being redirected to']='Redirectare c&#259;tre';
 
 PMainComponent::$Lang['']='';
