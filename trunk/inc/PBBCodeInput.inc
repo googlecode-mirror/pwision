@@ -23,7 +23,7 @@ include_once('PForm.inc');
 /** 	The PBBCodeInput class is designed to be a BBCode input textarea with button for BBCode tags.
 	*	\latexonly \label{PBBCodeInput:PBBCodeInput} \index{PBBCodeInput} \index{BBCode} \index{textarea} \endlatexonly
 	*	\brief BBCode input textarea.
-	*	\version 1.1.0
+	*	\version 1.1.1
 	*	\par Example:
 \code
 include_once("PBBCodeInput.inc");
@@ -68,7 +68,7 @@ class PBBCodeInput extends PContent
 	{
 	/**	Creates an input button that insert a text when clicked.
 		*	\brief create a button that inserts text.
-		*	\version 2.0.0
+		*	\version 2.0.1
 		*	\param $before before the cursor text string
 		*	\param $after after the cursor text string
 		*	\return a PInput element
@@ -84,6 +84,7 @@ class PBBCodeInput extends PContent
 		}
 	/**	Constructs
 		*	\brief constructor
+		*	\version 1.0.1
 		*	\param $text initial text content of textarea
 		*	\param $name name of the textarea
 		*	\param $id id attribute of the textarea
@@ -115,10 +116,10 @@ class PBBCodeInput extends PContent
 							->Insert(PBBCodeInput::insertTextButton('','&#226;'))
 							->Insert(PBBCodeInput::insertTextButton('','&#206;'))
 							->Insert(PBBCodeInput::insertTextButton('','&#238;'))
-							->Insert(PBBCodeInput::insertTextButton('','&#x218;'))
-							->Insert(PBBCodeInput::insertTextButton('','&#x219;'))
-							->Insert(PBBCodeInput::insertTextButton('','&#x21A;'))
-							->Insert(PBBCodeInput::insertTextButton('','&#x21B;'))
+							->Insert(PBBCodeInput::insertTextButton('','S&#x0326;'))
+							->Insert(PBBCodeInput::insertTextButton('','s&#x0326;'))
+							->Insert(PBBCodeInput::insertTextButton('','T&#x0326;'))
+							->Insert(PBBCodeInput::insertTextButton('','t&#x0326;'))
 						->Insert(sEl('hr'))
 							->Insert(PBBCodeInput::insertTextButton('[subtitle]','[/subtitle]'))
 							->Insert(PBBCodeInput::insertTextButton('[subsubtitle]','[/subsubtitle]'))
