@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -93,7 +93,7 @@ class PTableRow extends PStructure implements ICellable
 /** 	The PTable class is designed to model a table( with rows and cells). It that is a structure with the <b>table</b> element as mother and as kids the structure PTableRow, that has the <b>tr</b> element as mother and <b>td</b> as kids. See the example at PStructure class.
 	*	\latexonly \label{PWision:PTable} \index{PTable} \index{table} \index{cell} \index{row} \endlatexonly
 	*	\brief a table.
-	*	\version 2.0.0
+	*	\version 2.1.0
 	*	\par Example:
 \code
 include_once("inc/PTable.inc");
@@ -124,12 +124,14 @@ class PTable extends PDrawable implements ITable, IAttributes
 	private $Structure;
 	/**	It constructs the table as a <b>table</b> PElement with one row.
 		*	\brief initialisation method.
+		*	\version 1.1.0
+		*	\param $with_a_first_row true if you want a table that allready has a first row added
 		*/
-	function PTable()
+	function PTable($with_a_first_row=true)
 		{
 		//print("{PTableTag");
 		$this->Structure=new PStructure(new PTableRow(),new PElement("table"));
-		$this->AddRow();
+		if($with_a_first_row)$this->AddRow();
 		//print("PTableTag}");
 		}
 		
