@@ -323,7 +323,7 @@ class PSection
 /**	A namespace for section relation functions.
 	*	\latexonly \label{PWision:Sections} \endlatexonly
 	*	\brief section's namespace.
-	*	\version 3.0.3
+	*	\version 3.0.4
 	*/
 final class Sections
 	{
@@ -675,7 +675,7 @@ final class Sections
 		*	\param text text of the link(by default $section_name used)
 		*	\param attr attributes to link, besides <b>section=<i>section_name</i></b>
 		*	\return an <b>a</b> element with a hyper reference to the section.
-		*	\version 1.1.1
+		*	\version 1.1.2
 	 */
 	static function Link2( $section_name="Root", $title="", $text="" , PURLAttributes $attr=null)
 		{
@@ -685,9 +685,11 @@ final class Sections
 			$title=lang($section['Description']);
 			}
 		if($attr==null)$attr=new PURLAttributes();
-		$lnk=El("a")
-				->setAtr( "href", "index.php?section=$section_name".$attr->Draw() )
-				->setAtr( "title", $title ) ;
+		$lnk=El('a')
+				->setAtr( 'href', "index.php?section=$section_name".$attr->Draw() )
+				->setAtr( 'title', $title )
+				->setAtr( 'class', "section $section_name")
+				;
 		if($text=="")
 					$text=lang($section_name);
 		return $lnk->Insert(new PText($text));
