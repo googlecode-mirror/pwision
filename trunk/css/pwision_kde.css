@@ -1,6 +1,6 @@
 /*
 pwision_kde.css
-	- version 1.4.1
+	- version 1.5.0
 	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
 part of PWision toolkit: http://pwision.googlecode.com/
 Copyright (C) 2009 Becheru Petru-Ioan
@@ -77,7 +77,6 @@ a:visited {
 	text-decoration: none;
 	color: #644A9B;
 }
-
 
 a[href]:hover
 	{
@@ -203,6 +202,66 @@ table {
 			border-color:black;
 			}
 
+/*
+ * images for PWision sections
+ */
+a.section
+	{
+	}
+	a.section:before
+		{
+		content:url(images/sections/section.png);
+		}
+	a.Root:before
+		{
+		content:url(images/sections/Root.png);
+		}
+		a.UserAccess:before
+			{
+			content:url(images/sections/UserAccess.png);
+			}
+			a.login:before
+				{
+				content:url(images/sections/login.png);
+				}
+			a.logout:before
+				{
+				content:url(images/sections/logout.png);
+				}
+		a.SectionManagement:before
+			{
+			content:url(images/sections/SectionManagement.png);
+			}
+			a.CreateSection:before
+				{
+				content:url(images/sections/CreateSection.png);
+				}
+			a.EditSection:before
+				{
+				content:url(images/sections/EditSection.png);
+				}
+		a.UserManagement:before
+			{
+			content:url(images/sections/UserAccess.png);
+			}
+			a.CreateUser:before
+				{
+				content:url(images/sections/CreateUser.png);
+				}
+			a.EditUser:before
+				{
+				content:url(images/sections/EditUser.png);
+				}
+		a.Contact:before
+			{
+			content:url(images/sections/info.png);
+			}
+	/*
+		a.:before
+			{
+			content:url(images/sections/.png);
+			}
+	*/
 
 
 #container {
