@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ include_once("PBasicWebPage.inc");
 /** 	The PCSSZenWebPage class is designed to model the <a href="http://www.csszengarden.com">www.csszengarden.com</a> website layout so we can use the themes provided by this website.
 	*	\latexonly \label{PWision:PCSSZenWebPage} \index{PCSSZenWebPage} \index{webpage} \index{layout} \index{theme} \index{css zen garden} \endlatexonly
 	*	\brief a themed webpage.
-	*	\version 3.0.0
+	*	\version 3.0.1
 	*	\par Example:
 \code
 include_once("PCSSZenWebPage.inc");
@@ -319,11 +319,61 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 			->Insert( $this->BookmarksListWithTS() )
 			;
 		}
+	/**	The accesible subsections of the current section.
+		*	\brief the sections:larchives div
+		*	\version 1.0.2
+		*	\note null is returned if no subsections found
+		*/
+	protected function idLarchives()
+		{
+		$ret=Object(new PElement("div"))
+				->setAtr("id","lresources")
+				->setAtr("title",lang('Subsections of')." ".$this->getSectionName())
+				;
+		//if current section is Root the subsections are displayed by idLarchives()
+		if($this->getSectionName()!="Root")
+			{
+			$ul=$this->ListStructure();
+			//the name of the section for which we will get the subsections
+			$section_name=$this->getSectionName();
+			$SectsArray=Sections::AccesibleNotHiddenSubSections($section_name,$_SESSION['userID']);
+			if(count($SectsArray)==0)
+				{
+				$owner=Sections::Owner($section_name);
+				if($owner!='Root')
+					{
+					$section_name=$owner;
+					$SectsArray=Sections::AccesibleNotHiddenSubSections($section_name,$_SESSION['userID']);
+					if(count($SectsArray)==0) return $ret;
+					}
+					else return $ret;
+				}
+			foreach($SectsArray as $section)
+				{
+				$ul->newKid()->Insert(Sections::Link2SQLSection($section));
+				}
+			$ret
+				->Insert(
+					Object(new PElement("h3"))
+							->setAtr("class","resources")
+						->Insert(
+							Object(new PElement("span"))
+								->Insert(
+									new PText(
+										//lang('Subsections of')." ".
+										lang($section_name))
+									)
+							)
+					)
+				->Insert($ul);
+			}
+		return $ret;
+		}
 	/**	The sections of the website.
 		*	\brief the sections:larchives div
 		*	\version 1.0.1
 		*/
-	protected function idLarchives()
+	protected function idLresources()
 		{
 		$ul=$this->ListStructure() ;
 		$path_arr=Sections::PathArray($this->getSectionName());
@@ -351,40 +401,6 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 				)
 			->Insert($ul)
 			;
-		}
-	/**	The accesible subsections of the current section.
-		*	\brief the sections:larchives div
-		*	\version 1.0.1
-		*	\note if the number of accesible subsections is zero or if current section is Root, null is returned
-		*/
-	protected function idLresources()
-		{
-		$ret=Object(new PElement("div"))
-				->setAtr("id","lresources")
-				->setAtr("title",lang('Subsections of')." ".$this->getSectionName())
-				;
-		//if current section is Root the subsections are displayed by idLarchives()
-		if($this->getSectionName()!="Root")
-			{
-			$ul=$this->ListStructure();
-			$SectsArray=Sections::AccesibleNotHiddenSubSections($this->getSectionName(),$_SESSION['userID']);
-			if(count($SectsArray)==0)return $ret;
-			foreach($SectsArray as $section)
-				{
-				$ul->newKid()->Insert(Sections::Link2SQLSection($section));
-				}
-			$ret
-				->Insert(
-					Object(new PElement("h3"))
-							->setAtr("class","resources")
-						->Insert(
-							Object(new PElement("span"))
-								->Insert(new PText(lang('Subsections of')." ".lang($this->getSectionName())))
-							)
-					)
-				->Insert($ul);
-			}
-		return $ret;
 		}
 	/**	These extra divs/spans may be used as catch-alls to add extra imagery.
 		*	\brief Zen's Garden extra Divs.
