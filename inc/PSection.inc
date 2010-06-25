@@ -478,7 +478,7 @@ final class Sections
 
 			,"/\[table\](.*?)\[\/table\]/is" => '<table>$1</table>' //table
 			,"/\[table border=([0-9]+)\](.*?)\[\/table\]/is" => '<table border=$1>$2</table>' //table with border
-			,"/\[caption\](.*?)\[\/caption\]/is" => '<caption>$1</caption>' //table row
+			,"/\[caption\](.*?)\[\/caption\]/is" => '<caption>$1</caption>' //caption
 			,"/\[tr\](.*?)\[\/tr\]/is" => '<tr>$1</tr>' //table row
 			,"/\[td\](.*?)\[\/td\]/is" => '<td>$1</td>' //table cell
 			,"/\[td colspan=[\\\\]*['\"]?([0-9]+)[\\\\]*['\"]?\](.*?)\[\/td\]/is" => '<td colspan="$1">$2</td>' //table cell with colspan

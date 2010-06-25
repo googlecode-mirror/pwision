@@ -93,7 +93,7 @@ class PTableRow extends PStructure implements ICellable
 /** 	The PTable class is designed to model a table( with rows and cells). It that is a structure with the <b>table</b> element as mother and as kids the structure PTableRow, that has the <b>tr</b> element as mother and <b>td</b> as kids. See the example at PStructure class.
 	*	\latexonly \label{PWision:PTable} \index{PTable} \index{table} \index{cell} \index{row} \endlatexonly
 	*	\brief a table.
-	*	\version 2.1.0
+	*	\version 2.2.0
 	*	\par Example:
 \code
 include_once("inc/PTable.inc");
@@ -121,7 +121,26 @@ print( $T->Draw() );
 	*/
 class PTable extends PDrawable implements ITable, IAttributes
 	{
+	/// the PStructure that holds the rows/cells structure
 	private $Structure;
+	/// <b>caption</b> element of the table
+	private $Caption;
+		/**	\brief Gets the caption element of the table
+			*	\return reference to $this->Caption
+			*/
+		function & getCaption(){return $this->Caption;}
+		/**	Clears the Caption element and insert a PText.
+			*	\brief Gets the text of the caption
+			*	\param $text the caption text
+			*	\return reference to $this
+			*/
+		function & setCaptionText($text)
+			{
+			$this->Caption
+						->Clear()
+						->Insert( new PText($text) );
+			return $this;
+			}
 	/**	It constructs the table as a <b>table</b> PElement with one row.
 		*	\brief initialisation method.
 		*	\version 1.1.0
@@ -129,18 +148,22 @@ class PTable extends PDrawable implements ITable, IAttributes
 		*/
 	function PTable($with_a_first_row=true)
 		{
-		//print("{PTableTag");
 		$this->Structure=new PStructure(new PTableRow(),new PElement("table"));
 		if($with_a_first_row)$this->AddRow();
-		//print("PTableTag}");
+
+		$this->Caption=El('caption');
 		}
 		
-	/** \brief textual representation of the object
-		* \return a string
+	/**	Makes a clone of the Structure member, inserts the Caption in the clone and returns the textual representation of the clone.
+		*	\brief textual representation of table
+		*	\return a string
 		*/
 	function Draw()
 		{
-		return $this->Structure->Draw();
+		$clone=$this->Structure->CloneMe();
+		$clone->getContainer()
+			->Insert($this->Caption);
+		return $clone->Draw();
 		}
 	/**	Inserts a new row.
 		*	\brief add a row.
