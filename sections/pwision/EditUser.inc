@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ include_once('inc/PRedirectSection.inc');
 /** 	The EditUser class is designed to model the section that allows a user to edit an appointer.
 	*	\latexonly \label{PWision:Sections:EditUser} \index{EditUser} \index{user} \endlatexonly
 	*	\brief Edit an appointer .
-	*	\version 1.1.1
+	*	\version 1.1.2
 	*	\todo implement user edit
 	*/
 class EditUser extends PStepFormSection
@@ -31,27 +31,28 @@ class EditUser extends PStepFormSection
 	function setParams()
 		{
 		$this
-			->addParam('ID','/^[0-9]{1,10}$/')
-			->addParam('action','/^[a-z]{1,64}$/i')
+			->addParam('ID','/^[0-9]{1,10}$/','')
+			->addParam('action','/^[a-z]{1,64}$/i','')
 			;
 		}
 	/// constructor
 	function EditUser()
 		{
 		PStepFormSection::PStepFormSection();
-		if( isset($_REQUEST['ID']) && ($userinfo=Users::UserInfo($_REQUEST['ID'])) )
-				if( isset($_REQUEST['action']) )
-						if($_REQUEST['action']=='remove')
+		if( $this->wasParamSet('ID') && ($userinfo=Users::UserInfo($this->getParam('ID')) ) )
+				if( $this->wasParamSet('action') )
+						if( $this->getParam('remove') )
 								{
 								$this->Step='Step 3 - Removed tried';
-								if(Users::Remove($_REQUEST['ID'])>0)
+								if( Users::Remove( $this->getParam('ID') ) > 0 )
 									{
 									$this->Step='Step 3 - Remove done';
-									$this->AddMessage('Remove of user ['.$_REQUEST['ID'].'] successfull!');
+									$this->AddMessage('Remove of user ['. $this->getParam('ID') .'] successfull!');
 									}
 								}
 							else// $_REQUEST['action'] != 'remove'
 								{
+								$this->Step='Step 3 - Edit user data';
 	/*							if(
 									(
 									$edit=Users::EditUser(
