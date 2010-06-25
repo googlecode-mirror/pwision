@@ -33,6 +33,9 @@ class EditUser extends PStepFormSection
 		$this
 			->addParam('ID','/^[0-9]{1,10}$/','')
 			->addParam('action','/^[a-z]{1,64}$/i','')
+			->addParam('confirm','/^[a-z]{1,64}$/i','')
+			->addParam("username",'/^[-@._a-z0-9 ]{1,64}$/i','')
+			->addParam('groups','','')//this param is checked in Users::Add2groups()
 			;
 		}
 	/// constructor
@@ -40,10 +43,33 @@ class EditUser extends PStepFormSection
 		{
 		PStepFormSection::PStepFormSection();
 		if( $this->wasParamSet('ID') && ($userinfo=Users::UserInfo($this->getParam('ID')) ) )
+				{
+				$table=Object(new PTable())
+						->setAtr("border",'1')
+					->setCaptionText('User data');
+
+					$table->addCell()->Insert(new PText("ID") );
+					$table->addCell()->Insert(new PText("name") );
+					$table->addCell()->Insert(new PText("Member of ") );
+
+				$table->addRow();
+					$table->addCell()->Insert(new PText($userinfo['ID']) );
+					$table->addCell()->Insert(new PText($userinfo['Name']) );
+						{$grps=Main()->DB->fetch_all_query
+							("	SELECT DISTINCT Name
+								FROM Groups, GroupUsers
+								WHERE
+								Groups.ID=GroupUsers.GroupID and
+								UserID=".$userinfo['ID'] );
+						$gr="";
+						foreach($grps as $a_gr)
+							$gr.=$a_gr['Name'].", ";
+					$table->addCell()->Insert(new PText($gr) );}
+					
 				if( $this->wasParamSet('action') )
 						if( $this->getParam('remove') )
 								{
-								$this->Step='Step 3 - Removed tried';
+								$this->Step='Step 3 - Removing user';
 								if( Users::Remove( $this->getParam('ID') ) > 0 )
 									{
 									$this->Step='Step 3 - Remove done';
@@ -51,54 +77,42 @@ class EditUser extends PStepFormSection
 									}
 								}
 							else// $_REQUEST['action'] != 'remove'
-								{
-								$this->Step='Step 3 - Edit user data';
-	/*							if(
-									(
-									$edit=Users::EditUser(
-										$_REQUEST['ID'],....
-											)
-									)>0)
-									{
-									$this->AddMessage('Edit successfull!');
-									}*/
-								$this->AddMessage('Edit user not implemented yet!');
-								}
+								if( $this->wasParamSet('confirm') && $this->getParam('confirm')=='yes' )
+										{
+										$this->Step='Step 4 - Editing user data';
+										Users::RemoveFromGroups( $this->getParam('ID') );
+										Users::Add2Groups( $this->getParam('ID'), $this->getParam('groups') );
+										Users::ReName( $this->getParam('ID'), $this->getParam('username') );
+										$this->TheForm->Insert(
+											JSRedirect2Section(
+												'EditUser',
+												Object(new PURLAttributes)
+													->setAtr( 'ID', $this->getParam('ID') )
+													->setAtr( 'action', 'edit' )
+													)
+											);
+										}
+									else
+										{
+										$this->Step='Step 3 - Edit user data';
+										$table->addRow();
+											$table->addCell();
+											$table->addCell()->Insert(new PInput('text',$userinfo['Name'],'username'));
+											$table->addCell()->Insert( Groups::GroupsFieldSet() );
+										$this->TheForm
+											->Insert( $table )
+											->Insert( new PInput('hidden',$userinfo['ID'],'ID') )
+											->Insert( new PInput('hidden','edit','action') )
+											->Insert( new PInput('hidden','yes','confirm') )
+											->Insert( new PInput('submit','Go to Step 4!','') )
+											;
+										}
 					else// $_REQUEST['action'] not set
 						{
 						$this->Step='Step 2 - Select the action';
 
-						//show user info
-						$table=Object(new PTable())
-							->setAtr("border",'1');
-
-						$table->addCell()->Insert(new PText("ID") );
-						$table->addCell()->Insert(new PText($userinfo['ID']) );
-
-						$table->addRow();
-						$table->addCell()->Insert(new PText("name") );
-						$table->addCell()->Insert(new PText($userinfo['Name']) );
-
-						$table->addRow();
-						$table->addCell()->Insert(new PText("Member of ") );
-							$grps=Main()->DB->fetch_all_query
-								("	SELECT DISTINCT Name
-									FROM Groups, GroupUsers
-									WHERE
-									Groups.ID=GroupUsers.GroupID and
-									UserID=".$userinfo['ID'] );
-							$gr="";
-							foreach($grps as $a_gr)
-								$gr.=$a_gr['Name'].", ";
-						$table->addCell()->Insert(new PText($gr) );
-
 						$this->TheForm
-							->Insert(
-								El('p')
-									->Insert( El('span')->Insert(
-										new PText(' Here is some info about the user you want to edit or remove:') ) )
-									->Insert( $table )
-								)
+							->Insert( $table )
 							->Insert(
 								FieldSet('Select Action')
 									->Insert(
@@ -117,6 +131,7 @@ class EditUser extends PStepFormSection
 							->Insert( new PInput("submit","Action Selected!","") )
 							;
 						}
+				}
 			else// $_REQUEST['ID'] not set
 				{
 				$this->Step='Step 1 - Enter the ID number of the user';

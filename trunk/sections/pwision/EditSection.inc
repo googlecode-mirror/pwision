@@ -84,7 +84,7 @@ class EditSection extends PStepFormSection
 					->Insert(new PInput("hidden",$_REQUEST['sectionname'],"sectionname"))
 					;
 				if($_REQUEST['action']=="edit")
-						if( !(isset($_REQUEST['confirm']) && $_REQUEST['confirm']=="yes") )
+						if( !(  isset($_REQUEST['confirm']) && $_REQUEST['confirm']=="yes"  ) )
 								{
 								$this->Step='Step 2 - edit section "'.$_REQUEST['sectionname'].'"';
 								$this->TheForm

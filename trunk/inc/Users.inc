@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 include_once("PMainComponent.inc");
 /**	A namespace for user relation functions.
 	*	\brief user's namespace.
-	*	\version 1.2.0
+	*	\version 1.3.0
 	*/
 final class Users
 	{
@@ -58,6 +58,17 @@ final class Users
 		Main()->DB->query("DELETE FROM `Users` WHERE `ID` = '$UserID'");
 		return 1;
 		}
+	/**	Change the username of user with $UserID.
+		*	\brief rename a user.
+		*	\version 1.0.0
+		*	\param $UserID the identification number of the user to be renamed
+		*	\param $UserName the new username
+		*/
+	static function ReName( $UserID, $UserName)
+		{
+		Main()->DB->query("UPDATE `Users` SET  `Name` =  '$UserName' WHERE  `ID` = $UserID");
+		return 1;
+		}
 	/**	Deletes from <b>UserBookmarkedSections</b> sections of the user.
 		*	\brief removes user's bookmarks.
 		*	\param $UserID the identification number of the user
@@ -68,6 +79,7 @@ final class Users
 		}
 	/**	For every group ID from $grp_arr this function creates a pair (<i>user id</i>, <i>group ID</i>) and inserts it in GroupUsers database table, making the user with $uid ID member of the group with that ID.
 		*	\note see the <i>access rule</i> in Users::hasAccess()
+		*	\note a regular expresion check is done to see if the array items are numbers. Needed because CreateUser and EditUser can't check each item of group array param.
 		*	\brief adds an user to some groups.
 		*	\param $uid user id of the user
 		*	\param $grp_arr array of group IDs
