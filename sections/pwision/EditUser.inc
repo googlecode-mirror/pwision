@@ -43,6 +43,7 @@ class EditUser extends PStepFormSection
 	function EditUser()
 		{
 		PStepFormSection::PStepFormSection();
+		$userinfo=array();
 		if( $this->wasParamSet('ID') && ($userinfo=Users::UserInfo($this->getParam('ID')) ) )
 				{
 				$table=Object(new PTable())
@@ -58,19 +59,13 @@ class EditUser extends PStepFormSection
 					$table->addCell()->Insert(new PText($userinfo['ID']) );
 					$table->addCell()->Insert(new PText($userinfo['Name']) );
 					$table->addCell()->Insert(new PText($userinfo['Password']) );
-						{$grps=Main()->DB->fetch_all_query
-							("	SELECT DISTINCT Name
-								FROM Groups, GroupUsers
-								WHERE
-								Groups.ID=GroupUsers.GroupID and
-								UserID=".$userinfo['ID'] );
-						$gr="";
-						foreach($grps as $a_gr)
+						{$gr="";
+						foreach($userinfo['Groups'] as $a_gr)
 							$gr.=$a_gr['Name'].", ";
 					$table->addCell()->Insert(new PText($gr) );}
-					
+
 				if( $this->wasParamSet('action') )
-						if( $this->getParam('remove') )
+						if( $this->getParam('action')=='remove' )
 								{
 								$this->Step='Step 3 - Removing user';
 								if( Users::Remove( $this->getParam('ID') ) > 0 )
@@ -93,7 +88,7 @@ class EditUser extends PStepFormSection
 												Object(new PURLAttributes)
 													->setAtr( 'ID', $this->getParam('ID') )
 													->setAtr( 'action', 'edit' )
-													)
+												)
 											);
 										}
 									else
@@ -103,7 +98,10 @@ class EditUser extends PStepFormSection
 											$table->addCell();
 											$table->addCell()->Insert(new PInput('text',$userinfo['Name'],'username'));
 											$table->addCell()->Insert(new PInput('text',$userinfo['Password'],'Password'));
-											$table->addCell()->Insert( Groups::GroupsFieldSet() );
+											$table->addCell()->Insert(
+												Object(new PFieldSet(new PText('Select Groups')))
+													->Insert( Array2Inputs(Main()->UserInfo['Groups'], "groups[]", "ID", "Name", 'checkbox', new PSimpleTag("br")) )
+												);
 										$this->TheForm
 											->Insert( $table )
 											->Insert( new PInput('hidden',$userinfo['ID'],'ID') )
@@ -137,9 +135,10 @@ class EditUser extends PStepFormSection
 							;
 						}
 				}
-			else// $_REQUEST['ID'] not set
+			else// $_REQUEST['ID'] not set or user not found
 				{
 				$this->Step='Step 1 - Enter the ID number of the user';
+				if($this->wasParamSet('ID')) $this->AddMessage('user ['. $this->getParam('ID') .'] does not exist!');
 				$this->TheForm
 					->Insert( new PInput('text','','ID') )
 					->Insert( new PInput("submit","Go to Step 2!","") )

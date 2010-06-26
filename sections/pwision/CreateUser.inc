@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,37 +19,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 include_once("inc/PFormSection.inc");
 include_once("inc/PTable.inc");
 include_once("inc/Users.inc");
+include_once('inc/PRedirectSection.inc');
 /** 	The CreateUser class is designed to model the section that allows a user to create users of the website.
 	*	\latexonly \label{PWision:Sections:CreateUser} \index{CreateUser} \index{user} \endlatexonly
 	*	\brief an user creator.
-	*	\version 1.1.0
+	*	\version 1.1.1
 	*/
 class CreateUser extends PFormSection
 	{
 	function setParams()
 		{
 		$this
-			->addParam("username",'/^[-@._a-z0-9 ]{1,64}$/i')
-			->addParam("password",'/^[a-z0-9 ]{1,64}$/i')
-			->addParam("groups")//this param is checked in Users::Add2groups()
+			->addParam("username",'/^[-@._a-z0-9 ]{1,64}$/i','')
 			;
 		}
 	function ProcessOK()
 		{
 		$ret=Users::Create(
 						$_REQUEST['username'],
-						$_REQUEST['password'],
+						'password',
 						$_SESSION['userID'],
-						$_REQUEST['groups']
+						array()
 						);
 		switch ($ret)
 			{
-			case -1:
-				$this->AddMessage("username or password not [-@._a-z0-9 ]+ 63 chars max"); break;
 			case 0:
 				$this->AddMessage("Username ". $_REQUEST['username']." allready exists");break;
 			default:
-				$this->AddMessage("User Created with ID: $ret");
+				$this->AddMessage(
+					"User Created with ID: $ret!".
+					JSRedirect2Section(
+						'EditUser',
+						Object(new PURLAttributes)
+							->setAtr( 'ID', $ret )
+							->setAtr( 'action', 'edit' )
+						)->Draw()
+					);
 			}
 		return $ret>0;
 		}
@@ -62,16 +67,9 @@ class CreateUser extends PFormSection
 				$T->AddCell()->Insert(new PInput("text","","username"));
 				$T->AddCell()->Insert(new PText("use [-@._a-z0-9 ]+ 63 chars max"));
 			$T->AddRow();
-				$T->AddCell()->Insert(new PText("Password:"));
-				$T->AddCell()->Insert(new PInput("text","","password"));
-				$T->AddCell()->Insert(new PText("use ' a-z' 63 chars max"));
-			$T->AddRow();
-				$T->AddCell();
-				$T->AddCell()->Insert($GroupBox);
-				$T->AddCell();
-			$T->AddRow();
 				$T->AddCell();
 				$T->AddCell()->Insert(new PInput("submit","Create!",""));
+				$T->AddCell();
 
 		return PFormSection::createForm()->Insert($T);
 		}

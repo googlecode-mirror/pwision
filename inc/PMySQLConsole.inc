@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /** 	The PMySQLConsole class is designed to be used for SQL queries.
 	*	\latexonly \label{PWision:PMySQLConsole} \index{PMySQLConsole} \index{MySQL} \index{database} \index{query} \index{SQL} \endlatexonly
 	*	\brief a sql connection class.
-	*	\version 1.0.0
+	*	\version 1.0.1
 	*	\par Example:
 \code
 include_once("inc/PMySQLConsole.inc");
@@ -104,12 +104,13 @@ class PMySQLConsole
 		}
 	/**	Gets all the rows of an query.
 		*	\brief Gets the result.
+		*	\version 1.0.1
 		*	\param $sql_res the result resource from PMySQLConsole::query
 		*	\return an array
 		*/
 	function fetch_all_array($sql_res)
 		{
-		$ret;
+		$ret=null;
 		if($sql_res)
 			{
 			//print("{fetch_all_array $sql_res ".mysql_num_rows($sql_res)." ");

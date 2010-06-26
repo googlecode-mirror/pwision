@@ -19,23 +19,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 include_once("PMainComponent.inc");
 /**	A namespace for user relation functions.
 	*	\brief user's namespace.
-	*	\version 1.4.0
+	*	\version 1.5.0
 	*	\todo change eregi with preg_match
 	*/
 final class Users
 	{
 	/**	Creates a new user for the website and makes it member to some groups.
 		*	\brief create an user.
+		*	\version 1.1.0
 		*	\param $UserName name of the user
 		*	\param $Password password of the user
 		*	\param $CreatorID user id of the creator of the user
 		*	\param $grp_arr array of group IDs
-		*	\return the new user's id on succes, 0 is $UserName allready exists, -1 username or password not ok
+		*	\return the new user's id on succes, 0 is $UserName allready exists
 		*/
 	static function Create( $UserName, $Password, $CreatorID, $grp_arr )
 		{
-		if(eregi("^[-@._a-z0-9 ]{1,64}$",$UserName)==false) return -1;
-		if(eregi("^[a-z0-9 ]{1,64}$",$Password)==false) return -1;
 		//user exists?
 		$row=Main()->DB->fetch_array_query("SELECT * FROM Users WHERE Name='$UserName'");
 		if($row==false)
@@ -93,15 +92,21 @@ final class Users
 		*	\note see the <i>access rule</i> in Users::hasAccess()
 		*	\note a regular expresion check is done to see if the array items are numbers. Needed because CreateUser and EditUser can't check each item of group array param.
 		*	\brief adds an user to some groups.
+		*	\version 1.0.1
 		*	\param $uid user id of the user
 		*	\param $grp_arr array of group IDs
 		*/
 	static function Add2Groups( $uid, $grp_arr )
 		{
 		$Values="";
+		$values_found=false;
 		foreach($grp_arr as $grp)
-			if(eregi("^[1-9][0-9]{0,10}$",$grp))//grp is a number
+			if(preg_match('/^[0-9]{1,10}$/',$grp))//grp is a number
+				{
+				$values_found=true;
 				$Values=$Values.",('$uid','$grp')";
+				}
+		if($values_found==false) return;
 		$Values[0]=' ';
 		Main()->DB->query("INSERT INTO `GroupUsers` (`UserID`, `GroupID`) VALUES $Values;");
 		}
@@ -142,13 +147,25 @@ final class Users
 		}
 	/**	Gets the user's row from the Users database table.
 		*	\brief get the user information.
+		*	\version 1.0.1
 		*	\param $id the ID of the user
 		*	\return an array containing the row
 		*/
 	static function UserInfo( $id )
 		{
-		return Main()->DB->fetch_array_query
+		$ret=Main()->DB->fetch_array_query
 			("SELECT * FROM Users WHERE ID='$id'");
+		if($ret)
+			{
+			$ret['Groups']=Main()->DB->fetch_all_query
+				('SELECT Groups.ID, Name, \'checked\'
+					FROM Groups, GroupUsers
+					WHERE
+					Groups.ID=GroupUsers.GroupID and
+					UserID='.$id );
+			return $ret;
+			}
+		return null;
 		}
 	/**	Checks if a user has access to a section.
 		*	\par Access Rule
@@ -172,7 +189,7 @@ final class Users
 		*	\brief try to login a user.
 		*	\param $UserName the name of the user
 		*	\param $Password the password of the user
-		*	\return true on succes, else false 
+		*	\return true on succes, else false
 		*/
 	static function LogIn( $UserName, $Password )
 		{
@@ -193,7 +210,7 @@ final class Users
 		//$_SESSION['message']="Logged out(now u are a guest)";
 		}
 	}
-	
+
 
 /**	A namespace for groups relation functions.
 	*	\brief groups's namespace.

@@ -1,9 +1,9 @@
 /*
 pwision_kde.css
-	- version 1.5.0
+	- version 1.6.0
 	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -251,6 +251,10 @@ a.section
 			a.EditUser:before
 				{
 				content:url(images/sections/EditUser.png);
+				}
+			a.MyUsers:before
+				{
+				content:url(images/sections/UserAccess.png);
 				}
 		a.Contact:before
 			{
