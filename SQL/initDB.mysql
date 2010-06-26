@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-# version 1.0.2
+# version 1.1.0
 
 #Users table
 DROP TABLE IF EXISTS `Users`;
@@ -24,13 +24,13 @@ CREATE TABLE `Users` (
 `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id number of the user',
 `Name` VARCHAR( 64 ) NOT NULL COMMENT 'name of the user',
 `Password` VARCHAR( 64 ) NOT NULL COMMENT 'password of the user' DEFAULT '',
-`CreatorUserID` INT(10) UNSIGNED NOT NULL COMMENT 'user id of the creator of the user'  DEFAULT '0',
+`CreatorUserID` INT(10) UNSIGNED NOT NULL COMMENT 'user id of the creator of the user'  DEFAULT '1',
 INDEX ( `ID` ),
 `Theme` VARCHAR( 64 ) NOT NULL DEFAULT 'default' COMMENT 'the theme of the user'
 )COMMENT = 'Users of the website';
-INSERT INTO `Users` (`Name`, `Password`) VALUES 
-	('Guest', ''),
-	('admin', 'admin')
+INSERT INTO `Users` (`Name`, `Password`,`CreatorUserID`) VALUES 
+	('Guest', '', '1'),
+	('admin', 'admin', '1')
 	;
 UPDATE `Users` SET `ID` = '0' WHERE `Name` ='Guest' LIMIT 1 ;
 UPDATE `Users` SET `ID` = '1' WHERE `Name` ='admin' LIMIT 1 ;
@@ -106,7 +106,8 @@ INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`, `BBCode`, `HTML`
 	('EditSection', 'SectionManagement', 'section', 'edit a section', '', ''),
 	('UserManagement', 'Root', 'section', 'user management', '', ''),
 	('CreateUser', 'UserManagement', 'section', 'Create a new user', '', ''),
-	('EditUser', 'UserManagement', 'section', 'edit an existing user', '', '')
+	('EditUser', 'UserManagement', 'section', 'Edit an existing user', '', '')
+	('MyUsers', 'UserManagement', 'section', 'Show my users', '', '')
 	;
 #HiddenSections table
 DROP TABLE IF EXISTS `HiddenSections`;
@@ -139,6 +140,7 @@ INSERT INTO `GroupSections`(`SectionName`,`GroupID`) VALUES
 	('CreateUser', 8),#CreateUser in UserFullManagers
 	('EditUser', 6),#EditUser in UserEditors
 	('EditUser', 8)#EditUser in UserFullManagers
+	('MyUsers', 4)#MyUsers in UserManagers
 	;
 
 #UserBookmarkedSections
