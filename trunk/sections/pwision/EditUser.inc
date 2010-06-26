@@ -19,12 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 include_once("inc/PFormSection.inc");
 include_once("inc/PTable.inc");
 include_once("inc/Users.inc");
+include_once("inc/Groups.inc");
 include_once('inc/PRedirectSection.inc');
 /** 	The EditUser class is designed to model the section that allows a user to edit an appointer.
 	*	\latexonly \label{PWision:Sections:EditUser} \index{EditUser} \index{user} \endlatexonly
-	*	\brief Edit an appointer .
-	*	\version 1.1.3
-	*	\todo implement user edit
+	*	\brief Edit an user.
+	*	\version 1.1.4
 	*/
 class EditUser extends PStepFormSection
 	{
@@ -59,10 +59,7 @@ class EditUser extends PStepFormSection
 					$table->addCell()->Insert(new PText($userinfo['ID']) );
 					$table->addCell()->Insert(new PText($userinfo['Name']) );
 					$table->addCell()->Insert(new PText($userinfo['Password']) );
-						{$gr="";
-						foreach($userinfo['Groups'] as $a_gr)
-							$gr.=$a_gr['Name'].", ";
-					$table->addCell()->Insert(new PText($gr) );}
+					$table->addCell()->Insert(new PText(implode(', ',array_column($userinfo['Groups'],'Name'))) );
 
 				if( $this->wasParamSet('action') )
 						if( $this->getParam('action')=='remove' )

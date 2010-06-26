@@ -25,7 +25,7 @@ ini_set("display_errors", 1);
 <a href='http://pwision.googlecode.com/'>PWision</a> is an advanced toolkit that is used to make HTML webpages. It is an object oriented hierarchy of PHP classes that is used for building webpages using the information from the database and the HTML outputting classes, that it defines.
 \author Becheru Petru-Ioan
 \note The source code is released under <a href="http://www.gnu.org/licenses/gpl.txt" title='text of GNU GENERAL PUBLIC LICENSE Version 3'>GNU GENERAL PUBLIC LICENSE Version 3</a>.
-	\version 4.3.3
+	\version 4.3.4 beta
 *	\todo replace eregi by preg_match
 */
 
@@ -126,6 +126,19 @@ function __autoload($class_name)
 			}
 	}
 
+/**
+	*	\brief get the column of an array.
+	*	\param $array the array
+	*	\param $column name of the column
+	*	\return the column as an array
+	*/
+function array_column($array, $column)
+	{
+	$ret=array();
+	if($array)
+		foreach ($array as $row) $ret[] = $row[$column];
+	return $ret;
+	}
 
 include_once("inc/PBasicWebPage.inc");
 ?>

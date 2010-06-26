@@ -210,27 +210,4 @@ final class Users
 		//$_SESSION['message']="Logged out(now u are a guest)";
 		}
 	}
-
-
-/**	A namespace for groups relation functions.
-	*	\brief groups's namespace.
-	*	\version 1.0.1
-	*/
-final class Groups
-	{
-	/**	Gets a fieldset with inputs for all the groups of the website.
-		*	\brief a fieldset with all the groups.
-		*	\version 1.0.2
-		*	\param $name name of the input
-		*	\param $legend the text of the <b>legend</b> element
-		*	\param $input_type the <b>input</b> elements type
-		*	\return a PFieldSet object containing a PInput object for every group of the website
-		*/
-	static function GroupsFieldSet( $name="groups[]", $legend="Select Groups", $input_type="checkbox" )
-		{
-		$GroupBox=new PFieldSet(new PText($legend));
-		$Groups=Main()->DB->fetch_all_query("select * from Groups");
-		return $GroupBox->Insert( Array2Inputs($Groups, $name, "ID", "Name", $input_type, new PSimpleTag("br")) );
-		}
-	}
 ?>

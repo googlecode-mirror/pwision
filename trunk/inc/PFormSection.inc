@@ -63,7 +63,7 @@ abstract class PBasicFormSection extends PSection implements IMessage
 /** 	The PStepFormSection class is designed to be a model a PBasicFormSection with a step member.
 	*	\latexonly \label{PStepFormSection:PStepFormSection} \index{PStepFormSection} \endlatexonly
 	*	\brief a step form section.
-	*	\version 1.0.0
+	*	\version 1.0.1
 	*/
 class PStepFormSection extends PBasicFormSection
 	{
@@ -73,7 +73,7 @@ class PStepFormSection extends PBasicFormSection
 	protected $Step;
 	function getTitle()
 		{
-		return $this->getName().': '.$this->Step;
+		return parent::getTitle().': '.$this->Step;
 		}
 	/**	Constructs
 		*	\brief constructor

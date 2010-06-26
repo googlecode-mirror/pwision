@@ -19,11 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 include_once("inc/PFormSection.inc");
 include_once("inc/PTable.inc");
 include_once("inc/Users.inc");
+include_once("inc/Groups.inc");
 include_once('inc/PRedirectSection.inc');
 /** 	The CreateUser class is designed to model the section that allows a user to create users of the website.
 	*	\latexonly \label{PWision:Sections:CreateUser} \index{CreateUser} \index{user} \endlatexonly
 	*	\brief an user creator.
-	*	\version 1.1.1
+	*	\version 1.1.2
 	*/
 class CreateUser extends PFormSection
 	{
@@ -36,15 +37,15 @@ class CreateUser extends PFormSection
 	function ProcessOK()
 		{
 		$ret=Users::Create(
-						$_REQUEST['username'],
+						$this->getParam('username'),
 						'password',
-						$_SESSION['userID'],
+						Main()->UserInfo['ID'],
 						array()
 						);
 		switch ($ret)
 			{
 			case 0:
-				$this->AddMessage("Username ". $_REQUEST['username']." allready exists");break;
+				$this->AddMessage("Username ". $this->getParam('username') ." allready exists");break;
 			default:
 				$this->AddMessage(
 					"User Created with ID: $ret!".

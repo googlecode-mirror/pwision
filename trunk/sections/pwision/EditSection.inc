@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,10 +21,11 @@ include_once ('inc/PBBCodeInput.inc');
 include_once("inc/PFormSection.inc");
 include_once("inc/PTable.inc");
 include_once("inc/Users.inc");
+include_once("inc/Groups.inc");
 /** 	The EditSection class is designed to model the section that allows a user to edit the sections of the website. It provides an intuitive interface with textboxes (for section name and description) and checkboxes (that display the groups that the section will be member of).
 	*	\latexonly \label{PWision:Sections:EditSection} \index{EditSection} \endlatexonly
 	*	\brief a section editor.
-	*	\version 1.4.0
+	*	\version 1.4.1
 	*	\todo reimplement EditSection
 	*/
 class EditSection extends PStepFormSection
@@ -92,15 +93,6 @@ class EditSection extends PStepFormSection
 									;
 								$section=Sections::Section($_REQUEST['sectionname']);
 								$description=$section["Description"];
-								$grps=Main()->DB->fetch_all_query
-									(
-									"select Name from Groups ".
-									"where ID in ".
-									"(select GroupID from GroupSections where SectionName='".$_REQUEST['sectionname']."')"
-									);
-								$gr="";
-								foreach($grps as $a_gr)
-									$gr.=$a_gr['Name'].", ";
 								$T=new PTable();
 										$T->addCell()->Insert(new PText("Section Name:"));
 										$T->addCell()->Insert(new PText($_REQUEST['sectionname']));
@@ -131,9 +123,15 @@ class EditSection extends PStepFormSection
 												FieldSet('Owner:')
 													->Insert( new PText(Sections::Owner($_REQUEST['sectionname'])) )
 												);
+											$grps=Main()->DB->fetch_all_query
+												(
+												"select Name from Groups ".
+												"where ID in ".
+												"(select GroupID from GroupSections where SectionName='".$_REQUEST['sectionname']."')"
+												);
 										$T->addCell()->Insert(
 											FieldSet("Groups:")
-												->Insert( new PText($gr) )
+												->Insert( new PText(implode(', ',array_column($grps,'Name')) ) )
 											);
 									$T->AddRow();
 										$T->addCell()->Insert(new PText("New configuration:"));

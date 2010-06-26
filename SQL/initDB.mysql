@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-# version 1.1.0
+# version 1.2.0
 
 #Users table
 DROP TABLE IF EXISTS `Users`;
@@ -62,6 +62,7 @@ INSERT INTO `Groups` (`ID`,`Name`,`Description`) VALUES
 	(7, 'UserActivators', 'user activator group'),
 	(8, 'UserFullManagers', 'full user manager group'),
 	(9, 'SectionManagers', 'section manager group')
+	(10, 'GroupManagers','group manager group')
 	;
 
 #GroupUsers table
@@ -82,7 +83,8 @@ INSERT INTO `GroupUsers`(`UserID`,`GroupID`) VALUES
 	(1,6),#admin in UserEditors
 	(1,7),#admin in UserActivators
 	(1,8),#admin in UserFullManagers
-	(1,9)#admin in SectionManagers
+	(1,9),#admin in SectionManagers
+	(1,10)#admin in GroupManagers
 	;
 
 #Sections table
@@ -106,8 +108,11 @@ INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`, `BBCode`, `HTML`
 	('EditSection', 'SectionManagement', 'section', 'edit a section', '', ''),
 	('UserManagement', 'Root', 'section', 'user management', '', ''),
 	('CreateUser', 'UserManagement', 'section', 'Create a new user', '', ''),
-	('EditUser', 'UserManagement', 'section', 'Edit an existing user', '', '')
-	('MyUsers', 'UserManagement', 'section', 'Show my users', '', '')
+	('EditUser', 'UserManagement', 'section', 'Edit an existing user', '', ''),
+	('MyUsers', 'UserManagement', 'section', 'Show my users', '', ''),
+	('GroupManagement', 'Root', 'section', 'Group management', '', ''),
+	('CreateGroup', 'GroupManagement', 'section', 'Create a group', '', ''),
+	('EditGroup', 'GroupManagement', 'section', 'Edit a group', '', '')
 	;
 #HiddenSections table
 DROP TABLE IF EXISTS `HiddenSections`;
@@ -139,8 +144,11 @@ INSERT INTO `GroupSections`(`SectionName`,`GroupID`) VALUES
 	('CreateUser', 5),#CreateUser in UserCreators
 	('CreateUser', 8),#CreateUser in UserFullManagers
 	('EditUser', 6),#EditUser in UserEditors
-	('EditUser', 8)#EditUser in UserFullManagers
-	('MyUsers', 4)#MyUsers in UserManagers
+	('EditUser', 8),#EditUser in UserFullManagers
+	('MyUsers', 4),#MyUsers in UserManagers
+	('GroupManagement', 10),#GroupManagement in GroupManagers
+	('CreateGroup', 10),#CreateGroup in GroupManagers
+	('EditGroup', 10)#EditGroup in GroupManagers
 	;
 
 #UserBookmarkedSections
