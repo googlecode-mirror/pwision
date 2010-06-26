@@ -19,7 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 include_once("PMainComponent.inc");
 /**	A namespace for user relation functions.
 	*	\brief user's namespace.
-	*	\version 1.3.0
+	*	\version 1.4.0
+	*	\todo change eregi with preg_match
 	*/
 final class Users
 	{
@@ -67,6 +68,17 @@ final class Users
 	static function ReName( $UserID, $UserName)
 		{
 		Main()->DB->query("UPDATE `Users` SET  `Name` =  '$UserName' WHERE  `ID` = $UserID");
+		return 1;
+		}
+	/**	Change the password of user with $UserID.
+		*	\brief change the password.
+		*	\version 1.0.0
+		*	\param $UserID the identification number of the user
+		*	\param $Password the new password
+		*/
+	static function SetPassword( $UserID, $Password)
+		{
+		Main()->DB->query("UPDATE `Users` SET  `Password` =  '$Password' WHERE  `ID` = $UserID");
 		return 1;
 		}
 	/**	Deletes from <b>UserBookmarkedSections</b> sections of the user.
@@ -185,13 +197,13 @@ final class Users
 
 /**	A namespace for groups relation functions.
 	*	\brief groups's namespace.
-	*	\version 1.0.0
+	*	\version 1.0.1
 	*/
 final class Groups
 	{
 	/**	Gets a fieldset with inputs for all the groups of the website.
 		*	\brief a fieldset with all the groups.
-		*	\version 1.0.1
+		*	\version 1.0.2
 		*	\param $name name of the input
 		*	\param $legend the text of the <b>legend</b> element
 		*	\param $input_type the <b>input</b> elements type
@@ -199,9 +211,7 @@ final class Groups
 		*/
 	static function GroupsFieldSet( $name="groups[]", $legend="Select Groups", $input_type="checkbox" )
 		{
-		$GroupBox=Object(new PFieldSet(new PText($legend)))
-			//->setAtr("style","background-color: rgba(0,0,0,0.3);")
-			;
+		$GroupBox=new PFieldSet(new PText($legend));
 		$Groups=Main()->DB->fetch_all_query("select * from Groups");
 		return $GroupBox->Insert( Array2Inputs($Groups, $name, "ID", "Name", $input_type, new PSimpleTag("br")) );
 		}

@@ -23,7 +23,7 @@ include_once('inc/PRedirectSection.inc');
 /** 	The EditUser class is designed to model the section that allows a user to edit an appointer.
 	*	\latexonly \label{PWision:Sections:EditUser} \index{EditUser} \index{user} \endlatexonly
 	*	\brief Edit an appointer .
-	*	\version 1.1.2
+	*	\version 1.1.3
 	*	\todo implement user edit
 	*/
 class EditUser extends PStepFormSection
@@ -35,6 +35,7 @@ class EditUser extends PStepFormSection
 			->addParam('action','/^[a-z]{1,64}$/i','')
 			->addParam('confirm','/^[a-z]{1,64}$/i','')
 			->addParam("username",'/^[-@._a-z0-9 ]{1,64}$/i','')
+			->addParam("Password",'/^[a-z0-9 ]{1,64}$/i','')
 			->addParam('groups','','')//this param is checked in Users::Add2groups()
 			;
 		}
@@ -50,11 +51,13 @@ class EditUser extends PStepFormSection
 
 					$table->addCell()->Insert(new PText("ID") );
 					$table->addCell()->Insert(new PText("name") );
+					$table->addCell()->Insert(new PText("password") );
 					$table->addCell()->Insert(new PText("Member of ") );
 
 				$table->addRow();
 					$table->addCell()->Insert(new PText($userinfo['ID']) );
 					$table->addCell()->Insert(new PText($userinfo['Name']) );
+					$table->addCell()->Insert(new PText($userinfo['Password']) );
 						{$grps=Main()->DB->fetch_all_query
 							("	SELECT DISTINCT Name
 								FROM Groups, GroupUsers
@@ -83,6 +86,7 @@ class EditUser extends PStepFormSection
 										Users::RemoveFromGroups( $this->getParam('ID') );
 										Users::Add2Groups( $this->getParam('ID'), $this->getParam('groups') );
 										Users::ReName( $this->getParam('ID'), $this->getParam('username') );
+										Users::SetPassword( $this->getParam('ID'), $this->getParam('Password') );
 										$this->TheForm->Insert(
 											JSRedirect2Section(
 												'EditUser',
@@ -98,6 +102,7 @@ class EditUser extends PStepFormSection
 										$table->addRow();
 											$table->addCell();
 											$table->addCell()->Insert(new PInput('text',$userinfo['Name'],'username'));
+											$table->addCell()->Insert(new PInput('text',$userinfo['Password'],'Password'));
 											$table->addCell()->Insert( Groups::GroupsFieldSet() );
 										$this->TheForm
 											->Insert( $table )
