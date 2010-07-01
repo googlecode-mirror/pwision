@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-# version 1.2.0
+# version 1.2.1
 
 #Users table
 DROP TABLE IF EXISTS `Users`;
@@ -61,7 +61,7 @@ INSERT INTO `Groups` (`ID`,`Name`,`Description`) VALUES
 	(6, 'UserEditors', 'user editor group'),
 	(7, 'UserActivators', 'user activator group'),
 	(8, 'UserFullManagers', 'full user manager group'),
-	(9, 'SectionManagers', 'section manager group')
+	(9, 'SectionManagers', 'section manager group'),
 	(10, 'GroupManagers','group manager group')
 	;
 
