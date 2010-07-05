@@ -416,7 +416,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 /** 	The PWebPageDefault class is designed to be the default themed webpage of PWision. The layout described by this theme is derived from PCSSZenWebPage layout.
 	*	\latexonly \label{PWision:PWebPageDefault} \index{PWebPageDefault} \endlatexonly
 	*	\brief PWision's default themed webpage.
-	*	\version 1.2.0
+	*	\version 1.3.0
 	*/
 abstract class PWebPageDefault extends PCSSZenWebPage
 	{
@@ -485,6 +485,19 @@ abstract class PWebPageDefault extends PCSSZenWebPage
 						->setAtr('id','pageTitle')
 					)
 				->Insert($this->idLselect())
+			;
+		}
+	/// \brief quickSummary div
+	protected function idQuickSummary()
+		{
+		return Object(new PElement("div"))
+				->setAtr("id","quickSummary")
+			->Insert(
+				new PText(
+					$this->getMessages().
+					$this->getSection()->getDescription()
+					)
+				)
 			;
 		}
 	/// \brief supportingText div
