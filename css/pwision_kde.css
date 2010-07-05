@@ -1,6 +1,6 @@
 /*
 pwision_kde.css
-	- version 1.7.0
+	- version 1.9.0
 	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
 part of PWision toolkit: http://pwision.googlecode.com/
 Copyright (C) 2009,2010 Becheru Petru-Ioan
@@ -183,7 +183,22 @@ img {
 
 table {
 	border-collapse:collapse;
+	float:left;
+	display:block;
+	margin:.5em;
+	border-radius: .5em .5em 0px 0px;
+		-moz-border-radius: .5em .5em 0px 0px;
 	}
+	caption
+		{
+		font-weight: bold;
+		font-style: italic;
+		text-shadow: #969696 1px 1px 2px;
+		}
+		table:hover caption
+			{
+			color:black;
+			}
 	tbody{
 		width:100%;
 		}
@@ -201,6 +216,12 @@ table {
 		td:hover{
 			border-color:black;
 			}
+span.simple table
+	{
+	float:none;
+	display:block;
+	display:inline-block;
+	}
 
 /*
  * images for PWision sections
@@ -394,7 +415,7 @@ a.section
 				}
 
 
-#intro
+#intro,.intro
 	{
 	margin-right:1em;
 	padding: 0 0 .5em 0;
@@ -408,7 +429,6 @@ a.section
 		-webkit-box-shadow:2px 2px 5px #888888;
 		-moz-box-shadow:2px 2px 5px #888888;
 	float:left;
-	clear: left;
 	}
 
 
