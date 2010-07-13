@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@ include_once("inc/PFormSection.inc");
 include_once('inc/PRedirectSection.inc');
 include_once("inc/PTable.inc");
 include_once("inc/Users.inc");
+include_once("inc/Groups.inc");
 /** 	The CreateSection class is designed to model a section that allows a user to create sections of the website.
 	*	\latexonly \label{PWision:Sections:CreateSection} \index{CreateSection} \index{section} \endlatexonly
 	*	\brief a section creator.
