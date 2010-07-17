@@ -32,6 +32,7 @@ class PMyWebPage extends PWebPageDefault
 	function setLanguage()
 		{
 		$this->Language='en';
+		PMainComponent::$Lang['']='';
 		parent::setLanguage();
 		}
 		/**	Gives the <b>style</b> tag with the text/css type.
@@ -42,23 +43,23 @@ class PMyWebPage extends PWebPageDefault
 			{
 			// get theme number from UserInfo
 			//$no=$this->UserInfo["Theme"];
-			return PBasicWebPage::Head_Css()
+			return parent::Head_Css()
 				->Insert(new PText(" @import \"css/pwision_lightgray.css\"; "))
 				;
 			}
 	function SearchForm($query='')
 		{
-		return null;
+		return null;// no search form by default
 		return PWebPageDefault::SearchForm($query);
 		}
 	function SkyAdd()
 		{
-		return null;
+		return null;// no sky add by default
 		return PWebPageDefault::SkyAdd();
 		}
 	function LongAdd()
 		{
-		return null;
+		return null;// no long add by default
 		return PWebPageDefault::LongAdd();
 		}
 	function reCAPTCHAprivatekey()
@@ -74,7 +75,7 @@ class PMyWebPage extends PWebPageDefault
 		*/
 	function PMyWebPage()
 		{
-		PCSSZenWebPage::PCSSZenWebPage();
+		PWebPageDefault::PWebPageDefault();
 		$this
 			->setTitle("PWision")
 			->setMotto("change the code by extending it")

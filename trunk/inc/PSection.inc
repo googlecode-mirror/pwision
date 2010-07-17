@@ -102,6 +102,7 @@ class PSection
 		*/
 	function setParams(){}
 	/**	This method is called by the CheckParams() before checking the regexp.
+		*	\note params should be accessed by $_REQUEST[]
 		*	\brief preprocess a param.
 		*	\param $param_name a parameter that is set
 		*	\return nothing
@@ -323,7 +324,7 @@ class PSection
 /**	A namespace for section relation functions.
 	*	\latexonly \label{PWision:Sections} \endlatexonly
 	*	\brief section's namespace.
-	*	\version 3.0.4
+	*	\version 3.0.5
 	*/
 final class Sections
 	{
@@ -578,18 +579,20 @@ final class Sections
 
 	/**	Gets the sections that have as Owner $section_name.
 		*	\brief the subsections of a section.
+		*	\version 1.0.1
 		*	\param $section_name the name of the section
 		*	\return an array containing the subsections with full information
 		*/
  	static function SubSections( $section_name="Root" )
 		{
 		if(!Sections::CheckName($section_name)) return false;
-		return Main()->DB->fetch_all_query( "SELECT * FROM Sections WHERE Owner='$section_name'");
+		return Main()->DB->fetch_all_query( "SELECT * FROM Sections WHERE Owner='$section_name' order by `Sort`");
 		}
 
 	/**	Gets the sections that have as Owner $section_name and are accesible by the user with $UserID.
 		*	\note see the <i>access rule</i> in Users::hasAccess()
 		*	\brief the subsections of a section that are accesible by an user.
+		*	\version 1.0.1
 		*	\param $section_name the name of the section
 		*	\param $UserID the user's id
 		*	\return an array containing the accesible subsections with full information
@@ -603,11 +606,13 @@ final class Sections
 					"select Count(*) from GroupSections where SectionName=Sections.Name ".
 						" and GroupID in ".
 							"(select GroupID from GroupUsers where UserID='$UserID')".
-					")>0"
+					")>0".
+				' order by `Sort`'
 			);
 		}
 	/**	Gets the sections that have as Owner $section_name, are accesible by the user with $UserID and are not hidden.
 		*	\brief the subsections of a section that are accesible by an user and not hidden.
+		*	\version 1.0.1
 		*	\param $section_name the name of the section
 		*	\param $UserID the user's id
 		*	\return an array containing the accesible not hidden subsections with full information
@@ -625,12 +630,14 @@ final class Sections
 					"select Count(*) from GroupSections where SectionName=Sections.Name ".
 						" and GroupID in ".
 							"(select GroupID from GroupUsers where UserID='$UserID')".
-					")>0"
+					")>0".
+				' order by `Sort`'
 			);
 		}
 
 	/**	the bookmarked sections of a user combined with those of used 0(guest).
 		*	\brief the accesible bookmarked sections.
+		*	\version 1.0.1
 		*	\param $UserID the user's id
 		*	\return an array containing the accesible bookmarked sections with full information
 		*/
@@ -648,7 +655,8 @@ final class Sections
 					"select Count(*) from GroupSections where GroupSections.SectionName=Sections.Name ".
 						" and GroupSections.GroupID in ".
 							"(select GroupID from GroupUsers where GroupUsers.UserID='$UserID')".
-					")>0"
+					")>0".
+				' order by `Sort`'
 			);
 		}
 
@@ -751,7 +759,7 @@ final class Sections
 		}
 	/**	Gets a fieldset with inputs for all the sections of the website.
 		*	\brief a fieldset with all the sections.
-		*	\version 1.0.1
+		*	\version 1.0.2
 		*	\param $name name of the input
 		*	\param $legend the text of the <b>legend</b> element
 		*	\param $input_type the <b>input</b> elements type
@@ -765,7 +773,7 @@ final class Sections
 			->Insert(Sections::Link2("Root"))
 			->Insert( sEl("br") )
 			;
-		$Sections=Main()->DB->fetch_all_query("select * from Sections");
+		$Sections=Main()->DB->fetch_all_query("select * from Sections order by `Sort`");
 		return $SectionBox
 			->Insert( Array2Inputs($Sections, $name, "Name", "Name", $input_type, sEl("br")) );
 		}
