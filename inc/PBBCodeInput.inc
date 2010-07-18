@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,11 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 include_once('PForm.inc');
+include_once('PVirtualKeyboard.inc');
 
 /** 	The PBBCodeInput class is designed to be a BBCode input textarea with button for BBCode tags.
 	*	\latexonly \label{PBBCodeInput:PBBCodeInput} \index{PBBCodeInput} \index{BBCode} \index{textarea} \endlatexonly
 	*	\brief BBCode input textarea.
-	*	\version 1.1.1
+	*	\version 1.2.0
 	*	\par Example:
 \code
 include_once("PBBCodeInput.inc");
@@ -31,41 +32,20 @@ print( new PBBCodeInput('the text', 'text','textContent') );
 \endcode
 	*	\par Output:
 \verbatim
-<input type="button" value="Clear Text!" onclick="clearText()"/><input type="button" value="Scroll down!" onclick="scrolltoEnd()"/><input type="submit" value="Submit Changes!"/><br></br><textarea name="text" rows="20" id="textContent">the text</textarea><br></br>Insert:<br></br><div class="BBCodes" onclick="insertAtCursor('','&#258;')">&#258;</div><div class="BBCodes" onclick="insertAtCursor('','&#259;')">&#259;</div><div class="BBCodes" onclick="insertAtCursor('','&#194;')">&#194;</div><div class="BBCodes" onclick="insertAtCursor('','&#226;')">&#226;</div><div class="BBCodes" onclick="insertAtCursor('','&#206;')">&#206;</div><div class="BBCodes" onclick="insertAtCursor('','&#238;')">&#238;</div><div class="BBCodes" onclick="insertAtCursor('','&#x218;')">&#x218;</div><div class="BBCodes" onclick="insertAtCursor('','&#x219;')">&#x219;</div><div class="BBCodes" onclick="insertAtCursor('','&#x21A;')">&#x21A;</div><div class="BBCodes" onclick="insertAtCursor('','&#x21B;')">&#x21B;</div><hr/><div class="BBCodes" onclick="insertAtCursor('[subtitle]','[/subtitle]')">[subtitle][/subtitle]</div><div class="BBCodes" onclick="insertAtCursor('[subsubtitle]','[/subsubtitle]')">[subsubtitle][/subsubtitle]</div><div class="BBCodes" onclick="insertAtCursor('[subsubsubtitle]','[/subsubsubtitle]')">[subsubsubtitle][/subsubsubtitle]</div><div class="BBCodes" onclick="insertAtCursor('[p]','[/p]')">[p][/p]</div><div class="BBCodes" onclick="insertAtCursor('[kw]','[/kw]')">[kw][/kw]</div><div class="BBCodes" onclick="insertAtCursor('[notranslate]','[/notranslate]')">[notranslate][/notranslate]</div><div class="BBCodes" onclick="insertAtCursor('[img=]','[/img]')">[img=][/img]</div><div class="BBCodes" onclick="insertAtCursor('','[br]')">[br]</div><hr/><div class="BBCodes" onclick="insertAtCursor('[i]','[/i]')">[i][/i]</div><div class="BBCodes" onclick="insertAtCursor('[b]','[/b]')">[b][/b]</div><div class="BBCodes" onclick="insertAtCursor('[sub]','[/sub]')">[sub][/sub]</div><div class="BBCodes" onclick="insertAtCursor('[sup]','[/sup]')">[sup][/sup]</div><hr/><div class="BBCodes" onclick="insertAtCursor('[list type=1AaIi]','[/list]')">[list type=1AaIi][/list]</div><div class="BBCodes" onclick="insertAtCursor(' [li]','[/li]')"> [li][/li]</div><hr/><div class="BBCodes" onclick="insertAtCursor('[table border=1][caption]','[/caption][/table]')">[table border=1][caption][/caption][/table]</div><div class="BBCodes" onclick="insertAtCursor(' [tr]','[/tr]')"> [tr][/tr]</div><div class="BBCodes" onclick="insertAtCursor('   [td]','[/td]')">   [td][/td]</div><div class="BBCodes" onclick="insertAtCursor('[td colrowspan=1]','[/td]')">[td colrowspan=1][/td]</div><div class="BBCodes" onclick="insertAtCursor('[]','[/]')">[][/]</div><hr/><script type="text/javascript">function scrolltoEnd(){el=document.getElementById("textContent");el.scrollTop=el.scrollHeight;}function insertText(txt){el=document.getElementById("textContent");el.value=el.value+(txt);}function clearText(){el=document.getElementById("textContent");if(confirm("Are you sure you want to clear the text content?"))el.value="";el.focus();}
-function insertAtCursor( before, after)
-	{
-	myField=document.getElementById("textContent");
-	//IE support
-	if (document.selection)
-			{
-			myField.focus();
-			sel = document.selection.createRange();
-			sel.text = myValue;
-			}
-		//MOZILLA/NETSCAPE support
-		else
-			if (myField.selectionStart || myField.selectionStart == '0')
-					{
-					var startPos = myField.selectionStart;
-					var endPos = myField.selectionEnd;
-					myField.value =
-						myField.value.substring(0, startPos)
-						+ before
-						+ myField.value.substring(startPos,endPos)
-						+ after
-						+ myField.value.substring(endPos, myField.value.length);
-					}
-				else
-					{
-					myField.value += before+after;
-					}
-	myField.focus();
-	}
-										</script>
 \endverbatim
 	*/
 class PBBCodeInput extends PContent
 	{
+	/**
+		*	\brief head script
+		*	\param $lang language code
+		*	\param $ids ids of the inputs where the keyboard will be active
+		*	\return PVirtualKeyboard::Head($lang, $ids)
+		*/
+	static function Head($lang='en',$ids=array('textContent'))
+		{
+		return PVirtualKeyboard::Head($lang, $ids);
+		}
 	/**	Creates an input button that insert a text when clicked.
 		*	\brief create a button that inserts text.
 		*	\version 2.0.1
@@ -95,6 +75,9 @@ class PBBCodeInput extends PContent
 		$this
 			->Insert(sEl('hr'))
 			->Insert(
+				PVirtualKeyboard::kbSelect()
+				)
+			->Insert(
 				Object(new PInput("button","Clear Text!",""))
 					->setAtr('onclick', 'clearText()')
 				)
@@ -110,16 +93,6 @@ class PBBCodeInput extends PContent
 				)
 							->Insert(El('br'))
 						->Insert(new PText('Insert:') )->Insert(El('br'))
-							->Insert(PBBCodeInput::insertTextButton('','&#258;'))
-							->Insert(PBBCodeInput::insertTextButton('','&#259;'))
-							->Insert(PBBCodeInput::insertTextButton('','&#194;'))
-							->Insert(PBBCodeInput::insertTextButton('','&#226;'))
-							->Insert(PBBCodeInput::insertTextButton('','&#206;'))
-							->Insert(PBBCodeInput::insertTextButton('','&#238;'))
-							->Insert(PBBCodeInput::insertTextButton('','S&#x0326;'))
-							->Insert(PBBCodeInput::insertTextButton('','s&#x0326;'))
-							->Insert(PBBCodeInput::insertTextButton('','T&#x0326;'))
-							->Insert(PBBCodeInput::insertTextButton('','t&#x0326;'))
 						->Insert(sEl('hr'))
 							->Insert(PBBCodeInput::insertTextButton('[subtitle]','[/subtitle]'))
 							->Insert(PBBCodeInput::insertTextButton('[subsubtitle]','[/subsubtitle]'))

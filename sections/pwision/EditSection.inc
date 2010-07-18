@@ -25,10 +25,16 @@ include_once("inc/Groups.inc");
 /** 	The EditSection class is designed to model the section that allows a user to edit the sections of the website. It provides an intuitive interface with textboxes (for section name and description) and checkboxes (that display the groups that the section will be member of).
 	*	\latexonly \label{PWision:Sections:EditSection} \index{EditSection} \endlatexonly
 	*	\brief a section editor.
-	*	\version 1.5.0
+	*	\version 1.6.0
 	*/
 class EditSection extends PStepFormSection
 	{
+	function Head()
+		{
+		return parent::Head()
+			->Insert( PBBCodeInput::Head(Main()->getLanguage(),array('textContent', 'description')) )
+			;
+		}
 	protected function preprocessParam($param_name)
 		{
 		$_REQUEST[$param_name]=charset_decode_utf_8($_REQUEST[$param_name]);
@@ -108,7 +114,10 @@ class EditSection extends PStepFormSection
 										$T->addCell();
 									$T->AddRow();
 										$T->addCell()->Insert(new PText("Description:"));
-										$T->addCell()->Insert(new PInput("text",$description,"description"));
+										$T->addCell()->Insert(
+											Object(new PInput("text",$description,"description"))
+												->setAtr('id','description')
+											);
 										$T->addCell()->Insert(new PText("use ' a-z' 127 chars max"));
 									$T->AddRow();
 										$T->addCell()->Insert(new PText("Sorting string:"));

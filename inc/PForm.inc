@@ -83,7 +83,7 @@ class PInput extends PSimpleTag
 		*	\param $value value
 		*	\param $name nameid of the element
 		*/
-	function PInput($type,$value,$name)
+	function PInput($type="text",$value,$name)
 		{
 		PSimpleTag::PSimpleTag("input");
 		$this
@@ -106,11 +106,10 @@ class PInput extends PSimpleTag
 	*	\param $separator the IDrawAble that sepates the generated inputs
 	*	\param $sEl_name the name of the simple element(by default <b>input</b>).
 	*	\return a PContent object that contains the inputs
-	*	\todo replace eregi with preg_match before foreach
 	*/
 function Array2Inputs($arr=null,$name='',$key4Value='value',$key4Text='text',$type="checkbox",IDrawAble $separator=null, $sEl_name="input")
 	{if($separator==null)$separator=new PSimpleTag("br");
-	
+
 	if($arr==null)return null;
 	$Content=new PContent();
 	$key_in_name=($type=='checkbox') && !eregi('^[a-z0-9_.]*\[\]$',$name);
@@ -256,6 +255,7 @@ function FieldSet($legend_text='')
 
 /**	Constructs a textarea input element.
 	*	\brief a textarea.
+	*	\version 1.0.1
 	*	\param $name name of the textarea
 	*	\param $text initial text content of textarea
 	*	\param $rows number of visible rows of the textarea
@@ -266,6 +266,7 @@ function TextArea($name,$text='',$rows=20)
 	return
 		El('textarea')
 				->setAtr('name',$name)
+				->setAtr('id',$name)
 				->setAtr('rows',$rows)
 			->Insert(new PText($text) )
 		;
