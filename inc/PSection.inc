@@ -324,7 +324,7 @@ class PSection
 /**	A namespace for section relation functions.
 	*	\latexonly \label{PWision:Sections} \endlatexonly
 	*	\brief section's namespace.
-	*	\version 3.0.5
+	*	\version 3.0.7
 	*/
 final class Sections
 	{
@@ -442,7 +442,7 @@ final class Sections
 
 	/**	Compile a BBCoded text to HTML.
 		*	\brief translate BBCode to HTML.
-		*	\version 1.3.0
+		*	\version 1.3.2
 		*	\param $text BBCoded input text string
 		*	\return HTML encoded text string
 		*/
@@ -465,11 +465,12 @@ final class Sections
 			,"/\[u\](.*?)\[\/u\]/is" => '<span style="text-decoration: underline;">$1</span>' //underline
 			,"/\[o\](.*?)\[\/o\]/is" => '<span style="text-decoration: overline;">$1</span>' //overline
 
-			,"/\[sub\](.*?)\[\/sub\]/is" => '<sub>$1</sub>' //subscript
-			,"/\[sup\](.*?)\[\/sup\]/is" => '<sup>$1</sup>' //superscript
+			,"/\[su(b|p)\]/is" => '<su$1>' //sub and super script start tag
+			,"/\[\/su(b|p)\]/is" => '</su$1>' //sub and super script end tag
 
-			,"/\[url=(http:\/\/[-=%&_?\/.a-z0-9]*)\](.*?)\[\/url\]/is" => '<a href="$1">$2</a>' //href
-			,"/\[[*]url=(http:\/\/[-=%&_?\/.a-z0-9]*)\](.*?)\[\/url\]/is" => '<a target="_blank" href="$1">$2</a>' //href in new window
+			,"/\[url=([#-=%&_?\/.a-z0-9]+)\](.*?)\[\/url\]/is" => '<a href="$1">$2</a>' //href
+			,"/\[url=([#-=%&_?\/.a-z0-9]+) name=([a-z0-9_]*)\](.*?)\[\/url\]/is" => '<a href="$1" name="$2">$3</a>' //href with name
+			,"/\[[*]url=([#-=%&_?\/.a-z0-9]+)\](.*?)\[\/url\]/is" => '<a target="_blank" href="$1">$2</a>' //href in new window
 			,"/\[redirect=(http:\/\/[-=%&_?\/.a-z0-9]*)\](.*?)\[\/redirect\]/is" => '<a href="$1">$2</a><script type="text/javascript">setTimeout("redir()",1000);function redir(){window.location="$1";}</script>' //redirection to an url
 
 			,"/\[\](.*?)\[\/\]/is" => '<span class="simple">$1</span>' // span
@@ -486,7 +487,8 @@ final class Sections
 			,"/\[td rowspan=[\\\\]*['\"]?([0-9]+)[\\\\]*['\"]?\](.*?)\[\/td\]/is" => '<td rowspan="$1">$2</td>' //table cell with rowspan
 			,"/\[td (((col)|(row))span=[\\\\]*['\"]?[0-9]+[\\\\]*['\"]?) (((col)|(row))span=[\\\\]*['\"]?[0-9]+[\\\\]*['\"]?)\](.*?)\[\/td\]/is" => '<td $1 $5>$9</td>' //table cell
 
-			,"/\[li\](.*?)\[\/li\]/is" => '<li>$1</li>' //list item
+			,"/\[li\]/is" => '<li>' //list item start tag
+			,"/\[\/li\]/is" => '</li>' //list item end tag
 			,"/\[list\](.*?)\[\/list\]/is" => '<ul>$1</ul>' //unordered list
 			,"/\[list type=(.)\](.*?)\[\/list\]/is" => '<ol type=$1>$2</ol>' //unordered list
 			);
