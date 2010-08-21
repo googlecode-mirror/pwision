@@ -82,6 +82,7 @@ class PSection
 				*	\param $not_set_message the message if the parameter is not set(defined)
 				*	\param $error_message the message if the parameter doesn't check
 				*	\return reference to $this
+				*	\note if the reg_exp if '' it will be not checked
 				*/
 			protected function & addParam( $param_name, $reg_exp='', $not_set_message=null, $error_message=null )
 				{
