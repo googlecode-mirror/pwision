@@ -325,7 +325,7 @@ class PSection
 /**	A namespace for section relation functions.
 	*	\latexonly \label{PWision:Sections} \endlatexonly
 	*	\brief section's namespace.
-	*	\version 3.0.7
+	*	\version 3.0.8
 	*/
 final class Sections
 	{
@@ -665,18 +665,19 @@ final class Sections
 
 	/**	Constructs an hyperlink to a section from a SQL section information.
 		*	\brief hyperlink to a SQL section information.
+		*	\version 1.0.1
 		*	\param $section array containing section information, that may have been return by Section() function.
 		*	\return an <b>a</b> element with a hyper reference to the section.
 		*/
 	static function Link2SQLSection( $section)
 		{
 		if($section['Type']=='section')
-				return Sections::Link2($section['Name'],$section['Description']);
+				return Sections::Link2($section['Name'],lang($section['Description']));
 			else
 				return
 					El("a")
 							->setAtr("href","index.php?section=". $section['Owner']. "#". $section['Name'])
-							->setAtr("title",$section['Description'])
+							->setAtr("title",lang($section['Description']))
 						->Insert(PTextlang($section['Name']));
 		}
 	/**	Constructs an hyperlink to a section.
