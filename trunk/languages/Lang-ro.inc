@@ -20,12 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**	\file
 	*	\brief pwision translation to romanian.
-	*	\version 1.2.0
+	*	\version 1.3.0
 	*/
 
 
 PMainComponent::$Lang['Select a layout for the virtual keyboard']='Selecteaz&#259; limba tastaturii virtuale';
-
+PMainComponent::$Lang['Insert:']='Insereaz&#259;:';
 
 // PCSSZenWebPage
 PMainComponent::$Lang['Bookmarks']='Acces Rapid';

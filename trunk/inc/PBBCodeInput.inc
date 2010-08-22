@@ -24,7 +24,7 @@ include_once('PVirtualKeyboard.inc');
 /** 	The PBBCodeInput class is designed to be a BBCode input textarea with button for BBCode tags.
 	*	\latexonly \label{PBBCodeInput:PBBCodeInput} \index{PBBCodeInput} \index{BBCode} \index{textarea} \endlatexonly
 	*	\brief BBCode input textarea.
-	*	\version 1.2.0
+	*	\version 1.2.1
 	*	\par Example:
 \code
 include_once("PBBCodeInput.inc");
@@ -64,7 +64,7 @@ class PBBCodeInput extends PContent
 		}
 	/**	Constructs
 		*	\brief constructor
-		*	\version 1.0.1
+		*	\version 1.0.2
 		*	\param $text initial text content of textarea
 		*	\param $name name of the textarea
 		*	\param $id id attribute of the textarea
@@ -78,21 +78,21 @@ class PBBCodeInput extends PContent
 				PVirtualKeyboard::kbSelect()
 				)
 			->Insert(
-				Object(new PInput("button","Clear Text!",""))
+				Object(new PInput("button",lang("Clear Text!"),""))
 					->setAtr('onclick', 'clearText()')
 				)
 			->Insert(
-				Object(new PInput("button","Scroll down!",""))
+				Object(new PInput("button",lang("Scroll down!"),""))
 					->setAtr('onclick', 'scrolltoEnd()')
 				)
-			->Insert(new PInput("submit","Submit Changes!",""))
+			->Insert(new PInput("submit",lang("Submit Changes!"),""))
 			->Insert(El('br'))
 			->Insert(
 				TextArea($name,$text)
 					->setAtr('id',$id)
 				)
 							->Insert(El('br'))
-						->Insert(new PText('Insert:') )->Insert(El('br'))
+						->Insert(PTextlang('Insert:') )->Insert(El('br'))
 						->Insert(sEl('hr'))
 							->Insert(PBBCodeInput::insertTextButton('[subtitle]','[/subtitle]'))
 							->Insert(PBBCodeInput::insertTextButton('[subsubtitle]','[/subsubtitle]'))
