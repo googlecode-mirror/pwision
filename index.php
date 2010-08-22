@@ -29,11 +29,11 @@ include_once("inc/PCSSZenWebPage.inc");
 	*/
 class PMyWebPage extends PWebPageDefault
 	{
-	function setLanguage()
+	function & setLanguage()
 		{
 		$this->Language='en';
 		PMainComponent::$Lang['']='';
-		parent::setLanguage();
+		return parent::setLanguage();
 		}
 		/**	Gives the <b>style</b> tag with the text/css type.
 			*	\brief the css.
