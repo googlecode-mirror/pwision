@@ -43,9 +43,14 @@ class PMyWebPage extends PWebPageDefault
 			{
 			// get theme number from UserInfo
 			//$no=$this->UserInfo["Theme"];
-			return parent::Head_Css()
-				->Insert(new PText(" @import \"css/pwision_lightgray.css\"; "))
+			return PBasicWebPage::Head_Css()
+				->Insert(new PText(" @import \"css/pwision_kde.css\"; "))
 				;
+			}
+		protected function TranslateElement()
+			{
+			return null;
+			return parent::TranslateElement();
 			}
 	function SearchForm($query='')
 		{
