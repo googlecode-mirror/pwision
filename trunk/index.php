@@ -35,17 +35,10 @@ class PMyWebPage extends PWebPageDefault
 		PMainComponent::$Lang['']='';
 		return parent::setLanguage();
 		}
-		/**	Gives the <b>style</b> tag with the text/css type.
-			*	\brief the css.
-			*	\return \<style type="text/css"\> tag
-			*/
-		protected function Head_Css()
+		protected function website_css()
 			{
-			// get theme number from UserInfo
-			//$no=$this->UserInfo["Theme"];
-			return PBasicWebPage::Head_Css()
-				->Insert(new PText(" @import \"css/pwision_kde.css\"; "))
-				;
+			return null;
+			return new PText(" @import \"css/pwision_kde.css\"; ");
 			}
 		protected function TranslateElement()
 			{

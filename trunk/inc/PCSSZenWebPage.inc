@@ -21,7 +21,7 @@ include_once("PBasicWebPage.inc");
 /** 	The PCSSZenWebPage class is designed to model the <a href="http://www.csszengarden.com">www.csszengarden.com</a> website layout so we can use the themes provided by this website.
 	*	\latexonly \label{PWision:PCSSZenWebPage} \index{PCSSZenWebPage} \index{webpage} \index{layout} \index{theme} \index{css zen garden} \endlatexonly
 	*	\brief a themed webpage.
-	*	\version 3.0.1
+	*	\version 3.1.0
 	*	\par Example:
 \code
 include_once("PCSSZenWebPage.inc");
@@ -52,11 +52,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 		{
 		PBasicWebPage::PBasicWebPage();
 		}
-		/**	Gives the <b>style</b> tag with the text/css type.
-			*	\brief the css.
-			*	\return \<style type="text/css"\> tag
-			*/
-		protected function Head_Css()
+		protected function pwision_css()
 			{
 			// get theme number from UserInfo
 			$no=$this->UserInfo["Theme"];
@@ -65,9 +61,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 			my favourite numbers:
 			001 069 020 025 097 063 195 091 092 138
 			*/
-			return PBasicWebPage::Head_Css()
-				->Insert(new PText(" @import \"http://www.csszengarden.com/$no/$no.css\"; "))
-				;
+			return new PText(" @import \"http://www.csszengarden.com/$no/$no.css\"; ");
 			}
 	/**	the body.
 		*	\brief builds the body
@@ -416,15 +410,13 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 /** 	The PWebPageDefault class is designed to be the default themed webpage of PWision. The layout described by this theme is derived from PCSSZenWebPage layout.
 	*	\latexonly \label{PWision:PWebPageDefault} \index{PWebPageDefault} \endlatexonly
 	*	\brief PWision's default themed webpage.
-	*	\version 1.3.0
+	*	\version 1.4.0
 	*/
 abstract class PWebPageDefault extends PCSSZenWebPage
 	{
-		protected function Head_Css()
+		protected function pwision_css()
 			{
-			return PBasicWebPage::Head_Css()
-				->Insert(new PText(" @import \"css/pwision_lightgray.css\"; "))
-				;
+			return new PText(" @import \"css/pwision_kde.css\"; ");
 			}
 	protected function UserBookmarks()
 		{

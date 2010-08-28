@@ -164,7 +164,7 @@ function SiteURL()
 /** 	The PBasicWebPage class is designed to model a webpage. Main atributes of a webpage are: title, motto, message, section and the language.
 	*	\latexonly \label{PWision:PBasicWebPage} \index{PBasicWebPage} \index{webpage} \index{section} \endlatexonly
 	*	\brief a basic web page.
-	*	\version 3.0.0
+	*	\version 3.1.0
 	*	\note  Themed webpages will extend this class.
 	*	\par Example:
 	*		see PCSSZenWebPage class.
@@ -450,7 +450,10 @@ new google.translate.TranslateElement({
 						)
 				);
 		// the CSS theme
-			$ret->Insert($this->Head_Css());
+			$ret->Insert(
+				$this->Head_Css()
+					->Insert($this->website_css())
+				);
 		// section's head
 			$ret->Insert( $this->getSection()->Head() );
 		return $ret;
@@ -479,11 +482,30 @@ new google.translate.TranslateElement({
 			{
 			return
 				Object(new PElement("style"))
-						->setAtr("type","text/css")
-						->setAtr("title","currentStyle")
-						->setAtr("media","screen")
+							->setAtr("type","text/css")
+							->setAtr("title","currentStyle")
+							->setAtr("media","screen")
+						->Insert($this->pwision_css())
 					;
 			}
+			/**	Gives a css file for the webpage.
+				*	\brief the default css file.
+				*	\return a PDrawable(by default null).
+				*	\note should be reimplemented in derived class to return for example new PText(" @import \"http://www.csszengarden.com/1/1.css\"; ")
+				*/
+			protected function pwision_css()
+				{
+				return null;
+				}
+			/**	Gives a css file for the webpage. The returned object is inserted <b>last</b> in the style element from the head element.
+				*	\brief the default css file.
+				*	\return a PDrawable(by default null).
+				*	\note should return for example new PText(" @import \"http://www.csszengarden.com/1/1.css\"; ")
+				*/
+			protected function website_css()
+				{
+				return null;
+				}
 	/**	the body.
 		*	\brief builds the body
 		*	\version 1.0.0
