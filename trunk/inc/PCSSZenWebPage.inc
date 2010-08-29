@@ -21,7 +21,7 @@ include_once("PBasicWebPage.inc");
 /** 	The PCSSZenWebPage class is designed to model the <a href="http://www.csszengarden.com">www.csszengarden.com</a> website layout so we can use the themes provided by this website.
 	*	\latexonly \label{PWision:PCSSZenWebPage} \index{PCSSZenWebPage} \index{webpage} \index{layout} \index{theme} \index{css zen garden} \endlatexonly
 	*	\brief a themed webpage.
-	*	\version 3.1.0
+	*	\version 3.1.1
 	*	\par Example:
 \code
 include_once("PCSSZenWebPage.inc");
@@ -210,8 +210,8 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 								)
 						)
 					->Insert($this->getSection()->Chapter4())
-					->Insert($this->LongAdd())
 				)
+			->Insert($this->LongAdd())
 			->Insert($this->idFooter())
 			;
 		}
