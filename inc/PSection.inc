@@ -325,7 +325,7 @@ class PSection
 /**	A namespace for section relation functions.
 	*	\latexonly \label{PWision:Sections} \endlatexonly
 	*	\brief section's namespace.
-	*	\version 3.0.9
+	*	\version 3.0.10
 	*/
 final class Sections
 	{
@@ -443,7 +443,7 @@ final class Sections
 
 	/**	Compile a BBCoded text to HTML.
 		*	\brief translate BBCode to HTML.
-		*	\version 1.3.3
+		*	\version 1.3.4
 		*	\param $text BBCoded input text string
 		*	\return HTML encoded text string
 		*/
@@ -475,9 +475,9 @@ final class Sections
 			,"/\[redirect=([#-=%&_?\/.a-z0-9]+)\](.*?)\[\/redirect\]/is" => '<a href="$1">$2</a><script type="text/javascript">setTimeout("redir()",1000);function redir(){window.location="$1";}</script>' //redirection to an url
 
 			,"/\[\](.*?)\[\/\]/is" => '<span class="simple">$1</span>' // span
-			,"/\[img](http:\/\/[\/.a-z0-9_]*)\[\/img\]/is" => '<img src="$1"/>' // simple image image
-			,"/\[img=(http:\/\/[\/.a-z0-9_]*)\][[:space:]]*\[\/img\]/is" => '<img src="$1"/>' // simple image image
-			,"/\[img=(http:\/\/[\/.a-z0-9_]*)\](.+?)\[\/img\]/is" => '<table><caption>$2</caption><tr><td><img src="$1"/></td></tr></table>'//image with text
+			,"/\[img]([:\/.a-z0-9_]*)\[\/img\]/is" => '<img src="$1"/>' // simple image image
+			,"/\[img=([:\/.a-z0-9_]*)\][[:space:]]*\[\/img\]/is" => '<img src="$1"/>' // simple image image
+			,"/\[img=([:\/.a-z0-9_]*)\](.+?)\[\/img\]/is" => '<table><caption>$2</caption><tr><td><img src="$1"/></td></tr></table>'//image with text
 
 			,"/\[table\](.*?)\[\/table\]/is" => '<table>$1</table>' //table
 			,"/\[table border=([0-9]+)\](.*?)\[\/table\]/is" => '<table border=$1>$2</table>' //table with border
