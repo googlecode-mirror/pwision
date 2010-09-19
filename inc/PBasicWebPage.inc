@@ -28,7 +28,7 @@ include_once("PStaticSection.inc");
 /** 	The PMostBasicWebPage class is designed to be a model the most basic webpage: a PDrawable with a database connection.
 	*	\latexonly \label{PWision:PMostBasicWebPage} \index{PMostBasicWebPage} \index{database} \endlatexonly
 	*	\brief a PDrawable with database connection.
-	*	\version 2.1.0
+	*	\version 2.2.0
 	*	\par Example:
 	*		See PBasicWebPage class.
 	*/
@@ -148,6 +148,7 @@ abstract class PSitemap extends PMostBasicWebPage
 		}
 	/**
 		*	\brief the site's name.
+		*	\latexonly \label{PWision:PSitemap:SiteURL} \index{SiteURL} \index{URL} \endlatexonly
 		*	\return an PText containing the site's root url
 		*	\par Example:
 \code
@@ -244,6 +245,7 @@ abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 			}
 		/**	The translate gadget from google is a script.
 			*	\brief makes the <i>Translate Page</i> element.
+			*	\version 1.1.0
 			*	\return the translate gadget from google
 			*/
 		protected function TranslateElement()
@@ -252,7 +254,10 @@ abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 '<div id="google_translate_element"></div><script>
 function googleTranslateElementInit() {
 new google.translate.TranslateElement({
-	pageLanguage: \''.$this->getLanguage().'\'
+	pageLanguage: \''.$this->getLanguage().'\',
+	multilanguagePage: true,
+	gaTrack: true,
+	layout: google.translate.TranslateElement.InlineLayout.SIMPLE
 }, \'google_translate_element\');
 }
 </script><script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>');
@@ -546,6 +551,7 @@ new google.translate.TranslateElement({
 		}
 	/**	This function computes the reCAPTCHA private key. See http://recaptcha.net/plugins/php/ .
 		*	\brief the reCAPTCHA private key
+		*	\latexonly \label{PWision:PBasicWebPage:reCAPTCHAprivatekey} \index{private key} \index{reCaptcha}\endlatexonly
 		*	\return a text string
 		*	\note this method should be reimplemented in derived classes
 		*/
@@ -555,6 +561,7 @@ new google.translate.TranslateElement({
 		}
 	/**	This function computes the reCAPTCHA public key. See http://recaptcha.net/plugins/php/ .
 		*	\brief the reCAPTCHA public key
+		*	\latexonly \label{PWision:PBasicWebPage:reCAPTCHApublickey} \index{public key} \index{reCaptcha}\endlatexonly
 		*	\return a text string
 		*	\note this method should be reimplemented in derived classes
 		*/

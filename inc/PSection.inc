@@ -443,6 +443,7 @@ final class Sections
 
 	/**	Compile a BBCoded text to HTML.
 		*	\brief translate BBCode to HTML.
+		*	\latexonly \label{PWision:Sections:BBCode2HTML} \index{BBCode} \endlatexonly
 		*	\version 1.3.4
 		*	\param $text BBCoded input text string
 		*	\return HTML encoded text string
