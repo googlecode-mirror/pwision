@@ -92,7 +92,6 @@ interface IDrawableCloneAbleContent extends IDrawableContent, IInsertAbleCloneAb
 
 /** 	The PContent class is designed to model a drawable object that is formed of drawable objects(called subelements). A PContent object is drawn by drawn each subelement, in the insertion order.
 	*	\latexonly \label{PWision:PContent} \index{PContent} \index{subelements} \index{insertion} \endlatexonly
-	*	\note In particular a HTML element can contain HTML elements combined with texts.
 	*	\brief a text made of subtexts.
 	*	\version 2.3.0
 	*	\par Example:
