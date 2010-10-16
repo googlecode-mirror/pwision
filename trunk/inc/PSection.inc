@@ -325,7 +325,7 @@ class PSection
 /**	A namespace for section relation functions.
 	*	\latexonly \label{PWision:Sections} \endlatexonly
 	*	\brief section's namespace.
-	*	\version 3.0.10
+	*	\version 4.0.0
 	*/
 final class Sections
 	{
@@ -439,68 +439,6 @@ final class Sections
 	static function unHide( $section_name )
 		{
 		Main()->DB->query("DELETE FROM `HiddenSections` WHERE `SectionName` = '$section_name'");
-		}
-
-	/**	Compile a BBCoded text to HTML.
-		*	\brief translate BBCode to HTML.
-		*	\latexonly \label{PWision:Sections:BBCode2HTML} \index{BBCode!to HTML}\endlatexonly
-		*	\version 1.3.4
-		*	\param $text BBCoded input text string
-		*	\return HTML encoded text string
-		*/
-	function BBCode2HTML($text)
-		{
-		// reg exp tested with http://www.solmetra.com/scripts/regex/index.php
-		$bbcode=array(// http://en.wikipedia.org/wiki/BBCode
-			"/\[p\](.*?)\[\/p\]/is"=> '<p class="pw_p">$1</p>' // paragraphs
-			,"/\[subtitle\](.*?)\[\/subtitle\]/is"=> '<h4>$1</h4>' // subtitle - h4
-			,"/\[subsubtitle\](.*?)\[\/subsubtitle\]/is"=> '<h5>$1</h5>' // subsubtitle - h5
-			,"/\[subsubsubtitle\](.*?)\[\/subsubsubtitle\]/is"=> '<h6>$1</h6>' // subsubsubtitle - h6
-			,"/\[kw\](.*?)\[\/kw\]/is" => '<a href="index.php?section=KeywordSearch&kw=$1" title="Search for [ $1 ]">$1</a>' //keyword
-
-			,"/\[notranslate\](.*?)\[\/notranslate\]/is" => '<span class="notranslate">$1</span>' //keyword
-
-			,"/\[br\]/is" => '<br/>' //newline
-
-			,"/\[b\](.*?)\[\/b\]/is" => '<span style="font-weight: bold;">$1</span>' //bold
-			,"/\[i\](.*?)\[\/i\]/is" => '<span style="font-style: italic;">$1</span>' //italic
-			,"/\[u\](.*?)\[\/u\]/is" => '<span style="text-decoration: underline;">$1</span>' //underline
-			,"/\[o\](.*?)\[\/o\]/is" => '<span style="text-decoration: overline;">$1</span>' //overline
-
-			,"/\[su(b|p)\]/is" => '<su$1>' //sub and super script start tag
-			,"/\[\/su(b|p)\]/is" => '</su$1>' //sub and super script end tag
-
-			,"/\[url=([#-=%&_?\/.a-z0-9]+)\](.*?)\[\/url\]/is" => '<a href="$1">$2</a>' //href
-			,"/\[url=([#-=%&_?\/.a-z0-9]+) name=([a-z0-9_]*)\](.*?)\[\/url\]/is" => '<a href="$1" name="$2">$3</a>' //href with name
-			,"/\[[*]url=([#-=%&_?\/.a-z0-9]+)\](.*?)\[\/url\]/is" => '<a target="_blank" href="$1">$2</a>' //href in new window
-			,"/\[redirect=([#-=%&_?\/.a-z0-9]+)\](.*?)\[\/redirect\]/is" => '<a href="$1">$2</a><script type="text/javascript">setTimeout("redir()",1000);function redir(){window.location="$1";}</script>' //redirection to an url
-
-			,"/\[\](.*?)\[\/\]/is" => '<span class="simple">$1</span>' // span
-			,"/\[img]([:\/.a-z0-9_]*)\[\/img\]/is" => '<img src="$1"/>' // simple image image
-			,"/\[img=([:\/.a-z0-9_]*)\][[:space:]]*\[\/img\]/is" => '<img src="$1"/>' // simple image image
-			,"/\[img=([:\/.a-z0-9_]*)\](.+?)\[\/img\]/is" => '<table><caption>$2</caption><tr><td><img src="$1"/></td></tr></table>'//image with text
-
-			,"/\[table\](.*?)\[\/table\]/is" => '<table>$1</table>' //table
-			,"/\[table border=([0-9]+)\](.*?)\[\/table\]/is" => '<table border=$1>$2</table>' //table with border
-			,"/\[caption\](.*?)\[\/caption\]/is" => '<caption>$1</caption>' //caption
-			,"/\[tr\](.*?)\[\/tr\]/is" => '<tr>$1</tr>' //table row
-			,"/\[td\](.*?)\[\/td\]/is" => '<td>$1</td>' //table cell
-			,"/\[td colspan=[\\\\]*['\"]?([0-9]+)[\\\\]*['\"]?\](.*?)\[\/td\]/is" => '<td colspan="$1">$2</td>' //table cell with colspan
-			,"/\[td rowspan=[\\\\]*['\"]?([0-9]+)[\\\\]*['\"]?\](.*?)\[\/td\]/is" => '<td rowspan="$1">$2</td>' //table cell with rowspan
-			,"/\[td (((col)|(row))span=[\\\\]*['\"]?[0-9]+[\\\\]*['\"]?) (((col)|(row))span=[\\\\]*['\"]?[0-9]+[\\\\]*['\"]?)\](.*?)\[\/td\]/is" => '<td $1 $5>$9</td>' //table cell
-
-			,"/\[li\]/is" => '<li>' //list item start tag
-			,"/\[\/li\]/is" => '</li>' //list item end tag
-			,"/\[list\](.*?)\[\/list\]/is" => '<ul>$1</ul>' //unordered list
-			,"/\[list type=(.)\](.*?)\[\/list\]/is" => '<ol type=$1>$2</ol>' //unordered list
-			);
-		return
-			preg_replace(
-				array_keys($bbcode),
-				array_values($bbcode),
-				$text
-				)
-			;
 		}
 
 //---------BOOKMARKS
