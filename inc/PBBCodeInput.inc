@@ -64,7 +64,7 @@ class PBBCodeInput extends PContent
 		}
 	/**	Constructs
 		*	\brief constructor
-		*	\version 1.0.2
+		*	\version 1.0.3
 		*	\param $text initial text content of textarea
 		*	\param $name name of the textarea
 		*	\param $id id attribute of the textarea
@@ -99,6 +99,7 @@ class PBBCodeInput extends PContent
 							->Insert(PBBCodeInput::insertTextButton('[subsubsubtitle]','[/subsubsubtitle]'))
 							->Insert(PBBCodeInput::insertTextButton('[p]','[/p]'))
 							->Insert(PBBCodeInput::insertTextButton('[kw]','[/kw]'))
+							->Insert(PBBCodeInput::insertTextButton('[url=]','[/url]'))
 							->Insert(PBBCodeInput::insertTextButton('[notranslate]','[/notranslate]'))
 							->Insert(PBBCodeInput::insertTextButton('[img=]','[/img]'))
 							->Insert(PBBCodeInput::insertTextButton('','[br]'))
