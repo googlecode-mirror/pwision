@@ -23,7 +23,7 @@ include_once('PDrawable.inc');
 /** 	The PBBCode2HTML class is designed to be a BBCode to HTML convert class.
 	*	\latexonly \label{PWision:PBBCode2HTML} \index{PBBCode2HTML} \endlatexonly
 	*	\brief BBCode to HTML class.
-	*	\version 1.0.0
+	*	\version 1.0.1
 	*	\par Example:
 \code
 include_once("PBBCode2HTML.inc");
@@ -64,6 +64,8 @@ class PBBCode2HTML extends PProcessor
 			//XML tag markers
 			'`<`' => '_lt;'
 			,'`>`' => '_gt;'
+			//XML entity char
+			,'`&`' => '_and_'
 
 			,'`\[br\]`is'=>"[br/]"
 
@@ -118,6 +120,7 @@ class PBBCode2HTML extends PProcessor
 			,'`&gt;`' => '>'
 			,'`_lt;`' => '&lt;'
 			,'`_gt;`' => '&gt;'
+			,'`_and_`' => '&'
 			);
 		$this->result=BBCode::repeat_replace($XMLtagMarkers,$this->translated,1);
 		return $this;
