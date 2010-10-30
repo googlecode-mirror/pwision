@@ -116,11 +116,11 @@ class PBBCode2HTML extends PProcessor
 	function & PostProcess()
 		{
 		$XMLtagMarkers=array(
-			'`&lt;`' => '<'
+			'`_and_`' => '&'
+			,'`&lt;`' => '<'
 			,'`&gt;`' => '>'
 			,'`_lt;`' => '&lt;'
 			,'`_gt;`' => '&gt;'
-			,'`_and_`' => '&'
 			);
 		$this->result=BBCode::repeat_replace($XMLtagMarkers,$this->translated,1);
 		return $this;
