@@ -1,6 +1,6 @@
 /*
 pwision_kde.css
-	- version 1.10.1
+	- version 1.10.2
 	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
 part of PWision toolkit: http://pwision.googlecode.com/
 Copyright (C) 2009,2010 Becheru Petru-Ioan
@@ -50,7 +50,7 @@ h2 {
 }
 
 h3 {
-	font-size: 1.4em;
+	font-size: 1.7em;
 	}
 
 h4 {
@@ -443,12 +443,13 @@ a.section
 		color: white;
 		margin-top:.5em;
 		margin-left:0;
+		margin-right:.25em;
 		padding: 0px;
-		border-radius: 1em 1em 1em 1em;
-			-moz-border-radius: 1em 1em 1em 1em;
+		border-radius: 0em .5em .5em 0em;
+			-moz-border-radius: 0em .5em .5em 0em;
 		}
 	#linkList h3 span{
-		margin-left:1em;
+		margin-left:.5em;
 		margin-right:1em;
 		}
 	#linkList2 div{
@@ -461,6 +462,7 @@ a.section
 		}
 		#lresources div,#larchives div{
 			margin-left:1em;
+			margin-right:.5em;
 			border-style:solid;
 			border-color:#0057AE;
 			border-width:0 0 0 1px;
