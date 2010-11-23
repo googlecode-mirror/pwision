@@ -130,7 +130,7 @@ class PTable extends PDrawable implements ITable, IAttributes
 			*/
 		function & getCaption(){return $this->Caption;}
 		/**	Clears the Caption element and insert a PText.
-			*	\brief Gets the text of the caption
+			*	\brief Sets the text of the caption
 			*	\param $text the caption text
 			*	\return reference to $this
 			*/
