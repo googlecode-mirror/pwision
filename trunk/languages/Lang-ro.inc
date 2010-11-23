@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**	\file
 	*	\brief pwision translation to romanian.
-	*	\version 1.3.0
+	*	\version 1.3.1
 	*/
 
 
@@ -29,7 +29,7 @@ PMainComponent::$Lang['Insert:']='Insereaz&#259;:';
 
 // PCSSZenWebPage
 PMainComponent::$Lang['Bookmarks']='Acces Rapid';
-PMainComponent::$Lang['Website\'s sections']='Sect&#x0326;iunile Principale';
+PMainComponent::$Lang['Website\'s sections']='Sect&#x0326;iuni';
 PMainComponent::$Lang['Subsections of']='Subsect&#x0326;iunile din';
 
 /// PWision's sections
