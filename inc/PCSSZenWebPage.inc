@@ -21,7 +21,7 @@ include_once("PBasicWebPage.inc");
 /** 	The PCSSZenWebPage class is designed to model the <a href="http://www.csszengarden.com">www.csszengarden.com</a> website layout so we can use the themes provided by this website.
 	*	\latexonly \label{PWision:PCSSZenWebPage} \index{PCSSZenWebPage} \index{webpage} \index{layout} \index{theme} \index{css zen garden} \endlatexonly
 	*	\brief a themed webpage.
-	*	\version 3.1.1
+	*	\version 3.1.2
 	*	\par Example:
 \code
 include_once("PCSSZenWebPage.inc");
@@ -35,14 +35,13 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 	{
 	/**	gets the current location.
 		*	\brief Current location
+		*	\version 1.0.1
 		*	\return a PContent object contaning the location
 		*/
-	protected function Location()
+	protected function Location($separator="&rsaquo; " )
 		{
 		return Object(new PContent)
-// 				->Insert(new PText(""))
-				->Insert(Sections::PathLinks($this->getSectionName()))
-// 				->Insert(new PText(""))
+				->Insert( $this->getSection()->getLocation($separator) )
 			;
 		}
 	/**	Constructs

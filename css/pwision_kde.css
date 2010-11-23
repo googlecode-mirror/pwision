@@ -1,6 +1,6 @@
 /*
 pwision_kde.css
-	- version 1.10.0
+	- version 1.10.1
 	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
 part of PWision toolkit: http://pwision.googlecode.com/
 Copyright (C) 2009,2010 Becheru Petru-Ioan
@@ -400,7 +400,6 @@ a.section
 				margin: 0px;
 				padding: 0px .5em 0px .5em;
 				text-align: right;
-				white-space: nowrap;
 				}
 			#lselect div div.selected{
 				float:left;
