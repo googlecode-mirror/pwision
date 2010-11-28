@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

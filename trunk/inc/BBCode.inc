@@ -23,7 +23,7 @@ include_once('PDrawable.inc');
 /** 	The PBBCode2HTML class is designed to be a BBCode to HTML convert class.
 	*	\latexonly \label{PWision:PBBCode2HTML} \index{PBBCode2HTML} \endlatexonly
 	*	\brief BBCode to HTML class.
-	*	\version 1.0.1
+	*	\version 1.0.2
 	*	\par Example:
 \code
 include_once("PBBCode2HTML.inc");
@@ -77,9 +77,9 @@ class PBBCode2HTML extends PProcessor
 
 			,"/\[([\/]?)\]/is" => '[$1lambda]' // lambda tag
 
-			,"/\[img]([:\/.a-z0-9_]*)\[\/img\]/is" => '[image_simple src="$1"/]' // simple image (without caption)
-			,"/\[img=([:\/.a-z0-9_]*)\][[:space:]]*\[\/img\]/is" => '[image_simple src="$1"/]' // simple image (without caption)
-			,"/\[img=([:\/.a-z0-9_]*)\]/is" => '[image_with_caption src="$1"]'//image with caption, starting tag
+			,"/\[img]([#-=%&_?\/.a-z0-9]*)\[\/img\]/is" => '[image_simple src="$1"/]' // simple image (without caption)
+			,"/\[img=([#-=%&_?\/.a-z0-9]*)\][[:space:]]*\[\/img\]/is" => '[image_simple src="$1"/]' // simple image (without caption)
+			,"/\[img=([#-=%&_?\/.a-z0-9]*)\]/is" => '[image_with_caption src="$1"]'//image with caption, starting tag
 			,"/\[\/img\]/is" => '[/image_with_caption]'//image with caption, ending tag
 
 			,"/\[list[[:space:]]+(type=['\"]?)?([1AaIi])['\"]?\]/is" => '[list type="$2"]' //unordered list
