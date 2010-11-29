@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -51,12 +51,23 @@ function JSRedirect2Section($section_name="Root" , PURLAttributes $attr=null, $w
 
 
 include_once("inc/PSection.inc");
+
+/** 	The PRedirect class is designed to model a section that is the base class for redirecting sections.
+	*	\latexonly \label{PWision:PRedirect} \index{PRedirect} \label{redirect} \endlatexonly
+	*	\brief a redirecting section.
+	*	\version 1.0.0
+	*	\note this class will be used to check if an object is an redirecting section
+	*/
+class PRedirect extends PSection
+	{}
+
+
 /** 	The PRedirectingSection class is designed to model a section that redirects the client browser to an url.
 	*	\latexonly \label{PWision:PRedirectingSection} \index{PRedirectingSection} \label{redirect} \label{URL} \endlatexonly
 	*	\brief a redirecting section.
-	*	\version 1.2.0
+	*	\version 1.3.0
 	*/
-class PRedirectingSection extends PSection
+class PRedirectingSection extends PRedirect
 	{
 	/// redirect URL
 	private $URL;
@@ -105,9 +116,9 @@ class PRedirectingSection extends PSection
 /** 	The PRedirect2Section class is designed to model a section that redirects the client browser to the url of a section.
 	*	\latexonly \label{PWision:PRedirect2Section} \index{PRedirect2Section} \label{redirect} \label{section} \endlatexonly
 	*	\brief a section that redirects to a section.
-	*	\version 1.3.0
+	*	\version 1.4.0
 	*/
-class PRedirect2Section extends PSection
+class PRedirect2Section extends PRedirect
 	{
 	/// redirect section name
 	private $section_name;
