@@ -17,11 +17,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 include_once("PBasicWebPage.inc");
+include_once('PRedirectSection.inc');
 
 /** 	The PCSSZenWebPage class is designed to model the <a href="http://www.csszengarden.com">www.csszengarden.com</a> website layout so we can use the themes provided by this website.
 	*	\latexonly \label{PWision:PCSSZenWebPage} \index{PCSSZenWebPage} \index{webpage} \index{layout} \index{theme} \index{css zen garden} \endlatexonly
 	*	\brief a themed webpage.
-	*	\version 3.1.2
+	*	\version 3.1.3
 	*	\par Example:
 \code
 include_once("PCSSZenWebPage.inc");
@@ -165,9 +166,15 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 			->Insert( $this->getSection()->Chapter0() )
 			;
 		}
-	/// \brief supportingText div
+	/**
+		*	\brief supportingText div
+		*	\version 1.0.1
+		*/
 	protected function idSupportingText()
 		{
+		$add=null;
+		if( ! ($this->getSection() instanceof PRedirect))
+			$add=$this->LongAdd();
 		return Object(new PElement("div"))
 				->setAtr("id","supportingText")
 			->Insert(
@@ -210,7 +217,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 						)
 					->Insert($this->getSection()->Chapter4())
 				)
-			->Insert($this->LongAdd())
+			->Insert( $add )
 			->Insert($this->idFooter())
 			;
 		}
@@ -225,14 +232,17 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 		return $ret;
 		}
 	/**	\brief linkList div
-		*	\version 1.1.1
+		*	\version 1.1.2
 		*/
 	protected function idLinkList()
 		{
+		$add=null;
+		if( ! ($this->getSection() instanceof PRedirect))
+			$add=$this->SkyAdd();
 		return Object(new PElement("div"))
 				->setAtr("id","linkList")
 			->Insert( $this->idLinkList2() )
-			->Insert( $this->SkyAdd() )
+			->Insert( $add )
 			;
 		}
 	/**	\brief linkList2 div
@@ -277,19 +287,22 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 				}
 			/**	an \<ul\> element with the <b>T</b>ranslateElement(),<b>S</b>earchForm() and the bookmarked sections.
 				*	\brief bookmarks list with Translate and Search.
+				*	\version 1.0.1
 				*	\return an \<ul\> PStructure with the bookmarks
 				*/
 			protected function BookmarksListWithTS()
 				{
 				$ul=$this->BookmarksList();
 
-				// search form insertion
-				if( $searchF=$this->SearchForm() )
-					$ul->newFirstKid()->Insert($searchF);
+				if( ! ($this->getSection() instanceof PRedirect))
+					{
+					// search form insertion
+					if( $searchF=$this->SearchForm() )
+						$ul->newFirstKid()->Insert($searchF);
 
-				if($trE=$this->TranslateElementWithCheck() )
-					$ul->newFirstKid()->Insert($trE);
-
+					if($trE=$this->TranslateElementWithCheck() )
+						$ul->newFirstKid()->Insert($trE);
+					}
 				return $ul;
 				}
 	/**	The accesible user's bookmarks. The translate element appears only if the current section is member of Guest or Public group.
@@ -409,7 +422,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 /** 	The PWebPageDefault class is designed to be the default themed webpage of PWision. The layout described by this theme is derived from PCSSZenWebPage layout.
 	*	\latexonly \label{PWision:PWebPageDefault} \index{PWebPageDefault} \endlatexonly
 	*	\brief PWision's default themed webpage.
-	*	\version 1.4.0
+	*	\version 1.4.1
 	*/
 abstract class PWebPageDefault extends PCSSZenWebPage
 	{
@@ -514,18 +527,22 @@ abstract class PWebPageDefault extends PCSSZenWebPage
 		}
 			/**	an \<ul\> element with and the tools.
 				*	\brief tools list.
+				*	\version 1.0.1
 				*	\return an \<ul\> PStructure with the tools
 				*/
 			protected function ToolsList()
 				{
 				$ul=$this->ListStructure();
 
-				$ul->newKid()->Insert(
-					$this->TranslateElementWithCheck()
-					);
-				$ul->newKid()->Insert(
-					$this->SearchForm()
-					);
+				if( ! ($this->getSection() instanceof PRedirect))
+					{
+					$ul->newKid()->Insert(
+						$this->TranslateElementWithCheck()
+						);
+					$ul->newKid()->Insert(
+						$this->SearchForm()
+						);
+					}
 
 				return $ul;
 				}
