@@ -3,7 +3,7 @@
 	>
 <!--
 BBCodeXML to HTML
-version 1.0.0
+version 1.1.0
 Copyright (C) 2010 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
@@ -53,6 +53,12 @@ along with this program.  If not, see http://www.gnu.org/licenses/.
 <xsl:template match="notranslate">
 <span class="notranslate"><xsl:apply-templates/></span>
 </xsl:template>
+
+<!-- 0.5.1 language tag -->
+<xsl:template match="lang">
+&lt;span <xsl:if test="@language">lang="<xsl:value-of select="attribute::language" />"</xsl:if>&gt;<xsl:apply-templates/>&lt;/span&gt;
+</xsl:template>
+
 
 <!-- 0.6 line break -->
 <xsl:template match="br">

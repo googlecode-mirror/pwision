@@ -22,7 +22,7 @@ include_once('PRedirectSection.inc');
 /** 	The PCSSZenWebPage class is designed to model the <a href="http://www.csszengarden.com">www.csszengarden.com</a> website layout so we can use the themes provided by this website.
 	*	\latexonly \label{PWision:PCSSZenWebPage} \index{PCSSZenWebPage} \index{webpage} \index{layout} \index{theme} \index{css zen garden} \endlatexonly
 	*	\brief a themed webpage.
-	*	\version 3.1.3
+	*	\version 3.1.4
 	*	\par Example:
 \code
 include_once("PCSSZenWebPage.inc");
@@ -65,12 +65,12 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 			}
 	/**	the body.
 		*	\brief builds the body
-		*	\version 1.0.0
+		*	\version 1.0.1
 		*	\return the <b>body</b> element
 		*/
 	protected function Body()
 		{
-		$ret=Object(new PElement("body"))
+		$ret=parent::Body()
 				->setAtr("id","css-zen-garden")
 			->Insert($this->idContainer())
 			->Insert($this->Body_ExtraDivs())

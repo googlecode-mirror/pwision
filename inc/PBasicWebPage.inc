@@ -165,7 +165,7 @@ function SiteURL()
 /** 	The PBasicWebPage class is designed to model a webpage. Main atributes of a webpage are: title, motto, message, section and the language.
 	*	\latexonly \label{PWision:PBasicWebPage} \index{PBasicWebPage} \index{webpage} \index{section} \endlatexonly
 	*	\brief a basic web page.
-	*	\version 3.1.0
+	*	\version 3.1.1
 	*	\note  Themed webpages will extend this class.
 	*	\par Example:
 	*		see PCSSZenWebPage class.
@@ -285,10 +285,10 @@ new google.translate.TranslateElement({
 			}
 	/**	Initial session and arguments processing. Also sets the UserID & the Message.
 		*	\brief Session and Arguments Processing.
-		*	\version 1.1.1
+		*	\version 1.1.2
 		*	\return reference to $this
 		*/
-	function ProcessSessionAndArguments()
+	function & ProcessSessionAndArguments()
 		{
 		//error messages
 		if(  isset( $_SESSION['message'] )  )
@@ -513,12 +513,15 @@ new google.translate.TranslateElement({
 				}
 	/**	the body.
 		*	\brief builds the body
-		*	\version 1.0.0
+		*	\version 1.0.1
 		*	\return the <b>body</b> element
 		*/
 	protected function Body()
 		{
-		$ret=Object(new PElement("body"));
+		$ret=Object(new PElement("body"))
+			->setAtr('id','body')
+			->setAtr('lang', $this->getLanguage() )
+			;
 		return $ret;
 		}
 	/**	Gives a search engine form.
