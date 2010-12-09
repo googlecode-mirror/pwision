@@ -23,7 +23,7 @@ include_once('PDrawable.inc');
 /** 	The PBBCode2HTML class is designed to be a BBCode to HTML convert class.
 	*	\latexonly \label{PWision:PBBCode2HTML} \index{PBBCode2HTML} \endlatexonly
 	*	\brief BBCode to HTML class.
-	*	\version 1.0.2
+	*	\version 1.0.3
 	*	\par Example:
 \code
 include_once("PBBCode2HTML.inc");
@@ -76,6 +76,8 @@ class PBBCode2HTML extends PProcessor
 			,"/\[redirect=([#-=%&_?\/.a-z0-9]+)\]/is" => '[redirect href="$1"]' //redirection to an href, starting tag
 
 			,"/\[([\/]?)\]/is" => '[$1lambda]' // lambda tag
+
+			,'`\[lang=([-a-z0-9]{2,5})\]`is'=>'[lang language="$1"]'//language tag
 
 			,"/\[img]([#-=%&_?\/.a-z0-9]*)\[\/img\]/is" => '[image_simple src="$1"/]' // simple image (without caption)
 			,"/\[img=([#-=%&_?\/.a-z0-9]*)\][[:space:]]*\[\/img\]/is" => '[image_simple src="$1"/]' // simple image (without caption)
