@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2011 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ include_once("PStaticSection.inc");
 /** 	The PMostBasicWebPage class is designed to be a model the most basic webpage: a PDrawable with a database connection.
 	*	\latexonly \label{PWision:PMostBasicWebPage} \index{PMostBasicWebPage} \index{database} \endlatexonly
 	*	\brief a PDrawable with database connection.
-	*	\version 2.2.0
+	*	\version 2.3.0
 	*	\par Example:
 	*		See PBasicWebPage class.
 	*/
@@ -51,7 +51,22 @@ protected function StartDBConnection()
 		{
 		$this->DB=include('StartDBConnection.inc');
 		}
-	/**	Constructs the PDrawable and starts the database connection.
+	/**	Sets the user.
+		*	\brief Sets the userID and gets the info for it.
+		*	\version 1.0.0
+		*	\return reference to $this
+		*/
+	protected function & setUser()
+		{
+		//default user
+		if( ! isset( $_SESSION['userID'] )  )
+			{
+			$_SESSION['userID']=0;
+			}
+		$this->UserInfo=Users::UserInfo( $_SESSION['userID'] );
+		return $this;
+		}
+	/**	Constructs the PDrawable, starts the database connection and sets the user.
 		*	\brief constructor
 		*/
 	function PMostBasicWebPage()
@@ -59,6 +74,7 @@ protected function StartDBConnection()
 		PMainComponent::$Main=&$this;
 		PDrawable::PDrawable();
 		$this->StartDBConnection();
+		$this->setUser();
 		}
 	}
 
@@ -165,7 +181,7 @@ function SiteURL()
 /** 	The PBasicWebPage class is designed to model a webpage. Main atributes of a webpage are: title, motto, message, section and the language.
 	*	\latexonly \label{PWision:PBasicWebPage} \index{PBasicWebPage} \index{webpage} \index{section} \endlatexonly
 	*	\brief a basic web page.
-	*	\version 3.1.1
+	*	\version 3.1.2
 	*	\note  Themed webpages will extend this class.
 	*	\par Example:
 	*		see PCSSZenWebPage class.
@@ -283,9 +299,9 @@ new google.translate.TranslateElement({
 				else
 					return null;
 			}
-	/**	Initial session and arguments processing. Also sets the UserID & the Message.
+	/**	Initial session and arguments processing. Also sets the Message and the UserID.
 		*	\brief Session and Arguments Processing.
-		*	\version 1.1.2
+		*	\version 1.1.3
 		*	\return reference to $this
 		*/
 	function & ProcessSessionAndArguments()
@@ -296,12 +312,6 @@ new google.translate.TranslateElement({
 			$this->AddMessage($_SESSION['message']);
 			unset( $_SESSION['message']);
 			}
-		//default user
-		if( ! isset( $_SESSION['userID'] )  )
-			{
-			$_SESSION['userID']=0;
-			}
-		$this->UserInfo=Users::UserInfo( $_SESSION['userID'] );
 		//section
 		if(  isset( $_REQUEST['section'] )  )
 				$this->setSection( $_REQUEST['section'] );

@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2010 Becheru Petru-Ioan
+Copyright (C) 2010,2011 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ include_once('PDrawable.inc');
 /** 	The PBBCode2HTML class is designed to be a BBCode to HTML convert class.
 	*	\latexonly \label{PWision:PBBCode2HTML} \index{PBBCode2HTML} \endlatexonly
 	*	\brief BBCode to HTML class.
-	*	\version 1.0.3
+	*	\version 1.1.0
 	*	\par Example:
 \code
 include_once("PBBCode2HTML.inc");
@@ -67,7 +67,9 @@ class PBBCode2HTML extends PProcessor
 			//XML entity char
 			,'`&`' => '_and_'
 
-			,'`\[br\]`is'=>"[br/]"
+			,'`\[br\]`is'=>"[br/]"//new line(break)
+			,'`\[lb\]`is'=>"[lb/]"//left bracket  [
+			,'`\[rb\]`is'=>"[rb/]"//right bracket ]
 
 			,'`\[url=([#-=%&_?\/.a-z0-9]+)\]`is'=>'[url href="$1"]'
 				,'`\[url=([#-=%&_?\/.a-z0-9]+)[[:space:]]+title=[\\\\]*[\'"]?([&#;a-z0-9 ]+)[\\\\]*[\'"]?\]`is'=>'[url href="$1" title="$2"]'//url with title
