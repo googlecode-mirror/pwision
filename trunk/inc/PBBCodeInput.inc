@@ -24,7 +24,7 @@ include_once('PVirtualKeyboard.inc');
 /** 	The PBBCodeInput class is designed to be a BBCode input textarea with button for BBCode tags.
 	*	\latexonly \label{PBBCodeInput:PBBCodeInput} \index{PBBCodeInput} \index{BBCode} \index{textarea} \endlatexonly
 	*	\brief BBCode input textarea.
-	*	\version 1.2.2
+	*	\version 1.2.3
 	*	\par Example:
 \code
 include_once("PBBCodeInput.inc");
@@ -64,7 +64,7 @@ class PBBCodeInput extends PContent
 		}
 	/**	Constructs
 		*	\brief constructor
-		*	\version 1.0.4
+		*	\version 1.0.5
 		*	\param $text initial text content of textarea
 		*	\param $name name of the textarea
 		*	\param $id id attribute of the textarea
@@ -104,6 +104,7 @@ class PBBCodeInput extends PContent
 							->Insert(PBBCodeInput::insertTextButton('[lang=en]','[/lang]'))
 							->Insert(PBBCodeInput::insertTextButton('[img=]','[/img]'))
 							->Insert(PBBCodeInput::insertTextButton('','[br]'))
+							->Insert(PBBCodeInput::insertTextButton('[lb]','[rb]'))
 						->Insert(sEl('hr'))
 							->Insert(PBBCodeInput::insertTextButton('[i]','[/i]'))
 							->Insert(PBBCodeInput::insertTextButton('[b]','[/b]'))
