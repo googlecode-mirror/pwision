@@ -3,8 +3,8 @@
 	>
 <!--
 BBCodeXML to HTML
-version 1.1.0
-Copyright (C) 2010 Becheru Petru-Ioan
+version 1.2.0
+Copyright (C) 2010,2011 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -69,6 +69,10 @@ along with this program.  If not, see http://www.gnu.org/licenses/.
 <xsl:template match="lambda">
 <span class="simple"><xsl:apply-templates/></span>
 </xsl:template>
+
+<!-- 0.8 left and right brackets [] -->
+<xsl:template match="lb">[</xsl:template>
+<xsl:template match="rb">]</xsl:template>
 
 
 <!-- 1 lists -->
