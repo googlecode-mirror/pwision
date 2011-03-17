@@ -634,7 +634,7 @@ final class Sections
 		*	\param text text of the link(by default $section_name used)
 		*	\param attr attributes to link, besides <b>section=<i>section_name</i></b>
 		*	\return an <b>a</b> element with a hyper reference to the section.
-		*	\version 1.1.2
+		*	\version 1.1.3
 	 */
 	static function Link2( $section_name="Root", $title="", $text="" , PURLAttributes $attr=null)
 		{
@@ -645,7 +645,7 @@ final class Sections
 			}
 		if($attr==null)$attr=new PURLAttributes();
 		$lnk=El('a')
-				->setAtr( 'href', "index.php?section=$section_name".$attr->Draw() )
+				->setAtr( 'href', "/$section_name".$attr->Draw() )
 				->setAtr( 'title', $title )
 				->setAtr( 'class', "section $section_name")
 				;

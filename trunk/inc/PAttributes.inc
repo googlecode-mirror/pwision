@@ -36,7 +36,7 @@ interface IAttributes
 /** 	The PAttributes  class is designed to model a list of pair(key,value). It uses an associative array that by default will be drawn as [attribute1="value1" attribute2="value2" ... attributeN="valueN"].
 	*	\latexonly \label{PWision:PAttributes} \index{PAttributes} \index{attributes} \endlatexonly
 	*	\brief a list of attributes.
-	*	\version 1.2.0
+	*	\version 1.3.0
 	*	\par Example:
 \code
 include_once("inc/PAttributes.inc");
@@ -47,7 +47,7 @@ print( $A );
 \endcode
 	*	\par Output:
 \verbatim
-name1="value1" name2="value2"
+ name1="value1" name2="value2"
 \endverbatim
 	*/
 class PAttributes extends PDrawable implements IAttributes
@@ -78,10 +78,12 @@ class PAttributes extends PDrawable implements IAttributes
 
 	/**	It constructs the PDrawable parent and then sets Associative.
 		*	\brief initialisation method.
+		*	\version 1.1.0
 		*	\param $asoc the PAttributes::Associative member initial value
 		*	\param $Separator separator betwin pairs
+		*	\param $Head a string that is drawn before attributes
 		*/
-	function PAttributes( $asoc=array(), $Separator=' ' )
+	function PAttributes( $asoc=array(), $Separator=' ', $Head='' )
 		{
 		$this->Associative=$asoc;
 		$this->Separator=$Separator;
@@ -118,6 +120,18 @@ class PAttributes extends PDrawable implements IAttributes
 			{
 			return $this->Separator;
 			}
+	///a string that is drawn before attributes
+	protected $Head;
+		/**	Set the $Head member.
+			*	\brief set the head.
+			*	\param $Head set string that is drawn before attributes
+			*	\return reference to $this pointer
+			*/
+		function & setHead($Head)
+			{
+			$this->Head=$Head;
+			return $this;
+			}
 	/**	\brief draws the pairs
 		*
 		*	Draws the pairs using DrawPair() for each pair, separated by the separation string returned by DrawSeparator().
@@ -125,12 +139,13 @@ class PAttributes extends PDrawable implements IAttributes
 		*/
 	function Draw()
 		{
-		$ret = "" ;
+		$ret = '' ;
 		foreach($this->Associative as $atr => $value)
 			if($value!=null && $value != "")
 				$ret=$ret.
 					$this->DrawSeparator().
 					$this->DrawPair( $atr, $value );
+		if($ret!='')$ret=$this->Head . $ret;
 		return $ret;
 		}
 	}
@@ -148,7 +163,7 @@ print( $A );
 \endcode
 	*	\par Output:
 \verbatim
-name1=value1&amp;name2=value2
+&amp;name1=value1&amp;name2=value2
 \endverbatim
 	*/
 class PURLAttributes extends PAttributes
