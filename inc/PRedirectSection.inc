@@ -35,18 +35,17 @@ function JSRedirect($URL,$time_out=1000)
 	}
 /**	This function creates a script that redirects to a section.
 	*	\brief redirect to a section.
-	*	\version 2.1.2
+	*	\version 3.0.0
 	*	\param $section_name name of the section
 	*	\param attr attributes(param) to URL, besides <b>section=<i>section_name</i></b>
-	*	\param $webpage name of the webpage
 	*	\param $time_out time out in ms, default 3 seconds
 	*	\return an \<script\> element that contains a java-script code that redirects the browser.
 	*/
-function JSRedirect2Section($section_name="Root" , PURLAttributes $attr=null, $webpage="index.php", $time_out=1000)
+function JSRedirect2Section($section_name="Root" , PURLAttributes $attr=null, $time_out=1000)
 	{
 	if($attr==null)$attr=new PURLAttributes();
 	$attr->setSeparator('&');
-	return JSRedirect( "$webpage?section=$section_name".$attr->Draw(), $time_out );
+	return JSRedirect( "/$section_name".$attr->Draw(), $time_out );
 	}
 
 
@@ -116,7 +115,7 @@ class PRedirectingSection extends PRedirect
 /** 	The PRedirect2Section class is designed to model a section that redirects the client browser to the url of a section.
 	*	\latexonly \label{PWision:PRedirect2Section} \index{PRedirect2Section} \label{redirect} \label{section} \endlatexonly
 	*	\brief a section that redirects to a section.
-	*	\version 1.4.0
+	*	\version 2.0.0
 	*/
 class PRedirect2Section extends PRedirect
 	{
@@ -124,8 +123,6 @@ class PRedirect2Section extends PRedirect
 	private $section_name;
 	/// attributes(param) to URL
 	private $attr;
-	/// name of the webpage
-	private $webpage;
 
 	function Head()
 		{
@@ -140,13 +137,11 @@ class PRedirect2Section extends PRedirect
 		*	\brief constructor
 		*	\param $section_name section name
 		*	\param attr attributes(param) to URL, besides <b>section=<i>section_name</i></b>
-		*	\param $webpage name of the webpage
 		*/
-	function PRedirect2Section($section_name="Root", PURLAttributes $attr=null, $webpage="index.php")
+	function PRedirect2Section($section_name="Root", PURLAttributes $attr=null)
 		{
 		$this->section_name=$section_name;
 		$this->attr=$attr;
-		$this->webpage=$webpage;
 		PSection::PSection();
 		}
 	function Chapter1Title()
@@ -164,7 +159,7 @@ class PRedirect2Section extends PRedirect
 		return
 			PSection::Chapter1()
 				->Insert(
-					JSRedirect2Section($this->section_name,$this->attr,$this->webpage)
+					JSRedirect2Section($this->section_name,$this->attr)
 					);
 		}
 	}
