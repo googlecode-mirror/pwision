@@ -1,0 +1,8 @@
+RewriteEngine On 
+
+RewriteRule ^([_a-z0-9]+)$									/index.php?section=$1				[NC]
+
+RewriteRule ^([_a-z0-9]+)([&].*)$						/index.php?section=$1$2				[NC]
+
+RewriteRule ^.+/css/(.+)$									/css/$1									[NC,R=301]
+
