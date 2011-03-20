@@ -1,6 +1,6 @@
 RewriteEngine On 
 
-RewriteRule ^([_a-z0-9]+)$									/index.php?section=$1				[NC]
+RewriteRule ^(.*[/])?([_a-z0-9]+)$						/index.php?section=$2				[NC]
 
 RewriteRule ^([_a-z0-9]+)([&].*)$						/index.php?section=$1$2				[NC]
 
