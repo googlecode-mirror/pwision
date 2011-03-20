@@ -141,10 +141,28 @@ class PSection
 					}
 		return $parameters_are_set;
 		}
+		/// contains the URL path to the article
+		protected $URLPath='';
+		/// a PContent object that contains the Path as html anchors
+		protected $theLocation=null;
+		/**	This function constructs the $URLPath and $theLocation members.
+			*	\brief construct the location members.
+			*	\return nothing
+			*/
+		protected function ConstructLocation()
+			{
+// 			$this->theLocation=Sections::PathLinks($this->getName(),'&rsaquo;');
+			$ret=Sections::PathArray2LinksURL(Sections::PathArray($this->getName()));
+			$this->theLocation=$ret[0];
+			$this->URLPath=$ret[1];
+			}
 	/**	This method is called by the constructor if all par of the section are set <i>and matched</i>.
 		*	\brief if parameters are set.
 		*/
-	function if_parameters_are_set(){}
+	function if_parameters_are_set()
+		{
+		$this->ConstructLocation();
+		}
 	/**	This method is called by the constructor if not all par of the section are set, <i>but all that are set are also matched with their regular expresion</i>.
 		*	\brief if not all parameters are set.
 		*/
@@ -196,7 +214,7 @@ class PSection
 		*/
 	function getLocation($separator="&rsaquo; " )
 		{
-		return Sections::PathLinks($this->getName(),$separator);
+		return $this->theLocation;
 		}
 	/**	Get the content of a param if set.
 		*	\brief get the content of a section parameter.
@@ -278,30 +296,40 @@ class PSection
 		}
 	/**
 		*	\brief preamble of the section
-		*	\version 1.1.2
+		*	\version 1.1.4
 		*/
 	function	Chapter0(){
 		$ret=new PContent();
 			$ret->Insert(new PText($this->getMessages()));
 		$html=new PText($this->Info['HTML']);
-			if( ($html==null || $html=='') && get_class($this)=='PSection' )
-				{
-				$html= new PContent;
-				$ul=new PStructure(new PElement("li"), new PElement("ul"));
-				$SectsArray=Sections::AccesibleNotHiddenSubSections($this->getName(),$_SESSION['userID']);
-				if(count($SectsArray)!=0)
+			if(get_class($this)=='PSection')
 					{
-					$html
-						->Insert(
-							El('h4')
-								->Insert(new PText( lang('Subsections of').' '.lang($this->getName()) ) )
-							)
-						;
-					foreach($SectsArray as $section)
-						$ul->newKid()->Insert(Sections::Link2SQLSection($section));
+					if($_SERVER['REQUEST_URI']!=$this->URLPath)
+						{
+						header('HTTP/1.1 301 Moved Permanently');
+						header('Location: http://'.$_SERVER['SERVER_NAME'].$this->URLPath
+							); /* Redirect browser */
+						exit;
+						}
+					if( ($html==null || $html=='') )
+						{
+						$html= new PContent;
+						$ul=new PStructure(new PElement("li"), new PElement("ul"));
+						$SectsArray=Sections::AccesibleNotHiddenSubSections($this->getName(),$_SESSION['userID']);
+						if(count($SectsArray)!=0)
+							{
+							$html
+								->Insert(
+									El('h4')
+										->Insert(new PText( lang('Subsections of').' '.lang($this->getName()) ) )
+									)
+								;
+							foreach($SectsArray as $section)
+								$ul->newKid()->Insert(Sections::Link2SQLSection($section));
+							}
+						$html->Insert($ul);
+						}
 					}
-				$html->Insert($ul);
-				}
 		$ret->Insert( $html );
 		return $ret;
 		}
@@ -333,7 +361,7 @@ class PSection
 /**	A namespace for section relation functions.
 	*	\latexonly \label{PWision:Sections} \endlatexonly
 	*	\brief section's namespace.
-	*	\version 4.0.0
+	*	\version 4.1.0
 	*/
 final class Sections
 	{
@@ -681,18 +709,36 @@ final class Sections
 		*	\brief transform a path array to hyperlinks.
 		*	\param $path_arr array of SQL section information arrays
 		*	\param $separator a separator string that will be between hyperlinks
-		*	\return a PContent object containing the hyperlinks
+		*	\return an array 0:PContent object containing the hyperlinks, 1: URL
 		*/
-	static function PathArray2Links( $path_arr=array(), $separator="&rsaquo; " )
+	static function PathArray2LinksURL( $path_arr=array(), $separator="&rsaquo; " )
 		{
 		$links=new PContent();
+		$URL='';
 		$the_path=$path_arr;
 		foreach($the_path as $section)
+			{
 			$links
 				->Insert(Sections::Link2SQLSection($section))
 				->Insert(new PText($separator))
 				;
+			if($section['Name']!='Root')
+				$URL=$URL.'/'.$section['Name'];
+			}
 		$links->Pop();
+		return array($links,$URL);
+		}
+	/**	Transforms a path array to hyperlinks separated by a separator string.
+		*	\brief transform a path array to hyperlinks.
+		*	\version 1.0.1
+		*	\param $path_arr array of SQL section information arrays
+		*	\param $separator a separator string that will be between hyperlinks
+		*	\return a PContent object containing the hyperlinks
+		*/
+	static function PathArray2Links( $path_arr=array(), $separator="&rsaquo; " )
+		{
+		$ret=Sections::PathArray2LinksURL($path_arr,$separator);
+		$links=$ret[0];
 		return $links;
 		}
 	/**	Gets the path to a section and then transforms it into hyperlinks separated by a separator string.
