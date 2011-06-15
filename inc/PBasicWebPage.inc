@@ -584,4 +584,21 @@ new google.translate.TranslateElement({
 		}
 	}
 
+/** 	The PSectionWebPage class is designed to be a model a webpage that displays just the main content of the section( PSection::Chapter1() ).
+	*	\latexonly \label{PWision:PSectionWebPage} \index{PSectionWebPage} \endlatexonly
+	*	\brief a model class.
+	*	\version 1.0.0
+	*/
+class PSectionWebPage extends PBasicWebPage
+	{
+	/**	just the content of the section.
+		*	\brief textual representation of the object
+		*	\return a string
+		*/
+	function Draw()
+		{
+		return $this->getSection()->Chapter1();
+		}
+	}
+
 ?>

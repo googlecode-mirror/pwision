@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009,2010 Becheru Petru-Ioan
+Copyright (C) 2009-11 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ include_once("externalAPI/recaptchalib.php");
 /** 	The pwision_login class is designed to model the login section. The login section is the section of the website where guest users can log in with their username and password. This class can be extended, for example, to change the redireting URL by modifying InsertOnSuccessfulLogin() method.
 	*	\latexonly \label{PWision:Sections:pwision_login} \index{login}  \index{guest} \index{user}\endlatexonly
 	*	\brief the pwision_login section.
-	*	\version 1.0.0
+	*	\version 1.0.1
 	*/
 class pwision_login extends PFormSection
 	{
@@ -49,30 +49,40 @@ class pwision_login extends PFormSection
 		}
 	function ProcessOK()
 		{
-		$resp = recaptcha_check_answer (Main()->reCAPTCHAprivatekey(),
-												$_SERVER["REMOTE_ADDR"],
-												$_POST["recaptcha_challenge_field"],
-												$_POST["recaptcha_response_field"]);
-		if ($resp->is_valid)
+		$captcha_ok=true;
+		if($_SESSION['login_attempt']>3)
+			{
+			$resp = recaptcha_check_answer (Main()->reCAPTCHAprivatekey(),
+										$_SERVER["REMOTE_ADDR"],
+										$_POST["recaptcha_challenge_field"],
+										$_POST["recaptcha_response_field"]);
+			$captcha_ok=$resp->is_valid;
+			}
+		if ($captcha_ok)
 			if(isset($_REQUEST['username']) && isset($_REQUEST['password']))
 				Users::LogIn($_REQUEST['username'],$_REQUEST['password']);
 		if( $_SESSION['userID']>0 )
 			{
 			$this->TheForm->Insert( $this->InsertOnSuccessfulLogin() );
+			$_SESSION['login_attempt']=0;
 			return true;
 			}
+			else
+				$_SESSION['login_attempt']++;
 		$this->AddMessage("User/Password not ok! Try again");
 		return false;
 		}
 	function & createForm()
 		{
+		if(!isset($_SESSION['login_attempt']))$_SESSION['login_attempt']=0;
+		$captcha=($_SESSION['login_attempt']<3)?(new PDrawable):(new PText(recaptcha_get_html(Main()->reCAPTCHApublickey())) );
 		return PFormSection::createForm()
 			->setAtr("method","post")
 			->Insert(
 				Object(new PFieldSet(PTextlang("Please identify")))
 					->Insert(new PInput("text","","username"))->Insert(new PText(" UserName [use '-@._a-z0-9' ; 64 chars max]"))->Insert(new PSimpleTag("br"))
 					->Insert(new PInput("password","","password"))->Insert(new PText(" Password [use 'a-z0-9' ; 64 chars max]"))->Insert(new PSimpleTag("br"))
-					->Insert(new PText(recaptcha_get_html(Main()->reCAPTCHApublickey()) ) )
+					->Insert($captcha)
 					->Insert(new PInput("submit",lang("Log in!"),""))
 				)
 			;
