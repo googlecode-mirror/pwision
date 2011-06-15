@@ -5,7 +5,12 @@
 Installing PWision is easy: just follow the steps bellow!
 
 = Requirements=
+ * a web server with PHP module
+ * a SQL server
 
 = Steps =
-  # Get PWision using svn checkout or by downloading a release.
-  #
+  # get PWision using svn checkout or by downloading a release.
+  # copy files from trunk/ into the webserver directory
+  # create a database on the SQL server
+  # run the script SQL/initDB.mysql on the SQL server
+  # edit StartDBConnection.inc with the SQL server username, password, server url and database name
