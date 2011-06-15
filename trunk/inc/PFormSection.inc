@@ -89,18 +89,16 @@ class PStepFormSection extends PBasicFormSection
 
 /** 	The PFormSection  class is designed to model a section of a website that has only PSection::Chapter1() with a <b>form</b> element. The form is created if not all of the arguments are set or form processing ProcessOK() was not successful.
 	*	\brief a section with a form.
-	*	\version 2.0.0
+	*	\version 2.0.1
 	*	\par Example:
 	*		see the login class
 	*	\latexonly \label{PWision:PFormSection} \index{PFormSection} \endlatexonly
 	*/
 abstract class PFormSection extends PBasicFormSection
 	{
-	/**	This method is called by the constructor if all par of the section are set <i>and matched</i>.
-		*	\brief if parameters are set.
-		*/
 	function if_parameters_are_set()
 		{
+		parent::if_parameters_are_set();
 		if($this->ProcessOK()==false)
 			$this->createForm();
 		}
