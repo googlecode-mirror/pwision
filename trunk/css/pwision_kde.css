@@ -1,6 +1,6 @@
 /*
  * pwision_kde.css
- *	- version 1.13.0
+ *	- version 1.13.1
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009,2010 Becheru Petru-Ioan
@@ -396,7 +396,7 @@ a.Contact:before{
 	border-top: #bcbcbc 1px dotted;
 	border-radius: 0 0 1em 1em;
 	-moz-border-radius: 0 0 1em 1em;
-	box-shadow:0px 0px 10px #888888;
+	box-shadow:2px 2px 10px #888888;
 	-webkit-box-shadow:2px 2px 5px #888888;
 	-moz-box-shadow:2px 2px 5px #888888;
 	float:left;

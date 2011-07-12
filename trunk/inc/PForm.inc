@@ -136,14 +136,15 @@ function Array2Inputs($arr=null,$name='',$key4Value='value',$key4Text='text',$ty
 	}
 /**	This function constructs a PStructure that has a select PElement as mother and option PElement as kids.
 	*	\brief the select structure.
-	*	\version 1.1
+	*	\version 2.0
 	*	\param $name name attribute of the select
 	*	\param $arr pairs ('0'=>text) for the option
 	*	\param $selected selected value
-	*	\param $click_and_select if this is true the first kid will contain the text 'Click and Select' with the value '_'
+	*	\param $key4Value the key for the value of the input
+	*	\param $key4Text the key for the text that follows the input
 	*	\return the structure
 	*/
-function SSelect($name,$arr=null,$selected=null,$click_and_select=false)
+function SSelect($name,$arr=null,$selected=null,$key4Value=0,$key4Text=1)
 	{
 	$SS=new PStructure(
 		new PElement("option"),
@@ -152,24 +153,23 @@ function SSelect($name,$arr=null,$selected=null,$click_and_select=false)
 		);
 	if($arr)
 		{
-		if($click_and_select)
-			$SS->newKid()
-				->setAtr("value","_")
-				->Insert(
-					new PText('Click and Select')
-					);
+		$SS->newKid()
+			->setAtr("value","_")
+			->setAtr('disabled','disabled')
+			->Insert(PTextlang('Selectează'))
+			;
 		foreach($arr as $item)
 			{
-			$kid=$SS->newKid()->setAtr("value",$item[0]);
+			$kid=$SS->newKid()->setAtr("value",$item[$key4Value]);
 			if(isset($item[1]))
 					$kid->Insert(
-							new PText($item[1])
+							new PText($item[$key4Text])
 							);
 				else
 					$kid->Insert(
-							new PText($item[0])
+							new PText($item[$key4Value])
 							);
-			if($item[0]==$selected)
+			if($item[$key4Value]==$selected)
 				$kid->setAtr("selected","selected");
 			}
 		}
@@ -183,7 +183,7 @@ function SSelect($name,$arr=null,$selected=null,$click_and_select=false)
 	*	\par Example:
 \code
 include_once("PForm.inc");
-$aFS= new PFieldSet("Owners");
+$aFS= new PFieldSet(new PText("Owners"));
 $aFS
 	->Insert(new PText("a text"))
 	->Insert(new PInput("text","insert text here","description"))

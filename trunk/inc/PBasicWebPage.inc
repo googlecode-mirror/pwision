@@ -587,7 +587,7 @@ new google.translate.TranslateElement({
 /** 	The PSectionWebPage class is designed to be a model a webpage that displays just the main content of the section( PSection::Chapter1() ).
 	*	\latexonly \label{PWision:PSectionWebPage} \index{PSectionWebPage} \endlatexonly
 	*	\brief a model class.
-	*	\version 1.0.0
+	*	\version 1.0.1
 	*/
 class PSectionWebPage extends PBasicWebPage
 	{
@@ -597,7 +597,7 @@ class PSectionWebPage extends PBasicWebPage
 		*/
 	function Draw()
 		{
-		return $this->getSection()->Chapter1();
+		return $this->getMessages().$this->getSection()->Chapter1();
 		}
 	}
 

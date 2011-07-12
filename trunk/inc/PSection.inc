@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009,2010 Becheru Petru-Ioan
+Copyright (C) 2009-11 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ class PSection_ParamNCheck extends Exception
 /** 	The PSection class is designed to model a section of the website. A section has a name, a description and is splitted in 5 chapters (numbered 0 to 4).
 	*	\latexonly \label{PWision:PSection} \index{PSection} \index{section} \index{website} \endlatexonly
 	*	\brief a section of the website.
-	*	\version 4.2.0
+	*	\version 4.3.0
 	*	\note it will be derived in files X.inc from sections/ as X class
 	*/
 class PSection
@@ -167,7 +167,7 @@ class PSection
 		*	\brief if not all parameters are set.
 		*/
 	function if_not_all_parameters_are_set(){}
-	/**	This method is called by the constructor if PSection_ParamNCheck is thrown.
+	/**	This method is called by the constructor if PSection_ParamNCheck is thrown. By default it retrows the exception so it will be catched in PBasicWebPage::setSection().
 		*	\brief PSection_ParamNCheck thrown.
 		*/
 	function param_NCheck(PSection_ParamNCheck &$e)
@@ -242,6 +242,15 @@ class PSection
 	function didParamCheckedRegExp($param_name)
 		{
 		return $this->Params[$param_name][4];
+		}
+	/**	Get the content of a param if checked.
+		*	\brief get the content of a section parameter.
+		*	\param $param_name the name of the parameter
+		*	\return parameter value or null if the parameter is not set
+		*/
+	function getCheckedParam($param_name)
+		{
+		return didParamCheckedRegExp($param_name)?$_REQUEST[$param_name]:null;
 		}
 	/**	Gets the subsections of current section.
 		*	\brief the subsections
