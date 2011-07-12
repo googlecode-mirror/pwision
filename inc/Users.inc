@@ -19,8 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 include_once("PMainComponent.inc");
 /**	A namespace for user relation functions.
 	*	\brief user's namespace.
-	*	\version 1.5.0
-	*	\todo change eregi with preg_match
+	*	\version 1.5.1
 	*/
 final class Users
 	{
@@ -120,14 +119,15 @@ final class Users
 		}
 	/**	Checks if the user $UserName has the password $Password.
 		*	\brief check if a (user, password) pair.
+		*	\version 1.0.1
 		*	\param $UserName the name of the user
 		*	\param $Password the password for the user
 		*	\return the user's ID on succes, 0 insucces, -1 regexp missmatch
 		*/
 	static function CheckUserPass( $UserName, $Password )
 		{
-		if(eregi("^[-@._a-z0-9 ]{1,64}$",$UserName)==false) return -1;
-		if(eregi("^[a-z0-9 ]{1,64}$",$Password)==false) return -1;
+		if(preg_match("`^[-@._a-z0-9 ]{1,64}$`i",$UserName)==false) return -1;
+		if(preg_match("`^[a-z0-9 ]{1,64}$`i",$Password)==false) return -1;
 		$row=Main()->DB->fetch_array_query
 			("SELECT * FROM Users WHERE Name='$UserName'");
 		if($row && $row['Password']==$Password)
