@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009,2010 Becheru Petru-Ioan
+Copyright (C) 2009--11 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 include_once("PMainComponent.inc");
 /**	A namespace for user relation functions.
 	*	\brief user's namespace.
-	*	\version 1.5.1
+	*	\version 1.5.2
 	*/
 final class Users
 	{
@@ -147,7 +147,7 @@ final class Users
 		}
 	/**	Gets the user's row from the Users database table.
 		*	\brief get the user information.
-		*	\version 1.0.1
+		*	\version 1.0.2
 		*	\param $id the ID of the user
 		*	\return an array containing the row
 		*/
@@ -158,7 +158,7 @@ final class Users
 		if($ret)
 			{
 			$ret['Groups']=Main()->DB->fetch_all_query
-				('SELECT Groups.ID, Name, \'checked\'
+				('SELECT Groups.ID, Name
 					FROM Groups, GroupUsers
 					WHERE
 					Groups.ID=GroupUsers.GroupID and

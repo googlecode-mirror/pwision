@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009--11 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -95,7 +95,7 @@ class PInput extends PSimpleTag
 	}
 /**	Constructs a collection of inputs from an array whose items are arrays with a key for the value of the input and a key for the text that follows the input.
 	*	\brief array to inputs.
-	*	\version 1.1.0
+	*	\version 1.1.1
 	*	\par Example:
 	*		See Groups::GroupsFieldSet() .
 	*	\param $arr the array of array items
@@ -112,7 +112,7 @@ function Array2Inputs($arr=null,$name='',$key4Value='value',$key4Text='text',$ty
 
 	if($arr==null)return null;
 	$Content=new PContent();
-	$key_in_name=($type=='checkbox') && !eregi('^[a-z0-9_.]*\[\]$',$name);
+	$key_in_name=($type=='checkbox') && !preg_match('`^[a-z0-9_.]*\[\]$`i',$name);
 	foreach($arr as $item)
 		{
 		$Content

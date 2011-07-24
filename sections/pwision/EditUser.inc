@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009,2010 Becheru Petru-Ioan
+Copyright (C) 2009--11 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ include_once('inc/PRedirectSection.inc');
 /** 	The EditUser class is designed to model the section that allows a user to edit an appointer.
 	*	\latexonly \label{PWision:Sections:EditUser} \index{EditUser} \index{user} \endlatexonly
 	*	\brief Edit an user.
-	*	\version 1.1.4
+	*	\version 1.1.5
 	*/
 class EditUser extends PStepFormSection
 	{
@@ -44,7 +44,11 @@ class EditUser extends PStepFormSection
 		{
 		PStepFormSection::PStepFormSection();
 		$userinfo=array();
-		if( $this->wasParamSet('ID') && ($userinfo=Users::UserInfo($this->getParam('ID')) ) )
+		if	( 
+			$this->wasParamSet('ID') && 
+			($userinfo=Users::UserInfo($this->getParam('ID')) ) &&
+			$userinfo['CreatorUserID']==Main()->UserInfo['ID']
+			)
 				{
 				$table=Object(new PTable())
 						->setAtr("border",'1')
@@ -59,7 +63,7 @@ class EditUser extends PStepFormSection
 					$table->addCell()->Insert(new PText($userinfo['ID']) );
 					$table->addCell()->Insert(new PText($userinfo['Name']) );
 					$table->addCell()->Insert(new PText($userinfo['Password']) );
-					$table->addCell()->Insert(new PText(implode(', ',array_column($userinfo['Groups'],'Name'))) );
+					$table->addCell()->Insert(new PText(implode(', ', array_column($userinfo['Groups'],'Name'))) );
 
 				if( $this->wasParamSet('action') )
 						if( $this->getParam('action')=='remove' )
@@ -135,7 +139,8 @@ class EditUser extends PStepFormSection
 			else// $_REQUEST['ID'] not set or user not found
 				{
 				$this->Step='Step 1 - Enter the ID number of the user';
-				if($this->wasParamSet('ID')) $this->AddMessage('user ['. $this->getParam('ID') .'] does not exist!');
+				if($this->didParamCheckedRegExp('ID')) 
+					$this->AddMessage('user ['. $this->getParam('ID') .'] does not exist or you do not have the right to edit it!');
 				$this->TheForm
 					->Insert( new PInput('text','','ID') )
 					->Insert( new PInput("submit","Go to Step 2!","") )
