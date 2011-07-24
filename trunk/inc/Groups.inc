@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**	A namespace for groups relation functions.
 	*	\brief groups's namespace.
-	*	\version 1.1.0
+	*	\version 1.2.0
 	*/
 final class Groups
 	{
@@ -81,6 +81,18 @@ final class Groups
 					GroupSections.GroupID='.$ID );
 			return $ret;
 			}
+		return null;
+		}
+	/**
+		*	\brief get the group information
+		*	\param $Name name of the group
+		*	\return array('ID','Description','Users','Sections')
+		*/
+	static function InfoByName($Name)
+		{
+		$ret=Main()->DB->fetch_array_query("SELECT * FROM Groups WHERE Name='$Name'");
+		if($ret)
+			return Groups::Info($ret['ID']);
 		return null;
 		}
 	/**	Gets a fieldset with inputs for all the groups of the website.
