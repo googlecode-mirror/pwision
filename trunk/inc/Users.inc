@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 include_once("PMainComponent.inc");
 /**	A namespace for user relation functions.
 	*	\brief user's namespace.
-	*	\version 1.5.2
+	*	\version 1.6.0
 	*/
 final class Users
 	{
@@ -163,6 +163,28 @@ final class Users
 					WHERE
 					Groups.ID=GroupUsers.GroupID and
 					UserID='.$id );
+			return $ret;
+			}
+		return null;
+		}
+	/**	Gets the user's row from the Users database table.
+		*	\brief get the user information.
+		*	\version 1.0.0
+		*	\param $Name name of the user
+		*	\return an array containing the row
+		*/
+	static function UserInfoByName( $Name )
+		{
+		$ret=Main()->DB->fetch_array_query
+			("SELECT * FROM Users WHERE Name='$Name'");
+		if($ret)
+			{
+			$ret['Groups']=Main()->DB->fetch_all_query
+				('SELECT Groups.ID, Name
+					FROM Groups, GroupUsers
+					WHERE
+					Groups.ID=GroupUsers.GroupID and
+					UserID='.$ret['ID'] );
 			return $ret;
 			}
 		return null;
