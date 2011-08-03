@@ -1,6 +1,6 @@
 /*
  * pwision_kde.css
- *	- version 1.13.1
+ *	- version 1.14.0
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009,2010 Becheru Petru-Ioan
@@ -116,6 +116,21 @@ textarea{
 input:hover,textarea:hover, select:hover {
 	color:black;
 	border-color:black;
+	}
+
+[disabled]{
+	color:#3F3F3F;
+	border-color:gray;
+	}
+[disabled]:hover{
+	color:#3F3F3F;
+	border-color:gray;
+	}
+
+input:invalid {
+	color:yellow;
+	background-color:red;
+	font-weight:bold;
 	}
 
 
