@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009,2011 Becheru Petru-Ioan
+Copyright (C) 2009--11 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -181,21 +181,19 @@ function SiteURL()
 /** 	The PBasicWebPage class is designed to model a webpage. Main atributes of a webpage are: title, motto, message, section and the language.
 	*	\latexonly \label{PWision:PBasicWebPage} \index{PBasicWebPage} \index{webpage} \index{section} \endlatexonly
 	*	\brief a basic web page.
-	*	\version 3.1.2
+	*	\version 3.1.3
 	*	\note  Themed webpages will extend this class.
 	*	\par Example:
 	*		see PCSSZenWebPage class.
 	*/
 abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 	{
-	/**	\brief textual representation of the object
-		*	\return a string
-		*/
 	function Draw()
 		{
 		/// the html element
 		$html=Object(new PElement("html"))
 				->setAtr("xmlns","http://www.w3.org/1999/xhtml")
+				->setAtr('lang',$this->getLanguage())
 			->Insert($this->Head())
 			->Insert($this->Body())
 			;
