@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009,2010 Becheru Petru-Ioan
+Copyright (C) 2009--11 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -64,7 +64,7 @@ class PRedirect extends PSection
 /** 	The PRedirectingSection class is designed to model a section that redirects the client browser to an url.
 	*	\latexonly \label{PWision:PRedirectingSection} \index{PRedirectingSection} \label{redirect} \label{URL} \endlatexonly
 	*	\brief a redirecting section.
-	*	\version 1.3.0
+	*	\version 1.3.1
 	*/
 class PRedirectingSection extends PRedirect
 	{
@@ -93,7 +93,10 @@ class PRedirectingSection extends PRedirect
 	function PRedirectingSection($URL)
 		{
 		$this->URL=$URL;
-		PSection::PSection();
+		PRedirect::PRedirect();
+		header('HTTP/1.1 301 Moved Permanently');
+		header('Location: '.$URL
+			); /* Redirect browser */
 		}
 	function Chapter1Title()
 		{
@@ -115,7 +118,7 @@ class PRedirectingSection extends PRedirect
 /** 	The PRedirect2Section class is designed to model a section that redirects the client browser to the url of a section.
 	*	\latexonly \label{PWision:PRedirect2Section} \index{PRedirect2Section} \label{redirect} \label{section} \endlatexonly
 	*	\brief a section that redirects to a section.
-	*	\version 2.0.0
+	*	\version 2.0.1
 	*/
 class PRedirect2Section extends PRedirect
 	{
@@ -142,7 +145,13 @@ class PRedirect2Section extends PRedirect
 		{
 		$this->section_name=$section_name;
 		$this->attr=$attr;
-		PSection::PSection();
+		PRedirect::PRedirect();
+			if($attr==null)$attr=new PURLAttributes();
+			$attr->setSeparator('&');
+			header('HTTP/1.1 301 Moved Permanently');
+			header('Location: http://'. 
+				$_SERVER['SERVER_NAME']. "/$section_name". $attr->Draw()
+				); /* Redirect browser */
 		}
 	function Chapter1Title()
 		{
