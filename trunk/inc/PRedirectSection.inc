@@ -118,7 +118,7 @@ class PRedirectingSection extends PRedirect
 /** 	The PRedirect2Section class is designed to model a section that redirects the client browser to the url of a section.
 	*	\latexonly \label{PWision:PRedirect2Section} \index{PRedirect2Section} \label{redirect} \label{section} \endlatexonly
 	*	\brief a section that redirects to a section.
-	*	\version 2.0.1
+	*	\version 2.0.2
 	*/
 class PRedirect2Section extends PRedirect
 	{
@@ -146,11 +146,11 @@ class PRedirect2Section extends PRedirect
 		$this->section_name=$section_name;
 		$this->attr=$attr;
 		PRedirect::PRedirect();
-			if($attr==null)$attr=new PURLAttributes();
-			$attr->setSeparator('&');
+			if($this->attr==null)$this->attr=new PURLAttributes();
+			$this->attr->setSeparator('&');
 			header('HTTP/1.1 301 Moved Permanently');
 			header('Location: http://'. 
-				$_SERVER['SERVER_NAME']. "/$section_name". $attr->Draw()
+				$_SERVER['SERVER_NAME']. '/'.$this->section_name . $this->attr->Draw()
 				); /* Redirect browser */
 		}
 	function Chapter1Title()
