@@ -26,7 +26,7 @@ include_once("inc/Groups.inc");
 /** 	The EditSection class is designed to model the section that allows a user to edit the sections of the website. It provides an intuitive interface with textboxes (for section name and description) and checkboxes (that display the groups that the section will be member of).
 	*	\latexonly \label{PWision:Sections:EditSection} \index{EditSection} \endlatexonly
 	*	\brief a section editor.
-	*	\version 1.6.1
+	*	\version 1.6.2
 	*/
 class EditSection extends PStepFormSection
 	{
@@ -42,7 +42,7 @@ class EditSection extends PStepFormSection
 		}
 	function setParams()
 		{
-		$fulltext='/^[ -~\xA\xD]*$/i';//match printable ASCII + LF and CR
+		$fulltext='/^[ -~\xA\xD\t]*$/i';//match tabs, printable ASCII + LF and CR
 		$this
 			->addParam('sectionname','/^[a-z][_a-z0-9 ]{1,62}$/i')
 			->addParam('owner','/^[a-z][_a-z ]{1,62}$/i')

@@ -1,6 +1,7 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.14.0
+ *	- version 1.14.1
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009,2010 Becheru Petru-Ioan
@@ -24,7 +25,7 @@ html{
 body{
 	margin-top: 0;
 	font-size: 0.9em;
-	font-family: "Bitstream Vera Sans", "Lucida Grande", "Trebuchet MS", sans-serif;
+	font-family: "Ubuntu", "Bitstream Vera Sans", "Lucida Grande", "Trebuchet MS", sans-serif;
 	color: #535353;
 	background-color: white;
 	}
