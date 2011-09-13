@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009,2010 Becheru Petru-Ioan
+Copyright (C) 2009--11 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ include_once('PRedirectSection.inc');
 /** 	The PCSSZenWebPage class is designed to model the <a href="http://www.csszengarden.com">www.csszengarden.com</a> website layout so we can use the themes provided by this website.
 	*	\latexonly \label{PWision:PCSSZenWebPage} \index{PCSSZenWebPage} \index{webpage} \index{layout} \index{theme} \index{css zen garden} \endlatexonly
 	*	\brief a themed webpage.
-	*	\version 3.1.5
+	*	\version 3.1.7
 	*	\par Example:
 \code
 include_once("PCSSZenWebPage.inc");
@@ -82,6 +82,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 		{
 		return Object(new PElement("div"))
 				->setAtr("id","container")
+				->setAtr('class',$this->getSectionName())
 			->Insert($this->idIntro())
 			->Insert($this->idSupportingText())
 			->Insert($this->idLinkList())
@@ -99,7 +100,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 		}
 	/**
 		*	\brief pageHeader div
-		*	\version 1.1.1
+		*	\version 1.1.2
 		*/
 	protected function idPageHeader()
 		{
@@ -108,7 +109,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 				->setAtr("title",$this->getTitle()." : ".$this->getMotto())
 			->Insert(
 				Object(new PElement("h1"))
-						->setAtr("onclick","window.location='index.php?section=Root'")
+						->setAtr("onclick","window.location='/Root'")
 					->Insert(
 						El("span")
 								->setAtr('class','notranslate')
@@ -425,7 +426,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 /** 	The PWebPageDefault class is designed to be the default themed webpage of PWision. The layout described by this theme is derived from PCSSZenWebPage layout.
 	*	\latexonly \label{PWision:PWebPageDefault} \index{PWebPageDefault} \endlatexonly
 	*	\brief PWision's default themed webpage.
-	*	\version 1.4.1
+	*	\version 1.4.2
 	*/
 abstract class PWebPageDefault extends PCSSZenWebPage
 	{
@@ -450,6 +451,7 @@ abstract class PWebPageDefault extends PCSSZenWebPage
 		{
 		return Object(new PElement("div"))
 				->setAtr("id","container")
+				->setAtr('class',$this->getSectionName())
 			->Insert($this->idPageHeader())
 			->Insert( $this->idIntro() )
 			->Insert( $this->idSupportingText() )
