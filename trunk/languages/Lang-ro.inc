@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**	\file
 	*	\brief pwision translation to romanian.
-	*	\version 1.4.0
+	*	\version 1.5.0
 	*/
 
 
@@ -54,6 +54,12 @@ PMainComponent::$Lang['UserAccess']='Access Utilizatori';
 
 	PMainComponent::$Lang['You are now being redirected to section']='Redirectare c&#259;tre secțiunea';
 	PMainComponent::$Lang['You are now being redirected to']='Redirectare c&#259;tre';
+
+PMainComponent::$Lang['UploadFile']='&Icirc;ncarc&#259; fi&#x219;ier';
+	PMainComponent::$Lang['Upload file']='&Icirc;ncarc&#259; fi&#x219;ier';
+	PMainComponent::$Lang['Upload!']='&Icirc;ncarc&#259;!';
+	PMainComponent::$Lang['Keep Original Filename']='p&#259;streaz&#259; numele original';
+
 
 PMainComponent::$Lang['']='';
 ?>

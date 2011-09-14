@@ -101,19 +101,20 @@ CREATE TABLE `Sections`(
 INDEX ( `ID` )
 )COMMENT='Sections of the website';
 INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`, `BBCode`, `HTML`) VALUES
-	('login', 'UserAccess', 'section', 'Login a user', '', ''),
-	('logout', 'UserAccess', 'section', 'Log out', '', ''),
+		('login', 'UserAccess', 'section', 'Login a user', '', ''),
+		('logout', 'UserAccess', 'section', 'Log out', '', ''),
 	('UserAccess', 'Root', 'section', 'user access to the website', '', ''),
 	('SectionManagement', 'Root', 'section', 'section management', '', ''),
-	('CreateSection', 'SectionManagement', 'section', 'create a section', '', ''),
-	('EditSection', 'SectionManagement', 'section', 'edit a section', '', ''),
+		('CreateSection', 'SectionManagement', 'section', 'create a section', '', ''),
+		('EditSection', 'SectionManagement', 'section', 'edit a section', '', ''),
+		('UploadFile', 'SectionManagement', 'section', 'upload a file', '', ''),
 	('UserManagement', 'Root', 'section', 'user management', '', ''),
-	('CreateUser', 'UserManagement', 'section', 'Create a new user', '', ''),
-	('EditUser', 'UserManagement', 'section', 'Edit an existing user', '', ''),
-	('MyUsers', 'UserManagement', 'section', 'Show my users', '', ''),
+		('CreateUser', 'UserManagement', 'section', 'Create a new user', '', ''),
+		('EditUser', 'UserManagement', 'section', 'Edit an existing user', '', ''),
+		('MyUsers', 'UserManagement', 'section', 'Show my users', '', ''),
 	('GroupManagement', 'Root', 'section', 'Group management', '', ''),
-	('CreateGroup', 'GroupManagement', 'section', 'Create a group', '', ''),
-	('EditGroup', 'GroupManagement', 'section', 'Edit a group', '', '')
+		('CreateGroup', 'GroupManagement', 'section', 'Create a group', '', ''),
+		('EditGroup', 'GroupManagement', 'section', 'Edit a group', '', '')
 	;
 #HiddenSections table
 DROP TABLE IF EXISTS `HiddenSections`;
@@ -141,6 +142,7 @@ INSERT INTO `GroupSections`(`SectionName`,`GroupID`) VALUES
 	('SectionManagement',9),#SectionManagement in SectionManagers
 	('CreateSection',9),#CreateSection in SectionManagers
 	('EditSection',9),#EditSection in SectionManagers
+	('UploadFile',9),#UploadFile in SectionManagers
 	('UserManagement', 4),#UserManagement in UserManagers
 	('CreateUser', 5),#CreateUser in UserCreators
 	('CreateUser', 8),#CreateUser in UserFullManagers
