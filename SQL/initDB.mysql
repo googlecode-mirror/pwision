@@ -1,6 +1,6 @@
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009,2010 Becheru Petru-Ioan
+Copyright (C) 2009--11 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-# version 1.3.0
+# version 1.3.1
 
 #Users table
 DROP TABLE IF EXISTS `Users`;
@@ -95,7 +95,7 @@ CREATE TABLE `Sections`(
 `Sort` VARCHAR( 16 ) NOT NULL DEFAULT  'L5' COMMENT  'sort string',
 `Owner` VARCHAR( 64 ) NOT NULL COMMENT 'Owner of the section' DEFAULT 'Root',
 `Type` VARCHAR( 8 ) NOT NULL COMMENT 'type of the section' DEFAULT 'section',
-`Description` VARCHAR( 128 ) NOT NULL COMMENT 'description of the section' DEFAULT '',
+`Description` VARCHAR( 512 ) NOT NULL COMMENT 'description of the section' DEFAULT '',
 `BBCode` LONGTEXT NOT NULL COMMENT  'content of the section in BBCode',
 `HTML` LONGTEXT NOT NULL COMMENT  'the HTML content of the section compiled from the BBCode',
 INDEX ( `ID` )

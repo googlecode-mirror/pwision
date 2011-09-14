@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009,2010 Becheru Petru-Ioan
+Copyright (C) 2009--11 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ include_once("inc/Groups.inc");
 /** 	The EditSection class is designed to model the section that allows a user to edit the sections of the website. It provides an intuitive interface with textboxes (for section name and description) and checkboxes (that display the groups that the section will be member of).
 	*	\latexonly \label{PWision:Sections:EditSection} \index{EditSection} \endlatexonly
 	*	\brief a section editor.
-	*	\version 1.6.2
+	*	\version 1.6.4
 	*/
 class EditSection extends PStepFormSection
 	{
@@ -45,8 +45,8 @@ class EditSection extends PStepFormSection
 		$fulltext='/^[ -~\xA\xD\t]*$/i';//match tabs, printable ASCII + LF and CR
 		$this
 			->addParam('sectionname','/^[a-z][_a-z0-9 ]{1,62}$/i')
-			->addParam('owner','/^[a-z][_a-z ]{1,62}$/i')
-			->addParam('description','/^[&#;a-z0-9 ]{0,127}$/i')
+			->addParam('owner','/^[a-z][_a-z0-9 ]{1,62}$/i')
+			->addParam('description','/^[-&#;a-z0-9,() ]{0,512}$/i')
 			->addParam('Sort','/^[a-z0-9]{1,16}$/i')
 			->addParam('groups','','')
 			->addParam('attr','','')
@@ -187,7 +187,7 @@ class EditSection extends PStepFormSection
 									$this->TheForm->Insert(new PText("Owner Section '".$this->getParam('owner')."' does not exits."));
 									return;
 									}
-								if(eregi("^[&#259;a-z0-9 ]{0,127}$",$this->getParam('description'))==false)
+								if(!$this->didParamCheckedRegExp('description'))
 									{
 									$this->TheForm->Insert(new PText("'".$this->getParam('description')."' does not follow '^[&#259;a-z0-9 ]{0,127}$'"));
 									return;
