@@ -1,10 +1,10 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.14.1
+ *	- version 1.15.0
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
- * Copyright (C) 2009,2010 Becheru Petru-Ioan
+ * Copyright (C) 2009--11 Becheru Petru-Ioan
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -257,12 +257,16 @@ a.logout:before{
 a.SectionManagement:before{
 	content:url(images/sections/SectionManagement.png);
 	}
-a.CreateSection:before{
-	content:url(images/sections/CreateSection.png);
-	}
-a.EditSection:before{
-	content:url(images/sections/EditSection.png);
-	}
+	a.CreateSection:before{
+		content:url(images/sections/CreateSection.png);
+		}
+	a.EditSection:before{
+		content:url(images/sections/EditSection.png);
+		}
+	a.UploadFile:before
+		{
+		content:url(images/sections/UploadFile.png);
+		}
 a.UserManagement:before{
 	content:url(images/sections/UserAccess.png);
 	}
@@ -406,6 +410,7 @@ a.Contact:before{
 #intro,.intro{
 	margin-right:1em;
 	padding: 0 0 .5em 0;
+	max-width:20em;
 	background: #eeeeee;
 	border: #bcbcbc solid;
 	border-width:0px 1px 1px 1px;
