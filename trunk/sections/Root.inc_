@@ -7,6 +7,35 @@ include_once("inc/PSection.inc");
 	*/
 class Root extends PSection
 	{
+	function	Chapter0(){
+			if($_SERVER['REQUEST_URI']!='/')
+				{
+				header('HTTP/1.1 301 Moved Permanently');
+				header('Location: http://'.$_SERVER['SERVER_NAME']
+					); /* Redirect browser */
+				exit;
+				}
+		$ret=parent::Chapter0();
+		$html= El('div')
+			->setAtr('class','subsections')
+			;
+		$ul=new PStructure(new PElement("li"), new PElement("ul"));
+		$SectsArray=Sections::AccesibleBookmarkedSections ($_SESSION['userID']);
+		if(count($SectsArray)!=0)
+			{
+			$html
+				->Insert(
+					El('h4')
+						->Insert(new PText( lang('Subsections of').' '.lang($this->getName()) ) )
+					)
+				;
+			foreach($SectsArray as $section)
+				$ul->newKid()->Insert(Sections::Link2SQLSection($section));
+			}
+		$html->Insert($ul);
+		$ret->Insert( $html );
+		return $ret;
+		}
 	}
 
 ?>

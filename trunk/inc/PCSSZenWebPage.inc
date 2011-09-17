@@ -340,7 +340,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 				->setAtr("id","lresources")
 				->setAtr("title",lang('Subsections of')." ".$this->getSectionName())
 				;
-		//if current section is Root the subsections are displayed by idLarchives()
+		//if current section is not Root the subsections are displayed by idLarchives()
 		if($this->getSectionName()!="Root")
 			{
 			$ul=$this->ListStructure();
