@@ -30,7 +30,7 @@ class PSection_ParamNCheck extends Exception
 /** 	The PSection class is designed to model a section of the website. A section has a name, a description and is splitted in 5 chapters (numbered 0 to 4).
 	*	\latexonly \label{PWision:PSection} \index{PSection} \index{section} \index{website} \endlatexonly
 	*	\brief a section of the website.
-	*	\version 4.3.0
+	*	\version 4.3.1
 	*	\note it will be derived in files X.inc from sections/ as X class
 	*/
 class PSection
@@ -305,7 +305,7 @@ class PSection
 		}
 	/**
 		*	\brief preamble of the section
-		*	\version 1.1.4
+		*	\version 1.1.5
 		*/
 	function	Chapter0(){
 		$ret=new PContent();
@@ -322,7 +322,9 @@ class PSection
 						}
 					if( ($html==null || $html=='') )
 						{
-						$html= new PContent;
+						$html= El('div')
+							->setAtr('class','subsections')
+							;
 						$ul=new PStructure(new PElement("li"), new PElement("ul"));
 						$SectsArray=Sections::AccesibleNotHiddenSubSections($this->getName(),$_SESSION['userID']);
 						if(count($SectsArray)!=0)
@@ -370,7 +372,7 @@ class PSection
 /**	A namespace for section relation functions.
 	*	\latexonly \label{PWision:Sections} \endlatexonly
 	*	\brief section's namespace.
-	*	\version 4.1.0
+	*	\version 4.1.1
 	*/
 final class Sections
 	{
@@ -649,7 +651,7 @@ final class Sections
 
 	/**	Constructs an hyperlink to a section from a SQL section information.
 		*	\brief hyperlink to a SQL section information.
-		*	\version 1.0.1
+		*	\version 1.0.2
 		*	\param $section array containing section information, that may have been return by Section() function.
 		*	\return an <b>a</b> element with a hyper reference to the section.
 		*/
@@ -662,7 +664,12 @@ final class Sections
 					El("a")
 							->setAtr("href","index.php?section=". $section['Owner']. "#". $section['Name'])
 							->setAtr("title",lang($section['Description']))
-						->Insert(PTextlang($section['Name']));
+						->Insert(
+							El('span')
+								->Insert(
+									PTextlang($section['Name'])
+									)
+							);
 		}
 	/**	Constructs an hyperlink to a section.
 		*	\brief hyperlink to a section.
@@ -671,7 +678,7 @@ final class Sections
 		*	\param text text of the link(by default $section_name used)
 		*	\param attr attributes to link, besides <b>section=<i>section_name</i></b>
 		*	\return an <b>a</b> element with a hyper reference to the section.
-		*	\version 1.1.3
+		*	\version 1.1.4
 	 */
 	static function Link2( $section_name="Root", $title="", $text="" , PURLAttributes $attr=null)
 		{
@@ -688,7 +695,12 @@ final class Sections
 				;
 		if($text=="")
 					$text=lang($section_name);
-		return $lnk->Insert(new PText($text));
+		return $lnk
+			->Insert(
+				El('span')
+					->Insert(new PText($text))
+				)
+			;
 		}
 	/**	Gets the path to a section, starting with the Root section. Each section in the path is the owner of the next section in the path.
 		*	\brief the path to a section from Root.

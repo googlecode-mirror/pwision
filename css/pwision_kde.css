@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.15.0
+ *	- version 1.16.0
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009--11 Becheru Petru-Ioan
@@ -239,56 +239,56 @@ span.simple table{
  */
 a.section{
 	}
-a.section:before{
+a.section span:before{
 	content:url(images/sections/section.png);
 	}
-a.Root:before{
+a.Root span:before{
 	content:url(images/sections/Root.png);
 	}
-a.UserAccess:before{
+a.UserAccess span:before{
 	content:url(images/sections/UserAccess.png);
 	}
-a.login:before{
+a.login span:before{
 	content:url(images/sections/login.png);
 	}
-a.logout:before{
+a.logout span:before{
 	content:url(images/sections/logout.png);
 	}
-a.SectionManagement:before{
+a.SectionManagement span:before{
 	content:url(images/sections/SectionManagement.png);
 	}
-	a.CreateSection:before{
+	a.CreateSection span:before{
 		content:url(images/sections/CreateSection.png);
 		}
-	a.EditSection:before{
+	a.EditSection span:before{
 		content:url(images/sections/EditSection.png);
 		}
-	a.UploadFile:before
+	a.UploadFile span:before
 		{
 		content:url(images/sections/UploadFile.png);
 		}
-a.UserManagement:before{
+a.UserManagement span:before{
 	content:url(images/sections/UserAccess.png);
 	}
-a.CreateUser:before{
+a.CreateUser span:before{
 	content:url(images/sections/CreateUser.png);
 	}
-a.EditUser:before{
+a.EditUser span:before{
 	content:url(images/sections/EditUser.png);
 	}
-a.MyUsers:before{
+a.MyUsers span:before{
 	content:url(images/sections/GroupManagement.png);
 	}
-a.GroupManagement:before{
+a.GroupManagement span:before{
 	content:url(images/sections/GroupManagement.png);
 	}
-a.CreateGroup:before{
+a.CreateGroup span:before{
 	content:url(images/sections/CreateGroup.png);
 	}
-a.EditGroup:before{
+a.EditGroup span:before{
 	content:url(images/sections/EditGroup.png);
 	}
-a.Contact:before{
+a.Contact span:before{
 	content:url(images/sections/info.png);
 	}
 /*
@@ -528,6 +528,83 @@ a.Contact:before{
 #preamble h3{
 	font-size:1.7em;
 	}
+
+#preamble .subsections
+	{
+	text-align:center;
+	}
+
+#preamble .subsections h4
+	{
+	display:none;
+	}
+
+#preamble .subsections ul
+	{
+	text-indent: 0px;
+	}
+
+
+#preamble .subsections li
+	{
+	display:inline-block;
+	vertical-align: middle;
+	margin:1em;
+	width:10em;
+	height:10em;
+	}
+
+#preamble .subsections li a
+	{
+	display:block;
+	text-align:center;
+/* 	position:relative; */
+	width:100%;
+	height:100%;
+	background: rgba(238, 238, 238, 0.5) !important;
+	background: #eeeeee;
+	border: #bcbcbc solid;
+	border-width:1px;
+	border-radius: 1em 1em 1em 1em;
+	box-shadow:2px 2px 10px #888888;
+	
+	-webkit-transition:-webkit-transform 0.5s,opacity 0.5s,background 1.5s,min-height 0.5s,width 0.5s,height 0.5s,font-size 0.5s;
+	-o-transition-property:width,min-height,height,-o-transform,background,font-size,opacity;
+	-o-transition-duration:0.5s,0.5s,0.5s,0.5s,1.5s,0.5s,0.5s;
+	-moz-transition-property:width,min-height,height,-moz-transform,background,font-size,opacity;
+	-moz-transition-duration:0.5s,0.5s,0.5s,0.5s,1.5s,0.5s,0.5s;
+	transition-property:width,min-height,height,transform,background,font-size,opacity;
+	transition-duration:0.5s,0.5s,0.5s,0.5s,1.5s,0.5s,0.5s;
+
+	transition-timing-function: ease-in-out;
+	-moz-transition-timing-function: ease-in-out;
+	-webkit-transition-timing-function: ease-in-out;
+	-o-transition-timing-function: ease-in-out;
+	
+	}
+
+#preamble .subsections li a span
+	{
+/* 	position:relative; */
+/* 	top:33%; */
+	display:table-cell;
+	width:10em;
+	height:10em;
+	vertical-align:middle;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	}
+	
+#preamble .subsections li a:hover
+	{
+/* 	width:190%; */
+	background: rgba(238, 238, 238, 1) !important;
+	-moz-transform:/*translate(-25%)*/ rotate(360deg); /* Firefox 4 */
+	-webkit-transform:/*translate(-25%)*/ rotate(360deg); /* Safari and Chrome */
+	-o-transform:/*translate(-25%)*/ rotate(360deg); /* Opera */
+	transform:/*translate(-25%)*/ rotate(360deg);
+	}
+
 
 .longAdd{
 	clear:left; 
