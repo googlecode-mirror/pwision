@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.16.0
+ *	- version 1.16.1
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009--11 Becheru Petru-Ioan
@@ -382,7 +382,7 @@ a.Contact span:before{
 	border-width:1px 1px 0 1px;
 	border-style:solid;
 	border-radius: 1em 1em 0 0;
-	-moz-border-radius: 1em 1em 0 0;
+	overflow:hidden;
 	}
 #lselect h3{
 	display:none;
@@ -398,8 +398,11 @@ a.Contact span:before{
 	float:left;
 	clear: both;
 	font-weight: bold;
-	line-height: normal;
 	text-align: left;
+	max-width: 50%;
+	border-color: #bcbcbc;
+	border-width:0px 1px 0px 0px;
+	border-style:solid;
 	}
 #lselect div div:hover{
 	}
