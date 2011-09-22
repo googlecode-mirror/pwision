@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.16.1
+ *	- version 1.16.2
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009--11 Becheru Petru-Ioan
@@ -584,6 +584,12 @@ a.Contact span:before{
 	-webkit-transition-timing-function: ease-in-out;
 	-o-transition-timing-function: ease-in-out;
 	
+	}
+#preamble .subsections li:first-child a{
+	border-radius: 3em 1em 1em 3em;
+	}
+#preamble .subsections li:last-child a{
+	border-radius: 1em 3em 3em 1em;
 	}
 
 #preamble .subsections li a span
