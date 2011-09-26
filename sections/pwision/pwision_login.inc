@@ -25,7 +25,7 @@ include_once("externalAPI/recaptchalib.php");
 /** 	The pwision_login class is designed to model the login section. The login section is the section of the website where guest users can log in with their username and password. This class can be extended, for example, to change the redireting URL by modifying InsertOnSuccessfulLogin() method.
 	*	\latexonly \label{PWision:Sections:pwision_login} \index{login}  \index{guest} \index{user}\endlatexonly
 	*	\brief the pwision_login section.
-	*	\version 1.0.2
+	*	\version 1.0.3
 	*/
 class pwision_login extends PFormSection
 	{
@@ -81,13 +81,11 @@ class pwision_login extends PFormSection
 			->Insert(
 				Object(new PFieldSet(PTextlang("Please identify")))
 					->Insert(
-						Object(new PInput("text","","username"))
-							->setAtr('placeholder',lang('username'))
+						new PInput("text","","username",lang('username'))
 						)
 						->Insert(new PSimpleTag("br"))
 					->Insert(
-						Object(new PInput("password","","password"))
-							->setAtr('placeholder',lang('password'))
+						new PInput("password","","password",lang('username'))
 						)
 						->Insert(new PSimpleTag("br"))
 					->Insert($captcha)
