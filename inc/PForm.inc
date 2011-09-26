@@ -57,7 +57,7 @@ class PForm extends PElement
 /** 	The PInput class is designed to model the HTML input element. A PInput is inserted in a PForm object.
 	*	\latexonly \label{PWision:PInput} \index{PInput} \index{input} \index{form} \endlatexonly
 	*	\brief an input element.
-	*	\version 1.1.0
+	*	\version 1.1.1
 	*	\par Example:
 \code
 include_once("PForm.inc");
@@ -79,14 +79,15 @@ class PInput extends PSimpleTag
 		function & setName($name=""){return $this->IName=$name;}
 
 	/**	\brief initialisation method.
-		*	\version 1.1.0
+		*	\version 1.1.1
 		*	\param $type input type(button, checkbox, file, hidden, image, password, radio, reset, submit, text)
 		*	\param $value value
 		*	\param $name nameid of the element
 		*	\param $title title of the element
 		*	\param $pattern the regexp that should be matched
+		*	\param $placeholder the placeholder
 		*/
-	function PInput($type="text",$value,$name, $title="",$pattern="")
+	function PInput($type,$value,$name, $title="",$pattern="", $placeholder="")
 		{
 		PSimpleTag::PSimpleTag("input");
 		$this
@@ -95,6 +96,7 @@ class PInput extends PSimpleTag
 			->setAtr("name",$name)
 			->setAtr("pattern", $pattern)
 			->setAtr("title",$title)
+			->setAtr("placeholder",$placeholder==""?$title:$placeholder)
 			;
 		}
 	}
