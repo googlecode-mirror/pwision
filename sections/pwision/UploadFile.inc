@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2010 Becheru Petru-Ioan
+Copyright (C) 2010--11 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ include_once("externalAPI/recaptchalib.php");
 /** 	The UploadFile class is designed to model a file upload section.
 	*	\latexonly \label{PWision:UploadFile} \index{UploadFile}  \index{upload} \index{file}\endlatexonly
 	*	\brief the UploadFile section.
-	*	\version 1.2.2
+	*	\version 1.3.0
 	*	\note This section allows uploading of some sorts of files. See ProcessOK().
 	*/
 class UploadFile extends PFormSection
@@ -70,12 +70,12 @@ class UploadFile extends PFormSection
 			$ext != '.'
 			)
 				$ext='.txt';
-			else
-				{
-				while(file_exists($path . $filename))
-						$filename=$name.'_'. UploadFile::randStr(8) . $ext;
-				return $filename;
-				}
+		if($keepOriginalName)
+			{
+			while(file_exists($path . $filename))
+					$filename=$name.'_'. UploadFile::randStr(8) . $ext;
+			return $filename;
+			}
 		do
 			$newname=UploadFile::randStr(16) . $ext;
 		while(file_exists( $path . $newname));
@@ -105,6 +105,27 @@ class UploadFile extends PFormSection
 				return $newname;
 			else
 				return false;
+		}
+	/**	
+		*	\brief post process a file
+		*	\param $newName the new name of the file
+		*/
+	function postProcessFile($newname,&$content)
+		{
+		$content
+			->Insert(
+				new PText("  [li][*url=/uploads/$newname]")
+				)
+				->Insert(
+					El('a')
+						->setAtr('href',"/uploads/$newname")
+						->setAtr('target','_blank')
+						->Insert(new PText($newname))
+					)
+			->Insert(
+				new PText("[/url][/li]<br/>")
+				)
+			;
 		}
 	/// 	*	\todo add error messages when return false in ProcessOK()
 	function ProcessOK()
@@ -137,7 +158,7 @@ class UploadFile extends PFormSection
 			$this->AddMessage("Captcha not ok! Try again");
 			return false;
 			}*/
-		$content=El('code');
+		$content=El('div');
 		foreach($files as $file)
 			{
 			$newname=false;
@@ -151,20 +172,7 @@ class UploadFile extends PFormSection
 					}
 			if ($newname)
 					{
-					$content
-						->Insert(
-							new PText("  [li][*url=/uploads/$newname]")
-							)
-							->Insert(
-								El('a')
-									->setAtr('href',"/uploads/$newname")
-									->setAtr('target','_blank')
-									->Insert(new PText($newname))
-								)
-						->Insert(
-							new PText("[/url][/li]<br/>")
-							)
-						;
+					$this->postProcessFile($newname,$content);
 					}
 				else
 					return false;
@@ -189,7 +197,12 @@ class UploadFile extends PFormSection
 					//->Insert(PTextlang("select the file"))->Insert(new PSimpleTag("br"))
 					//->Insert(new PText(recaptcha_get_html(Main()->reCAPTCHApublickey()) ) )
 					->Insert(new PInput('checkbox','keepOriginalName','keepOriginalName'))
-					->Insert(PTextlang('Keep Original Filename'))
+					->Insert(
+						El('label')
+							->setAtr('for','keepOriginalName')
+							->Insert(PTextlang('Keep Original Filename'))
+						)
+					->Insert(sEl('br'))
 					->Insert(new PInput("submit",lang("Upload!"),""))
 				)
 			;
