@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**	\file
 	*	\brief pwision translation to romanian.
-	*	\version 1.5.0
+	*	\version 1.5.1
 	*/
 
 
@@ -43,7 +43,7 @@ PMainComponent::$Lang['subsections found']='subsecțiuni g&#259;site';
 
 
 PMainComponent::$Lang['Root']='Prima pagin&#259;';
-	PMainComponent::$Lang['Input section was not accessible. Root section loaded instead!']='Secțiunea data nu a fost accesibila. Secțiunea Root a fost incarcata!';
+	PMainComponent::$Lang['Input section was not accessible. Root section loaded instead!']='Secțiunea data nu a fost accesibila. Secțiunea Root a fost încarcata!';
 PMainComponent::$Lang['login']='Conectare';
 	PMainComponent::$Lang['Login a user']='Conecteaz&#259; un utilizator';
 	PMainComponent::$Lang['Please identify']='Identificare';
@@ -55,8 +55,8 @@ PMainComponent::$Lang['UserAccess']='Access Utilizatori';
 	PMainComponent::$Lang['You are now being redirected to section']='Redirectare c&#259;tre secțiunea';
 	PMainComponent::$Lang['You are now being redirected to']='Redirectare c&#259;tre';
 
-PMainComponent::$Lang['UploadFile']='&Icirc;ncarc&#259; fi&#x219;ier';
-	PMainComponent::$Lang['Upload file']='&Icirc;ncarc&#259; fi&#x219;ier';
+PMainComponent::$Lang['UploadFile']='Încarcă fișiere';
+	PMainComponent::$Lang['Choose the files']='Alege fișiere';
 	PMainComponent::$Lang['Upload!']='&Icirc;ncarc&#259;!';
 	PMainComponent::$Lang['Keep Original Filename']='p&#259;streaz&#259; numele original';
 
