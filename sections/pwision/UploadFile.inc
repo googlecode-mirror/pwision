@@ -189,7 +189,7 @@ class UploadFile extends PFormSection
 				->setAtr("method","post")
 				->setAtr('enctype','multipart/form-data')
 			->Insert(
-				Object(new PFieldSet(PTextlang("Upload file")))
+				Object(new PFieldSet(PTextlang("Choose the files")))
 					->Insert(
 						Object(new PInput("file","","file[]"))
 							->setAtr('multiple','multiple')
