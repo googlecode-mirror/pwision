@@ -57,7 +57,7 @@ class PForm extends PElement
 /** 	The PInput class is designed to model the HTML input element. A PInput is inserted in a PForm object.
 	*	\latexonly \label{PWision:PInput} \index{PInput} \index{input} \index{form} \endlatexonly
 	*	\brief an input element.
-	*	\version 1.1.3
+	*	\version 1.3.0
 	*	\par Example:
 \code
 include_once("PForm.inc");
@@ -79,8 +79,8 @@ class PInput extends PSimpleTag
 		function & setName($name=""){return $this->IName=$name;}
 
 	/**	\brief initialisation method.
-		*	\version 1.1.3
-		*	\param $type input type(button, checkbox, file, hidden, image, password, radio, reset, submit, text)
+		*	\version 1.2.0
+		*	\param $type input type(button, checkbox, file, hidden, image, password, radio, reset, submit, text). If the type is 'checked_checkbox' then the input's type will be checkbox with the checked attribute set.
 		*	\param $value value
 		*	\param $name nameid of the element
 		*	\param $title title of the element
@@ -90,6 +90,12 @@ class PInput extends PSimpleTag
 	function PInput($type,$value,$name, $title="",$pattern="", $placeholder="")
 		{
 		PSimpleTag::PSimpleTag("input");
+		$check=false;
+		if($type=='checked_checkbox')
+			{
+			$check=true;
+			$type='checkbox';
+			}
 		if($title=='')$title=$name;
 		if($placeholder=='')$placeholder=$title;
 		$this
@@ -100,9 +106,43 @@ class PInput extends PSimpleTag
 			->setAtr("pattern", $pattern)
 			->setAtr("title",$title)
 			->setAtr("placeholder",$placeholder)
+			->setAtr('checked',$check?'checked':'')
+			;
+		}
+	/**	Gets a label element for this input.
+		*	\brief get a label for this input.
+		*	\return the label element
+		*/
+	function getALabel()
+		{
+		return El('label')
+					->setAtr('for',$this->getAtr('id'))
+					->setAtr('title', $this->getAtr('placeholder'))
+				->Insert(new PText($this->getAtr('placeholder')))
 			;
 		}
 	}
+
+/**	Creates an input with an associated label for it.
+	*	\brief input with label.
+	*	\version 1.0.0
+	*	\param $type input type(button, checkbox, file, hidden, image, password, radio, reset, submit, text)
+	*	\param $value value
+	*	\param $name nameid of the element
+	*	\param $title title of the element
+	*	\param $pattern the regexp that should be matched
+	*	\param $placeholder the placeholder
+	*/
+function Input($type,$value,$name, $title="",$pattern="", $placeholder="")
+	{
+	$input=new PInput($type,$value,$name, $title,$pattern, $placeholder);
+	return Object(new PContent)
+		->Insert($input->getALabel())
+		->Insert($input)
+		->Insert(new PText(' '))
+		;
+	}
+
 /**	Constructs a collection of inputs from an array whose items are arrays with a key for the value of the input and a key for the text that follows the input.
 	*	\brief array to inputs.
 	*	\version 1.1.1
