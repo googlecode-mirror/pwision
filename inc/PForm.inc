@@ -57,7 +57,7 @@ class PForm extends PElement
 /** 	The PInput class is designed to model the HTML input element. A PInput is inserted in a PForm object.
 	*	\latexonly \label{PWision:PInput} \index{PInput} \index{input} \index{form} \endlatexonly
 	*	\brief an input element.
-	*	\version 1.1.2
+	*	\version 1.1.3
 	*	\par Example:
 \code
 include_once("PForm.inc");
@@ -66,7 +66,7 @@ print( $anInp->Draw() );
 \endcode
 	*	\par Output:
 \verbatim
-<input type="text" value="insert text here" name="description" id="description"/>
+<input type="text" value="insert text here" name="description" id="description" title="description" placeholder="description"/>
 \endverbatim
 	*/
 class PInput extends PSimpleTag
@@ -79,7 +79,7 @@ class PInput extends PSimpleTag
 		function & setName($name=""){return $this->IName=$name;}
 
 	/**	\brief initialisation method.
-		*	\version 1.1.2
+		*	\version 1.1.3
 		*	\param $type input type(button, checkbox, file, hidden, image, password, radio, reset, submit, text)
 		*	\param $value value
 		*	\param $name nameid of the element
@@ -90,6 +90,8 @@ class PInput extends PSimpleTag
 	function PInput($type,$value,$name, $title="",$pattern="", $placeholder="")
 		{
 		PSimpleTag::PSimpleTag("input");
+		if($title=='')$title=$name;
+		if($placeholder=='')$placeholder=$title;
 		$this
 			->setAtr("type",$type)
 			->setAtr("value",$value)
@@ -97,7 +99,7 @@ class PInput extends PSimpleTag
 			->setAtr("id",$name)
 			->setAtr("pattern", $pattern)
 			->setAtr("title",$title)
-			->setAtr("placeholder",$placeholder==""?$title:$placeholder)
+			->setAtr("placeholder",$placeholder)
 			;
 		}
 	}
