@@ -81,11 +81,11 @@ class pwision_login extends PFormSection
 			->Insert(
 				Object(new PFieldSet(PTextlang("Please identify")))
 					->Insert(
-						new PInput("text","","username",lang('username'))
+						Input("text","","username",lang('username'))
 						)
 						->Insert(new PSimpleTag("br"))
 					->Insert(
-						new PInput("password","","password",lang('password'))
+						Input("password","","password",lang('password'))
 						)
 						->Insert(new PSimpleTag("br"))
 					->Insert($captcha)

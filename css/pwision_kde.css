@@ -109,6 +109,7 @@ input, textarea, select {
 	color: black;
 	background: #ffc;
 	border: 1px solid #888888;
+	font-family: "Ubuntu";
 	}
 textarea{
 	width:90%;
