@@ -17,9 +17,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-
 /**
 \mainpage PWision toolkit
 <a href='http://pwision.googlecode.com/'>PWision</a> is an advanced toolkit that is used to make HTML webpages. It is an object oriented hierarchy of PHP classes that is used for building webpages using the information from the database and the HTML outputting classes, that it defines.
