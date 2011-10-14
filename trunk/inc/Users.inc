@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 include_once("PMainComponent.inc");
 /**	A namespace for user relation functions.
 	*	\brief user's namespace.
-	*	\version 1.6.0
+	*	\version 1.7.0
 	*/
 final class Users
 	{
@@ -204,6 +204,21 @@ final class Users
 			"select GroupID from GroupSections where SectionName='$SectionName' ".
 				" and GroupID in ".
 			"(select GroupID from GroupUsers where UserID='$UserID')"
+			);
+		return $row['GroupID']!=null;
+		}
+	/**	Checks if a user is member of a group.
+		*	\brief Check if a user is in a group.
+		*	\param $UserID user's id
+		*	\param $GroupName Sec name
+		*	\return true if it has
+		*/
+	static function inGroup( $UserID, $GroupName )
+		{
+		$row= Main()->DB->fetch_array_query
+			(
+			"SELECT GroupID from Groups, GroupUsers Where UserID='$UserID' AND Groups.Name='$GroupName' AND GroupUsers.GroupID=Groups.ID
+			"
 			);
 		return $row['GroupID']!=null;
 		}

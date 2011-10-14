@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009 Becheru Petru-Ioan
+Copyright (C) 2009,2011 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ include_once("IMessage.inc");
 /** 	The PFormSection  class is designed to model a section of a website that has only PSection::Chapter1() with a <b>form</b> element.
 	*	\latexonly \label{PWision:PBasicFormSection} \index{PBasicFormSection} \endlatexonly
 	*	\brief a section with a form.
-	*	\version 3.0.1
+	*	\version 3.0.2
 	*/
 abstract class PBasicFormSection extends PSection implements IMessage
 	{
@@ -37,7 +37,8 @@ abstract class PBasicFormSection extends PSection implements IMessage
 		$this->
 			TheForm=Object(new PForm())
 				//->setAtr("name",get_class($this))
-				->setAtr("action","index.php")
+// 				->setAtr("action","index.php")
+				->setAtr("action","/")
 				->setAtr("method","post")
 				->Insert(new PInput("hidden",$this->getName(),"section"))
 				;
