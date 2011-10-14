@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.16.2
+ *	- version 1.17.0
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009--11 Becheru Petru-Ioan
@@ -81,6 +81,9 @@ a:visited {
 a[href]:hover{
 	text-decoration: underline;
 	text-shadow: #9BB564 0px 0px 3px;
+	}
+a[target=_blank]:after{
+	content:'↗'; 
 	}
 
 hr {
