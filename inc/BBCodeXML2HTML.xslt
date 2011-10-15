@@ -3,7 +3,7 @@
 	>
 <!--
 BBCodeXML to HTML
-version 1.2.0
+version 1.3.0
 Copyright (C) 2010,2011 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
@@ -165,6 +165,13 @@ along with this program.  If not, see http://www.gnu.org/licenses/.
 <!-- 4.4 caption -->
 <xsl:template match="caption">
 <caption><xsl:apply-templates/></caption>
+</xsl:template>
+
+<!-- X  -->
+
+<!-- X.1 tag -->
+<xsl:template match="null">
+<xsl:apply-templates/>
 </xsl:template>
 
 
