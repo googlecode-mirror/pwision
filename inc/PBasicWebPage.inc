@@ -181,7 +181,7 @@ function SiteURL()
 /** 	The PBasicWebPage class is designed to model a webpage. Main atributes of a webpage are: title, motto, message, section and the language.
 	*	\latexonly \label{PWision:PBasicWebPage} \index{PBasicWebPage} \index{webpage} \index{section} \endlatexonly
 	*	\brief a basic web page.
-	*	\version 3.1.3
+	*	\version 3.1.4
 	*	\note  Themed webpages will extend this class.
 	*	\par Example:
 	*		see PCSSZenWebPage class.
@@ -204,12 +204,13 @@ abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 		}
 	/**	Constructs a web page as a html element and inserts the head and the body.
 		*	\brief constructor
-		*	\version 1.0.1
+		*	\version 1.0.2
 		*/
 	function PBasicWebPage()
 		{
 		PMostBasicWebPage::PMostBasicWebPage();
 		$this->setLanguage();
+		$this->ProcessSessionAndArguments();
 		}
 	/// Current User Information
 	public $UserInfo;
@@ -239,14 +240,13 @@ abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 	protected $Language="en";
 		/**	Sets Language to lang.
 			*	\brief set the language of the webpage
-			*	\version 2.0.0
+			*	\version 2.0.1
 			*	\return reference to $this
 			*/
 		function & setLanguage()
 			{
 			$filename='languages/Lang-'.$this->Language.'.inc';
 			if(file_exists($filename)){include($filename);}
-			$this->ProcessSessionAndArguments();
 			return $this;
 			}
 		/**	gets the Language.
