@@ -25,7 +25,7 @@ include_once("externalAPI/recaptchalib.php");
 /** 	The UploadFile class is designed to model a file upload section.
 	*	\latexonly \label{PWision:UploadFile} \index{UploadFile}  \index{upload} \index{file}\endlatexonly
 	*	\brief the UploadFile section.
-	*	\version 1.3.0
+	*	\version 1.3.1
 	*	\note This section allows uploading of some sorts of files. See ProcessOK().
 	*/
 class UploadFile extends PFormSection
@@ -49,6 +49,7 @@ class UploadFile extends PFormSection
 		}
 	/**
 		*	\brief get a new name for a file.
+		*	\version 1.0.1
 		*	\param $file a file array(name,tmp_name,error)
 		*	\param $keepOriginalName true for try to keep original filename
 		*	\return the name of file
@@ -61,6 +62,7 @@ class UploadFile extends PFormSection
 			$ext != '.jpeg' &&
 			$ext != '.jpg' &&
 			$ext != '.png' &&
+			$ext != '.gif' &&
 			$ext != '.pdf' &&
 			$ext != '.odt' &&
 			$ext != '.txt' &&
