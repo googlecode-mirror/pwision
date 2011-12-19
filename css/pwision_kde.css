@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.17.0
+ *	- version 1.17.1
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009--11 Becheru Petru-Ioan
@@ -153,7 +153,6 @@ del {
 dt {
 	font-weight: bold;
 	font-size: 1.05em;
-	color: #0057ae;
 	}
 
 dd {
@@ -199,7 +198,7 @@ img {
 	border: 0;
 	}
 
-table {
+#content table {
 	border-collapse:collapse;
 	float:left;
 	display:block;
@@ -207,32 +206,32 @@ table {
 	border-radius: .5em .5em 0px 0px;
 	-moz-border-radius: .5em .5em 0px 0px;
 	}
-caption{
+#content caption{
 	font-weight: bold;
 	font-style: italic;
 	text-shadow: #969696 1px 1px 2px;
 	}
-table:hover caption{
+#content table:hover caption{
 	color:black;
 	}
-tbody{
+#content tbody{
 	width:100%;
 	}
-th {
+#content th {
 	text-align: center;
 	padding-right: 1em;
 	border-style:  solid;
 	border-width: 0 0 3px 0;
 	}
-td{
+#content td{
 	text-align: center;
 	vertical-align:middle;
 	valign:middle;
 	}
-td:hover{
+#content td:hover{
 	border-color:black;
 	}
-span.simple table{
+#content span.simple table{
 	float:none;
 	display:block;
 	display:inline-block;
