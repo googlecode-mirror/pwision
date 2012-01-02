@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS `Inactive`;
 CREATE TABLE `Inactive`(
 `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id com',
 `UserID` INT(10) UNSIGNED NOT NULL COMMENT 'id of the user',
-INDEX ( `ID` )
+INDEX ( `ID` ), INDEX (`UserID`)
 )COMMENT = 'Inactive users of the website';
 
 #Groups table
@@ -71,7 +71,7 @@ CREATE TABLE `GroupUsers`(
 `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id com',
 `UserID` INT(10) UNSIGNED NOT NULL COMMENT 'id of the user',
 `GroupID` INT(10) UNSIGNED NOT NULL COMMENT 'id of the group',
-INDEX ( `ID` )
+INDEX ( `ID` ), INDEX ( `UserID`), INDEX (`GroupID`)
 )COMMENT='Groups that a user belongs';
 INSERT INTO `GroupUsers`(`UserID`,`GroupID`) VALUES 
 	(0,1),#Guest in Public
@@ -98,7 +98,7 @@ CREATE TABLE `Sections`(
 `Description` VARCHAR( 512 ) NOT NULL COMMENT 'description of the section' DEFAULT '',
 `BBCode` LONGTEXT NOT NULL COMMENT  'content of the section in BBCode',
 `HTML` LONGTEXT NOT NULL COMMENT  'the HTML content of the section compiled from the BBCode',
-INDEX ( `ID` )
+INDEX ( `ID` ), INDEX ( `Name` ), INDEX (`Owner`)
 )COMMENT='Sections of the website';
 INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`, `BBCode`, `HTML`) VALUES
 		('login', 'UserAccess', 'section', 'Login a user', '', ''),
@@ -121,7 +121,7 @@ DROP TABLE IF EXISTS `HiddenSections`;
 CREATE TABLE `HiddenSections`(
 `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id com',
 `SectionName` VARCHAR( 64 ) NOT NULL COMMENT 'name of the section',
-INDEX ( `ID` )
+INDEX ( `ID` ), INDEX (`SectionName`)
 )COMMENT='The hidden sections table';
 INSERT INTO `HiddenSections`(`SectionName`) VALUES 
 	('UserAccess');
@@ -132,7 +132,7 @@ CREATE TABLE `GroupSections`(
 `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id com',
 `SectionName` VARCHAR( 64 ) NOT NULL COMMENT 'name of the section',
 `GroupID` INT(10) UNSIGNED NOT NULL COMMENT 'id of the group',
-INDEX ( `ID` )
+INDEX ( `ID` ), INDEX ( `SectionName` ), INDEX ( `GroupID` )
 )COMMENT='Groups that a section belongs';
 INSERT INTO `GroupSections`(`SectionName`,`GroupID`) VALUES 
 	('Root',1),#Root in Public

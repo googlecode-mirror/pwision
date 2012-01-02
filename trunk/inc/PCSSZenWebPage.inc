@@ -426,7 +426,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 /** 	The PWebPageDefault class is designed to be the default themed webpage of PWision. The layout described by this theme is derived from PCSSZenWebPage layout.
 	*	\latexonly \label{PWision:PWebPageDefault} \index{PWebPageDefault} \endlatexonly
 	*	\brief PWision's default themed webpage.
-	*	\version 1.4.2
+	*	\version 1.5.0
 	*/
 abstract class PWebPageDefault extends PCSSZenWebPage
 	{
@@ -488,11 +488,12 @@ abstract class PWebPageDefault extends PCSSZenWebPage
 		{
 		return El("div")
 					->setAtr("id","pageHeader")
-				->Insert( $this->idLTools() )
+				->Insert( $this->idLogo() )
 				->Insert(
 					PCSSZenWebPage::idPageHeader()
 						->setAtr('id','pageTitle')
 					)
+				->Insert( $this->idLTools() )
 				->Insert($this->idLselect())
 			;
 		}
@@ -551,12 +552,32 @@ abstract class PWebPageDefault extends PCSSZenWebPage
 
 				return $ul;
 				}
+	protected function idLogo()
+		{
+		return Object(new PElement("div"))
+				->setAtr("class","ltools")
+				->setAtr("title",lang('logo'))
+/*			->Insert(
+				Object(new PElement("h3"))
+						->setAtr("class","select")
+					->Insert(
+						Object(new PElement("span"))
+							->Insert(PTextlang($this->ToolsTitle))
+						)
+				)*/
+			->Insert( 
+				Object(new PSimpleTag('img'))
+					->setAtr('src','css/images/logo.jpg')
+				)
+			;
+		}
 	/// text "Tools" in local language
 	public $ToolsTitle="Tools";
 	protected function idLtools()
 		{
 		return Object(new PElement("div"))
 				->setAtr("id","ltools")
+				->setAtr("class","ltools")
 				->setAtr("title",$this->ToolsTitle)
 			->Insert(
 				Object(new PElement("h3"))

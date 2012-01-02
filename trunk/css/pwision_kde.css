@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.17.1
+ *	- version 1.17.2
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009--11 Becheru Petru-Ioan
@@ -27,7 +27,42 @@ body{
 	font-size: 0.9em;
 	font-family: "Ubuntu", "Bitstream Vera Sans", "Lucida Grande", "Trebuchet MS", sans-serif;
 	color: #535353;
-	background-color: white;
+/*	background: white;
+	background-color: #7EA4D4;
+	background-image: url('http://lsrs.ro/images/bg.jpg');
+	background-repeat: repeat-y;
+	background-position: center;*/
+	margin:0px;
+/* 	height:100%; */
+  /* fallback */
+  background-color: #D9E3EA;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  
+  /* Safari 5.1, Chrome 10+ 
+  background: -webkit-linear-gradient(top, white, #D9E3EA);
+  
+  /* Firefox 3.6+ 
+  background: -moz-linear-gradient(top, white, #D9E3EA);
+  
+  /* IE 10 
+  background: -ms-linear-gradient(top, white, #D9E3EA);
+  
+  /* Opera 11.10+ 
+  background: -o-linear-gradient(top, white, #D9E3EA);
+
+
+  
+  /* Safari 5.1+, Chrome 10+ */
+  background: -webkit-radial-gradient(circle, white, #D9E3EA);
+  
+  /* Firefox 3.6+ */ 
+  background: -moz-radial-gradient(circle, white, #D9E3EA);
+  
+  /* IE 10 */ 
+  background: -ms-radial-gradient(circle, white, #D9E3EA);
+  
 	}
 
 h1, h2, h3, h4, h5, h6{
@@ -317,7 +352,8 @@ a.Contact span:before{
 #pageHeader:hover{
 	}
 
-#ltools{
+#ltools, .ltools{
+	max-width:20%;
 	background: #eeeeee;
 	border: white 1px solid;
 	border-radius: 0 0 1em 1em;
@@ -337,6 +373,7 @@ a.Contact span:before{
 	overflow: hidden;
 	}
 #pageTitle{
+	max-width:50%;
 	display:inline-block;
 	margin:1em;
 	margin-top:0em;
@@ -350,13 +387,13 @@ a.Contact span:before{
 	-moz-box-shadow: 0px 0px 10px #000;
 	background-color: #0057ae;
 	zoom:1; *display: inline; _height: 30px;
+	text-align:center;
 	}
 #pageTitle h1{
-	display:inline-block;
+	display:block;
 	cursor:pointer;
-	vertical-align: middle;
-	height:100%;
-	zoom:1; *display: inline; _height: 30px;
+	text-align:center;
+/* 	vertical-align: middle; */
 	}
 
 #pageTitle h1 span{
@@ -369,10 +406,10 @@ a.Contact span:before{
 	}
 
 #pageTitle h2 {
-	display:inline-block;
-	vertical-align: middle;
-	height:100%;
-	zoom:1; *display: inline; _height: 30px;
+	display:block;
+	margin-top:0px;
+/* 	vertical-align: middle; */
+	text-align:center;
 	font-weight: bold;
 	color: #ffffff;
 	}
