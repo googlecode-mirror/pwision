@@ -1,10 +1,10 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.17.2
+ *	- version 1.17.3
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
- * Copyright (C) 2009--11 Becheru Petru-Ioan
+ * Copyright (C) 2009--12 Becheru Petru-Ioan
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -472,6 +472,7 @@ a.Contact span:before{
 	margin: 0 0 0 0;
 	padding: 0;
 	text-align:center;
+	overflow:hidden;
 	}
 
 #linkList h3 {
