@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009-11 Becheru Petru-Ioan
+Copyright (C) 2009--12 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ class PSection_ParamNCheck extends Exception
 /** 	The PSection class is designed to model a section of the website. A section has a name, a description and is splitted in 5 chapters (numbered 0 to 4).
 	*	\latexonly \label{PWision:PSection} \index{PSection} \index{section} \index{website} \endlatexonly
 	*	\brief a section of the website.
-	*	\version 4.3.1
+	*	\version 4.3.2
 	*	\note it will be derived in files X.inc from sections/ as X class
 	*/
 class PSection
@@ -439,6 +439,7 @@ final class Sections
 	/**	For every group ID from $grp_arr this function creates a pair (<i>section name</i>, <i>group ID</i>) and inserts it in GroupSections database table, making section $section_name member of the group with that ID.
 		*	\latexonly \label{PWision:Sections:Add2Groups} \endlatexonly
 		*	\brief adds a section to groups.
+		*	\version 1.0.1
 		*	\param $section_name the name of the section
 		*	\param $grp_arr an array containing the group IDs
 		*/
@@ -446,7 +447,7 @@ final class Sections
 		{
 		$Values="";
 		foreach($grp_arr as $grp)
-			if(eregi("^[1-9][0-9]{0,10}$",$grp))//grp is a number
+			if(preg_match("`^[1-9][0-9]{0,10}$`",$grp))//grp is a number
 				$Values=$Values.",('$section_name','$grp')";
 		$Values[0]=' ';
 		Main()->DB->query("INSERT INTO `GroupSections` (`SectionName`, `GroupID`) VALUES $Values;");
@@ -675,10 +676,10 @@ final class Sections
 		*	\brief hyperlink to a section.
 		*	\param $section_name the name of the section
 		*	\param $title title of the link
-		*	\param text text of the link(by default $section_name used)
+		*	\param text text of the link(by default $section_name used). If null, no content is inserted.
 		*	\param attr attributes to link, besides <b>section=<i>section_name</i></b>
 		*	\return an <b>a</b> element with a hyper reference to the section.
-		*	\version 1.1.4
+		*	\version 1.1.5
 	 */
 	static function Link2( $section_name="Root", $title="", $text="" , PURLAttributes $attr=null)
 		{
@@ -693,14 +694,19 @@ final class Sections
 				->setAtr( 'title', $title )
 				->setAtr( 'class', "section $section_name")
 				;
-		if($text=="")
-					$text=lang($section_name);
-		return $lnk
-			->Insert(
-				El('span')
-					->Insert(new PText($text))
-				)
-			;
+		
+		if($text==="")
+				$text=lang($section_name);
+		if($text!=null)
+			{
+			$lnk
+				->Insert(
+					El('span')
+						->Insert(new PText($text))
+					)
+				;
+			}
+		return $lnk;
 		}
 	/**	Gets the path to a section, starting with the Root section. Each section in the path is the owner of the next section in the path.
 		*	\brief the path to a section from Root.
