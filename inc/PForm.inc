@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009--11 Becheru Petru-Ioan
+Copyright (C) 2009--12 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -186,34 +186,36 @@ function Array2Inputs($arr=null,$name='',$key4Value='value',$key4Text='text',$ty
 	}
 /**	This function constructs a PStructure that has a select PElement as mother and option PElement as kids.
 	*	\brief the select structure.
-	*	\version 2.0
+	*	\version 2.1.0
 	*	\param $name name attribute of the select
 	*	\param $arr pairs ('0'=>text) for the option
 	*	\param $selected selected value
 	*	\param $key4Value the key for the value of the input
 	*	\param $key4Text the key for the text that follows the input
+	*	\param $selectText the select text
 	*	\return the structure
 	*/
-function SSelect($name,$arr=null,$selected=null,$key4Value=0,$key4Text=1)
+function SSelect($name,$arr=null,$selected=null,$key4Value=0,$key4Text=1,$selectText='Select')
 	{
 	$SS=new PStructure(
 		new PElement("option"),
 		Object(new PElement("select"))
 			->setAtr("name",$name)
+			->setAtr('title',lang($selectText))
 		);
 	if($arr)
 		{
 		$SS->newKid()
 			->setAtr("value","_")
 			->setAtr('disabled','disabled')
-			->Insert(PTextlang('Selectează'))
+			->Insert(PTextlang($selectText))
 			;
 		foreach($arr as $item)
 			{
 			$kid=$SS->newKid()->setAtr("value",$item[$key4Value]);
 			if(isset($item[1]))
 					$kid->Insert(
-							new PText($item[$key4Text])
+							PTextlang($item[$key4Text])
 							);
 				else
 					$kid->Insert(
@@ -226,6 +228,44 @@ function SSelect($name,$arr=null,$selected=null,$key4Value=0,$key4Text=1)
 	return $SS;
 	}
 
+/**	This function constructs a PStructure that has a select PElement as mother and option PElement as kids.
+	*	\brief the select structure.
+	*	\version 1.0.0
+	*	\param $name name attribute of the select
+	*	\param $arr pairs (value=>text) for the option
+	*	\param $selected selected value
+	*	\param $selectText the select text
+	*	\return the structure
+	*/
+function Array2Select($name,$arr=null,$selected=null,$selectText='Select')
+	{
+	$SS=new PStructure(
+		new PElement("option"),
+		Object(new PElement("select"))
+			->setAtr("name",$name)
+			->setAtr('title',lang($selectText))
+		);
+	if($arr)
+		{
+		$SS->newKid()
+			->setAtr("value","_")
+			->setAtr('disabled','disabled')
+			->Insert(PTextlang($selectText))
+			;
+		foreach($arr as $key => $value)
+			{
+			$kid=$SS->newKid()->setAtr("value",$key);
+			$kid->Insert(
+					PTextlang($value)
+					);
+			if($key==$selected)
+				$kid->setAtr("selected","selected");
+			}
+		}
+	return $SS;
+	}
+	
+	
 /** 	The PFieldSet class is designed to model the HTML fieldset element.
 	*	\latexonly \label{PWision:PFieldSet} \index{PFieldSet} \index{fieldset} \endlatexonly
 	*	\brief fieldset element.

@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009--11 Becheru Petru-Ioan
+Copyright (C) 2009--12 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,8 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**	\file
 	*	\brief pwision translation to romanian.
-	*	\version 1.5.1
+	*	\version 1.6.0
 	*/
+
+PMainComponent::$Lang['Select']='Selectează';
 
 
 PMainComponent::$Lang['Select a layout for the virtual keyboard']='Selecteaz&#259; limba tastaturii virtuale';
