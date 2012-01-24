@@ -57,7 +57,7 @@ class PForm extends PElement
 /** 	The PInput class is designed to model the HTML input element. A PInput is inserted in a PForm object.
 	*	\latexonly \label{PWision:PInput} \index{PInput} \index{input} \index{form} \endlatexonly
 	*	\brief an input element.
-	*	\version 1.3.0
+	*	\version 1.3.1
 	*	\par Example:
 \code
 include_once("PForm.inc");
@@ -79,7 +79,7 @@ class PInput extends PSimpleTag
 		function & setName($name=""){return $this->IName=$name;}
 
 	/**	\brief initialisation method.
-		*	\version 1.2.0
+		*	\version 1.2.1
 		*	\param $type input type(button, checkbox, file, hidden, image, password, radio, reset, submit, text). If the type is 'checked_checkbox' then the input's type will be checkbox with the checked attribute set.
 		*	\param $value value
 		*	\param $name nameid of the element
@@ -104,8 +104,8 @@ class PInput extends PSimpleTag
 			->setAtr("name",$name)
 			->setAtr("id",$name)
 			->setAtr("pattern", $pattern)
-			->setAtr("title",$title)
-			->setAtr("placeholder",$placeholder)
+			->setAtr("title",lang($title))
+			->setAtr("placeholder",lang($placeholder))
 			->setAtr('checked',$check?'checked':'')
 			;
 		}
