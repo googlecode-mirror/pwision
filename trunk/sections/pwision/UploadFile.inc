@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2010--11 Becheru Petru-Ioan
+Copyright (C) 2010--12 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ include_once("externalAPI/recaptchalib.php");
 /** 	The UploadFile class is designed to model a file upload section.
 	*	\latexonly \label{PWision:UploadFile} \index{UploadFile}  \index{upload} \index{file}\endlatexonly
 	*	\brief the UploadFile section.
-	*	\version 1.3.1
+	*	\version 1.3.2
 	*	\note This section allows uploading of some sorts of files. See ProcessOK().
 	*/
 class UploadFile extends PFormSection
@@ -85,13 +85,14 @@ class UploadFile extends PFormSection
 		}
 	/**	Checks if an error ocured during uploading, checks if extension needs to be changed, creates a new random name for the file and moves it to /uploads/ dir.
 		*	\brief move an uploaded file to /uploads/ dir.
+		*	\version 1.0.1
 		*	\param $file a file array(name,tmp_name,error)
 		*	\param $keepOriginalName true for try to keep original filename
 		*	\return the name of file
 		*/
 	protected function moveUploadedFile($file, $keepOriginalName=true)
 		{
-		$path=dirname(__FILE__).'/../../uploads/';
+		$path=getcwd().'/uploads/';
 		$error_types = array(
 			1=>'The uploaded file exceeds the upload_max_filesize directive in php.ini.',
 			'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.',
