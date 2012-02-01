@@ -368,6 +368,13 @@ a.Contact span:before{
 	zoom:1; *display: inline; _height: 30px;
 	vertical-align: top;
 	}
+.ltools img{
+	border:none;
+	border-radius:0px;
+	box-shadow:none;
+	box-shadow:none;
+	margin:0px;
+}
 #ltools h3{
 	display:none;
 	overflow: hidden;

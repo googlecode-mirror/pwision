@@ -107,6 +107,7 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 		return Object(new PElement("div"))
 				->setAtr("id","pageHeader")
 				->setAtr("title",$this->getTitle()." : ".$this->getMotto())
+					->Insert( $this->ToolsList() )
 			->Insert(
 				Object(new PElement("h1"))
 						->setAtr("onclick","window.location='/Root'")
@@ -488,12 +489,13 @@ abstract class PWebPageDefault extends PCSSZenWebPage
 		{
 		return El("div")
 					->setAtr("id","pageHeader")
-				->Insert( $this->idLogo() )
+				->Insert( $this->idLogo1() )
 				->Insert(
 					PCSSZenWebPage::idPageHeader()
 						->setAtr('id','pageTitle')
 					)
-				->Insert( $this->idLTools() )
+// 				->Insert( $this->idLTools() )
+				->Insert( $this->idLogo2() )
 				->Insert($this->idLselect())
 			;
 		}
@@ -552,11 +554,23 @@ abstract class PWebPageDefault extends PCSSZenWebPage
 
 				return $ul;
 				}
-	protected function idLogo()
+	protected function logoImg1()
+		{
+		return 	
+			Object(new PSimpleTag('img'))
+					->setAtr('src','css/images/logo1.png')
+					->setAtr("title",lang('logo'))
+				;
+		}
+	protected function logoImg2()
+		{
+		return 	$this->logo1();
+				;
+		}
+	protected function idLogo1()
 		{
 		return Object(new PElement("div"))
 				->setAtr("class","ltools")
-				->setAtr("title",lang('logo'))
 /*			->Insert(
 				Object(new PElement("h3"))
 						->setAtr("class","select")
@@ -566,8 +580,24 @@ abstract class PWebPageDefault extends PCSSZenWebPage
 						)
 				)*/
 			->Insert( 
-				Object(new PSimpleTag('img'))
-					->setAtr('src','css/images/logo.jpg')
+				$this->logoImg1()
+				)
+			;
+		}
+	protected function idLogo2()
+		{
+		return Object(new PElement("div"))
+				->setAtr("class","ltools")
+/*			->Insert(
+				Object(new PElement("h3"))
+						->setAtr("class","select")
+					->Insert(
+						Object(new PElement("span"))
+							->Insert(PTextlang($this->ToolsTitle))
+						)
+				)*/
+			->Insert( 
+				$this->logoImg2()
 				)
 			;
 		}
