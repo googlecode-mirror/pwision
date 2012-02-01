@@ -261,6 +261,53 @@ abstract class PCSSZenWebPage extends PBasicWebPage
 					->Insert($this->idLresources())
 			;
 		}
+	protected function logoImg1()
+		{
+		return 	
+			Object(new PSimpleTag('img'))
+					->setAtr('src','css/images/logo1.png')
+					->setAtr("title",lang('logo'))
+				;
+		}
+	protected function logoImg2()
+		{
+		return 	$this->logo1();
+				;
+		}
+	protected function idLogo1()
+		{
+		return Object(new PElement("div"))
+				->setAtr("class","ltools")
+/*			->Insert(
+				Object(new PElement("h3"))
+						->setAtr("class","select")
+					->Insert(
+						Object(new PElement("span"))
+							->Insert(PTextlang($this->ToolsTitle))
+						)
+				)*/
+			->Insert( 
+				$this->logoImg1()
+				)
+			;
+		}
+	protected function idLogo2()
+		{
+		return Object(new PElement("div"))
+				->setAtr("class","ltools")
+/*			->Insert(
+				Object(new PElement("h3"))
+						->setAtr("class","select")
+					->Insert(
+						Object(new PElement("span"))
+							->Insert(PTextlang($this->ToolsTitle))
+						)
+				)*/
+			->Insert( 
+				$this->logoImg2()
+				)
+			;
+		}
 	/**	Constructs a list structure.
 		*	\brief a list structure.
 		*	\return an  PStructure
