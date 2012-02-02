@@ -501,7 +501,7 @@ final class Sections
 		}
 	/**	Checks if a section is in UserBookmarkedSections table.
 		*	\brief checks if a section is bookmarked.
-		*	\version 1.0.1
+		*	\version 1.0.2
 		*	\param $section_name name of the section
 		*	\param $UserID the user's id
 		*	\return true or false
@@ -509,7 +509,7 @@ final class Sections
 	static function isBookmarked( $section_name="Root", $UserID =0)
 		{
 		if(!Sections::CheckName($section_name))return false;
-		if(!eregi("^[0-9]{1,10}$",$UserID))return false;
+		if(!preg_match("`^[0-9]{1,10}$`",$UserID))return false;
 		$row=Main()->DB->fetch_array_query(
 			"select SectionName from UserBookmarkedSections where `SectionName` = '$section_name' and (UserID='$UserID' or UserID='0')"
 			);
