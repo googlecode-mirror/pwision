@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.17.5
+ *	- version 1.17.6
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009--12 Becheru Petru-Ioan
@@ -437,6 +437,7 @@ a.Contact span:before{
 	}
 #lselect div div{
 	display: inline;
+	display: inline-block;
 	margin: 0px;
 	padding: 0px .5em 0px .5em;
 	text-align: right;
