@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.17.7
+ *	- version 1.17.8
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009--12 Becheru Petru-Ioan
@@ -148,6 +148,7 @@ input, textarea, select {
 	background: #ffc;
 	border: 1px solid #888888;
 	font-family: "Ubuntu";
+	font-size: 0.9em;
 	}
 textarea{
 /* 	width:90%; */
@@ -537,6 +538,8 @@ a.Contact span:before{
 	box-shadow:inset 0px 0px 10px #888888;
 	-webkit-box-shadow:inset 0px 0px 10px #888888;
 	-moz-box-shadow:inset 0px 0px 10px #888888;
+	padding: 11px;
+	padding-top: 0px;
 	/* RGBa with 0.6 opacity */
 	background-color: rgba(255, 255, 255, 0.6) !important;
 	background-color: white;
