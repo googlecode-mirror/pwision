@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009,2010 Becheru Petru-Ioan
+Copyright (C) 2009,2010,2012 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ include_once('PVirtualKeyboard.inc');
 /** 	The PBBCodeInput class is designed to be a BBCode input textarea with button for BBCode tags.
 	*	\latexonly \label{PBBCodeInput:PBBCodeInput} \index{PBBCodeInput} \index{BBCode} \index{textarea} \endlatexonly
 	*	\brief BBCode input textarea.
-	*	\version 1.2.3
+	*	\version 1.2.4
 	*	\par Example:
 \code
 include_once("PBBCodeInput.inc");
@@ -64,7 +64,7 @@ class PBBCodeInput extends PContent
 		}
 	/**	Constructs
 		*	\brief constructor
-		*	\version 1.0.5
+		*	\version 1.0.6
 		*	\param $text initial text content of textarea
 		*	\param $name name of the textarea
 		*	\param $id id attribute of the textarea
@@ -91,35 +91,34 @@ class PBBCodeInput extends PContent
 				TextArea($name,$text)
 					->setAtr('id',$id)
 				)
-							->Insert(El('br'))
-						->Insert(PTextlang('Insert:') )->Insert(El('br'))
-						->Insert(sEl('hr'))
-							->Insert(PBBCodeInput::insertTextButton('[subtitle]','[/subtitle]'))
-							->Insert(PBBCodeInput::insertTextButton('[subsubtitle]','[/subsubtitle]'))
-							->Insert(PBBCodeInput::insertTextButton('[subsubsubtitle]','[/subsubsubtitle]'))
-							->Insert(PBBCodeInput::insertTextButton('[p]','[/p]'))
-							->Insert(PBBCodeInput::insertTextButton('[kw]','[/kw]'))
-							->Insert(PBBCodeInput::insertTextButton('[url=]','[/url]'))
-							->Insert(PBBCodeInput::insertTextButton('[notranslate]','[/notranslate]'))
-							->Insert(PBBCodeInput::insertTextButton('[lang=en]','[/lang]'))
-							->Insert(PBBCodeInput::insertTextButton('[img=]','[/img]'))
-							->Insert(PBBCodeInput::insertTextButton('','[br]'))
-							->Insert(PBBCodeInput::insertTextButton('[lb]','[rb]'))
-						->Insert(sEl('hr'))
-							->Insert(PBBCodeInput::insertTextButton('[i]','[/i]'))
-							->Insert(PBBCodeInput::insertTextButton('[b]','[/b]'))
-							->Insert(PBBCodeInput::insertTextButton('[sub]','[/sub]'))
-							->Insert(PBBCodeInput::insertTextButton('[sup]','[/sup]'))
-						->Insert(sEl('hr'))
-							->Insert(PBBCodeInput::insertTextButton('[list type=1AaIi]','[/list]'))
-							->Insert(PBBCodeInput::insertTextButton(' [li]','[/li]'))
-						->Insert(sEl('hr'))
-							->Insert(PBBCodeInput::insertTextButton("[table border=1][caption]","[/caption][/table]"))
-							->Insert(PBBCodeInput::insertTextButton(' [tr]','[/tr]'))
-							->Insert(PBBCodeInput::insertTextButton('   [td]','[/td]'))
-							->Insert(PBBCodeInput::insertTextButton('[td colrowspan=1]','[/td]'))
-							->Insert(PBBCodeInput::insertTextButton('[]','[/]'))
-						->Insert(sEl('hr'))
+						->Insert(
+							Object(new PFieldSet(PTextlang('Insert:')))
+								->Insert(PBBCodeInput::insertTextButton('[subtitle]','[/subtitle]'))
+								->Insert(PBBCodeInput::insertTextButton('[subsubtitle]','[/subsubtitle]'))
+								->Insert(PBBCodeInput::insertTextButton('[subsubsubtitle]','[/subsubsubtitle]'))
+								->Insert(PBBCodeInput::insertTextButton('[p]','[/p]'))
+								->Insert(PBBCodeInput::insertTextButton('[kw]','[/kw]'))
+								->Insert(PBBCodeInput::insertTextButton('[url=]','[/url]'))
+								->Insert(PBBCodeInput::insertTextButton('[notranslate]','[/notranslate]'))
+								->Insert(PBBCodeInput::insertTextButton('[lang=en]','[/lang]'))
+								->Insert(PBBCodeInput::insertTextButton('[img=]','[/img]'))
+								->Insert(PBBCodeInput::insertTextButton('','[br]'))
+								->Insert(PBBCodeInput::insertTextButton('[lb]','[rb]'))
+							->Insert(sEl('hr'))
+								->Insert(PBBCodeInput::insertTextButton('[i]','[/i]'))
+								->Insert(PBBCodeInput::insertTextButton('[b]','[/b]'))
+								->Insert(PBBCodeInput::insertTextButton('[sub]','[/sub]'))
+								->Insert(PBBCodeInput::insertTextButton('[sup]','[/sup]'))
+							->Insert(sEl('hr'))
+								->Insert(PBBCodeInput::insertTextButton('[list type=1AaIi]','[/list]'))
+								->Insert(PBBCodeInput::insertTextButton(' [li]','[/li]'))
+							->Insert(sEl('hr'))
+								->Insert(PBBCodeInput::insertTextButton("[table border=1][caption]","[/caption][/table]"))
+								->Insert(PBBCodeInput::insertTextButton(' [tr]','[/tr]'))
+								->Insert(PBBCodeInput::insertTextButton('   [td]','[/td]'))
+								->Insert(PBBCodeInput::insertTextButton('[td colrowspan=1]','[/td]'))
+								->Insert(PBBCodeInput::insertTextButton('[]','[/]'))
+							)
 							->Insert(
 								El('script')
 										->setAtr('type','text/javascript')

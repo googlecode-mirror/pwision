@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.17.8
+ *	- version 1.18.0
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009--12 Becheru Petru-Ioan
@@ -146,6 +146,7 @@ input, textarea, select {
 	padding: 0.1em;
 	color: black;
 	background: #ffc;
+	opacity: 0.8;
 	border: 1px solid #888888;
 	font-family: "Ubuntu";
 	font-size: 0.9em;
@@ -157,6 +158,7 @@ textarea{
 input:hover,textarea:hover, select:hover {
 	color:black;
 	border-color:black;
+	opacity:1;
 	}
 
 [disabled]{
@@ -200,8 +202,35 @@ p {
 	margin-bottom: 0.9em;
 	text-align: justify;
 	}
-fieldset {
+fieldset{
 	border: #cccccc 1px solid;
+	border-radius:1em;
+	margin:1em;
+	display:inline-block;
+	vertical-align: top;
+	background-color:rgba(193,116,244,0.07);
+	-webkit-transition:-webkit-transform 2s,opacity 2s,background 2s,min-height 2s,width 2s,height 2s,font-size 2s;
+	-o-transition-property:width,min-height,height,-o-transform,background,font-size,opacity;
+	-o-transition-duration:2s,2s,2s,2s,2s,2s,2s;
+	-moz-transition-property:width,min-height,height,-moz-transform,background,font-size,opacity;
+	-moz-transition-duration:2s,2s,2s,2s,2s,2s,2s;
+	transition-property:width,min-height,height,transform,background,font-size,opacity;
+	transition-duration:2s,2s,2s,2s,2s,2s,2s;
+
+	transition-timing-function: ease-in-out;
+	-moz-transition-timing-function: ease-in-out;
+	-webkit-transition-timing-function: ease-in-out;
+	-o-transition-timing-function: ease-in-out;
+	}
+fieldset:hover, fieldset:hover>legend{
+	background-color:rgba(193,116,244,0.2);
+	border-color:black;
+	}
+legend{
+	background-color:rgba(193,116,244,0.2);
+	border-radius:0.5em;
+	border: gray 1px solid;
+	padding:0.25em;
 	}
 
 ul, ol {
@@ -273,6 +302,10 @@ img {
 	display:inline-block;
 	}
 
+.EditSection textarea {
+	width: 100%;
+	}
+	
 /*
  * images for PWision sections
  */
@@ -301,6 +334,9 @@ a.SectionManagement span:before{
 		}
 	a.EditSection span:before{
 		content:url(images/sections/EditSection.png);
+		}
+	a.RemoveSection span:before{
+		content:url(images/sections/RemoveSection.png);
 		}
 	a.UploadFile span:before
 		{

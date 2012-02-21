@@ -17,7 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 include_once("PMainComponent.inc");
-include_once("PBubble.inc");
+include_once('BBCode.inc');
+
 
 /**	The PSection_ParamNCheck class is thrown by PSection::CheckParams() function if a parameter of a section doesn't check the associated regular expresion.
 	*	\latexonly \label{PWision:PSection_ParamNCheck} \index{PSection} \index{section} \index{website} \index{webpage} \index{parameters} \endlatexonly
@@ -372,7 +373,7 @@ class PSection
 /**	A namespace for section relation functions.
 	*	\latexonly \label{PWision:Sections} \endlatexonly
 	*	\brief section's namespace.
-	*	\version 4.1.1
+	*	\version 4.2.0
 	*/
 final class Sections
 	{
@@ -435,6 +436,51 @@ final class Sections
 		if($section_name!='Root')
 			return Main()->DB->fetch_array_query("SELECT * FROM Sections WHERE Name='$section_name'");
 			else return array('Name'=>'Root','Owner'=>'Root','Type'=>'section','Description'=>lang('Root'), 'BBCode'=>'', 'HTML'=>'');
+		}
+	/** Set the description field of a section.
+		*	\brief set the description of a section.
+		*	\param $section_name the name of the section
+		*	\param $Description the description text of the section
+		*/
+	static function setDescription($section_name,$Description)
+		{
+		Main()->DB->query(
+			"UPDATE `Sections` SET `Description` = '$Description' WHERE `Name` ='$section_name'"
+			);
+		}
+	/** Set the owner field of a section.
+		*	\brief set the Owner section of a section.
+		*	\param $section_name the name of the section
+		*	\param $Owner the Owner section
+		*/
+	static function setOwner($section_name,$Owner)
+		{
+		if(!$Owner)$Owner='Root';
+		Main()->DB->query(
+			"UPDATE `Sections` SET `Owner` = '$Owner' WHERE `Name` ='$section_name'"
+			);
+		}
+	/** Set the Sort field of a section.
+		*	\brief set the sort of a section.
+		*	\param $section_name the name of the section
+		*	\param $Sort the sort string of the section
+		*/
+	static function setSort($section_name,$Sort)
+		{
+		Main()->DB->query(
+			"UPDATE `Sections` SET `Sort` = '$Sort' WHERE `Name` ='$section_name'"
+			);
+		}
+	/** Set the BBCode field of a section.
+		*	\brief set the BBCode of a section.
+		*	\param $section_name the name of the section
+		*	\param $BBCode the BBCode string of the section
+		*/
+	static function setBBCode($section_name,$BBCode)
+		{
+		Main()->DB->query(
+			"UPDATE `Sections` SET `BBCode` = '$BBCode', `HTML` = '".BBCode::BBCode2HTML($BBCode)."' WHERE `Name` ='$section_name'"
+			);
 		}
 	/**	For every group ID from $grp_arr this function creates a pair (<i>section name</i>, <i>group ID</i>) and inserts it in GroupSections database table, making section $section_name member of the group with that ID.
 		*	\latexonly \label{PWision:Sections:Add2Groups} \endlatexonly
@@ -523,10 +569,10 @@ final class Sections
 		*/
 	static function unBookmark( $section_name, $UserID=0  )
 		{
-		if($UserID=='*')
+// 		if($UserID=='*')
 				Main()->DB->query("DELETE FROM `UserBookmarkedSections` WHERE `SectionName` = '$section_name'");
-			elseif($UserID>0)
-				Main()->DB->query("DELETE FROM `UserBookmarkedSections` WHERE `SectionName` = '$section_name' AND UserID='$UserID'");
+// 			elseif($UserID>0)
+// 				Main()->DB->query("DELETE FROM `UserBookmarkedSections` WHERE `SectionName` = '$section_name' AND UserID='$UserID'");
 		}
 //--------------------
 
