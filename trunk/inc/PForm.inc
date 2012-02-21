@@ -230,7 +230,7 @@ function SSelect($name,$arr=null,$selected=null,$key4Value=0,$key4Text=1,$select
 
 /**	This function constructs a PStructure that has a select PElement as mother and option PElement as kids.
 	*	\brief the select structure.
-	*	\version 1.0.0
+	*	\version 1.0.1
 	*	\param $name name attribute of the select
 	*	\param $arr pairs (value=>text) for the option
 	*	\param $selected selected value
@@ -259,7 +259,10 @@ function Array2Select($name,$arr=null,$selected=null,$selectText='Select')
 					PTextlang($value)
 					);
 			if($key==$selected)
+				{
 				$kid->setAtr("selected","selected");
+				$kid->setAtr("checked","checked");
+				}
 			}
 		}
 	return $SS;

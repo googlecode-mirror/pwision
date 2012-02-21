@@ -107,6 +107,7 @@ INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`, `BBCode`, `HTML`
 	('SectionManagement', 'Root', 'section', 'section management', '', ''),
 		('CreateSection', 'SectionManagement', 'section', 'create a section', '', ''),
 		('EditSection', 'SectionManagement', 'section', 'edit a section', '', ''),
+		('RemoveSection', 'SectionManagement', 'section', 'remove a section', '', ''),
 		('UploadFile', 'SectionManagement', 'section', 'upload a file', '', ''),
 	('UserManagement', 'Root', 'section', 'user management', '', ''),
 		('CreateUser', 'UserManagement', 'section', 'Create a new user', '', ''),
@@ -142,6 +143,7 @@ INSERT INTO `GroupSections`(`SectionName`,`GroupID`) VALUES
 	('SectionManagement',9),#SectionManagement in SectionManagers
 	('CreateSection',9),#CreateSection in SectionManagers
 	('EditSection',9),#EditSection in SectionManagers
+	('RemoveSection',9),#EditSection in SectionManagers
 	('UploadFile',9),#UploadFile in SectionManagers
 	('UserManagement', 4),#UserManagement in UserManagers
 	('CreateUser', 5),#CreateUser in UserCreators
