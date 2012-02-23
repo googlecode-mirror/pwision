@@ -64,6 +64,8 @@ INSERT INTO `Groups` (`ID`,`Name`,`Description`) VALUES
 	(9, 'SectionManagers', 'section manager group'),
 	(10, 'GroupManagers','group manager group')
 	;
+INSERT INTO `Groups` (`Name`,`Description`) VALUES
+	('SectionEditors', 'sections editors group');
 
 #GroupUsers table
 DROP TABLE IF EXISTS `GroupUsers`;
@@ -86,6 +88,8 @@ INSERT INTO `GroupUsers`(`UserID`,`GroupID`) VALUES
 	(1,9),#admin in SectionManagers
 	(1,10)#admin in GroupManagers
 	;
+INSERT INTO `GroupUsers`(`UserID`,`GroupID`) VALUES
+	(1, (SELECT ID FROM Groups WHERE Name='SectionEditors') );#admin in ArticleViewers
 
 #Sections table
 DROP TABLE IF EXISTS `Sections`;
@@ -107,6 +111,7 @@ INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`, `BBCode`, `HTML`
 	('SectionManagement', 'Root', 'section', 'section management', '', ''),
 		('CreateSection', 'SectionManagement', 'section', 'create a section', '', ''),
 		('EditSection', 'SectionManagement', 'section', 'edit a section', '', ''),
+		('EditSectionText', 'SectionManagement', 'section', 'edit the text of a section', '', ''),
 		('RemoveSection', 'SectionManagement', 'section', 'remove a section', '', ''),
 		('UploadFile', 'SectionManagement', 'section', 'upload a file', '', ''),
 	('UserManagement', 'Root', 'section', 'user management', '', ''),
@@ -155,6 +160,10 @@ INSERT INTO `GroupSections`(`SectionName`,`GroupID`) VALUES
 	('CreateGroup', 10),#CreateGroup in GroupManagers
 	('EditGroup', 10)#EditGroup in GroupManagers
 	;
+INSERT INTO `GroupSections`(`SectionName`,`GroupID`) VALUES
+	('SectionManagement', (SELECT ID FROM Groups WHERE Name='SectionEditors') ),
+	('EditSectionText', (SELECT ID FROM Groups WHERE Name='SectionManagers') ),
+	('EditSectionText', (SELECT ID FROM Groups WHERE Name='SectionEditors') );
 
 #UserBookmarkedSections
 DROP TABLE IF EXISTS `UserBookmarkedSections`;

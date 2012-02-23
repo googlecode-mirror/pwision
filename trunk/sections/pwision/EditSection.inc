@@ -29,7 +29,7 @@ include_once("inc/Groups.inc");
 /** 	The EditSection class is designed to model the section that allows a user to edit the sections of the website. It provides an intuitive interface with textboxes (for section name and description) and checkboxes (that display the groups that the section will be member of).
 	*	\latexonly \label{PWision:Sections:EditSection} \index{EditSection} \endlatexonly
 	*	\brief a section editor.
-	*	\version 1.7.0
+	*	\version 2.0.0
 	*/
 class EditSection extends PFormSection
 	{

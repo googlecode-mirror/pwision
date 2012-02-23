@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2010,2011 Becheru Petru-Ioan
+Copyright (C) 2010--12 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -135,7 +135,7 @@ class PBBCode2HTML extends PProcessor
 /**	A namespace for BBCode related functions.
 	*	\latexonly \label{PWision:BBCode} \index{BBCode} \endlatexonly
 	*	\brief BBCode's namespace.
-	*	\version 1.0.0
+	*	\version 1.1.0
 	*/
 final class BBCode
 	{
@@ -152,6 +152,70 @@ final class BBCode
 			Object(new PBBCode2HTML($text))
 				->Run()
 			;
+		}
+	/**	Translate HTML to BBCode.
+		*	\brief translate HTML to BBCode.
+		*	\latexonly \label{PWision:Sections:HTML2BBCode} \index{BBCode!from HTML}\endlatexonly
+		*	\version 1.0.0
+		*	\param $text xHTML input text string
+		*	\return BBCode encoded text string
+		*/
+	function HTML2BBCode($text)
+		{
+		$tag2ent=array(
+			//CDATA
+			'`<!\[CDATA\[`' => '__CDATA_START__'
+			,'`\]\]>`' => '__CDATA_END__'
+			//BBCode tag markers
+			,'`\[`' => '&amp;#91;'
+			,'`\]`' => '&amp;#93;'
+			,'`[&]amp[;][#]91[;]`' => '[lb]'
+			,'`[&]amp[;][#]93[;]`' => '[rb]'
+			//CDATA restore
+			,'`__CDATA_START__`' =>'<![CDATA['
+			,'`__CDATA_END__`' =>']]>'
+			);
+		$text=BBCode::repeat_replace($tag2ent,$text,1);
+		// xHTML2BBCode
+		$translated=
+			Object( new PXSLTFileXMLProcessor('inc/HTML2BBCode.xslt', $text ) )
+				->Run()
+			;
+		//remove useless tags
+		$bbcode_empty=array(
+			'/<\?xml version="1.0"\?>/is' =>'' //XML version removed
+ 			,'`\[li\][[:space:]]*\[p\](.*?)\[\/p\][[:space:]]*\[\/li\]`is' => '[li]$1[/li]'
+ 			,'`\[td([a-z0-9"\'=[:space:]]*?)\][[:space:]]*\[p\](.*?)\[\/p\][[:space:]]*\[\/td\]`is' => '[td$1]$2[/td]'
+ 			,'`\[p\](\[img[=\/.a-z0-9_]*\]\[\/img\])\[\/p\]`is' =>'$1'
+
+			,'`[[:space:]][[:space:]]+`is' => ' ' // multiple space is replaced by one space
+			,'`[\xA\xD]+`is' => " "
+			,'`\[\/b\][[:space:]]+\[b\]`is' => ' '
+			,'`\[\/b\]\[b\]`is' => ''
+			,'`\[\/i\]\[i\]`is' => ''
+// 			,'/\[br\]/is'=>" "
+			,'`\[sup\][[:space:]]*\[\/sup\]`' => ''
+			,'`\[sub\][[:space:]]*\[\/sub\]`' => ''
+			,'`\[p\][[:space:]]*\[\/p\]`' => ''
+			);
+		$translated=BBCode::repeat_replace($bbcode_empty,$translated);
+		//beautifie the code
+		$bbcode_beauty=array(
+			'`\[\/p\]`is'=>"[/p]\n\n"
+			,'`\[\/((sub)+title)\]`is'=>"[/$1]\n\n"
+			,'`\[li\]`is'=>"\n [li]"
+			,'`\[td([a-z0-9"\'=[:space:]]*?)\]`is'=>"\n  [td$1]"
+			,'`\[tr\]`is'=>"\n [tr]"
+			,'`\[\/tr\]`is'=>"\n [/tr]"
+			,'`\[\/list\]`is'=>"\n[/list]\n\n"
+			,'`\[\/table([a-z0-9"\'=[:space:]]*?)\]`is'=>"\n[/table$1]\n"
+			// now clear the spaces before some tags
+			,'`[ ]*\[p\]`is'=>"[p]"
+			,'`[ ]*\[list\]`is'=>"[list]"
+			,'`[ ]*\[table([a-z0-9"\'=[:space:]]*?)\]`is'=>"[table$1]"
+			);
+		$translated=BBCode::repeat_replace($bbcode_beauty,$translated,1);
+		return $translated;
 		}
 	/**	Repeats a preg_replace until no more replacements are done.
 		*	\brief repeated replace.

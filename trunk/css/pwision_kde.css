@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.18.0
+ *	- version 1.19.0
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009--12 Becheru Petru-Ioan
@@ -152,7 +152,7 @@ input, textarea, select {
 	font-size: 0.9em;
 	}
 textarea{
-/* 	width:90%; */
+	min-width:80%;
 	text-align:justify;
 	}
 input:hover,textarea:hover, select:hover {
@@ -333,6 +333,9 @@ a.SectionManagement span:before{
 		content:url(images/sections/CreateSection.png);
 		}
 	a.EditSection span:before{
+		content:url(images/sections/EditSection.png);
+		}
+	a.EditSectionText span:before{
 		content:url(images/sections/EditSection.png);
 		}
 	a.RemoveSection span:before{

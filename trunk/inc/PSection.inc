@@ -373,7 +373,7 @@ class PSection
 /**	A namespace for section relation functions.
 	*	\latexonly \label{PWision:Sections} \endlatexonly
 	*	\brief section's namespace.
-	*	\version 4.2.0
+	*	\version 4.3.0
 	*/
 final class Sections
 	{
@@ -480,6 +480,19 @@ final class Sections
 		{
 		Main()->DB->query(
 			"UPDATE `Sections` SET `BBCode` = '$BBCode', `HTML` = '".BBCode::BBCode2HTML($BBCode)."' WHERE `Name` ='$section_name'"
+			);
+		}
+	/** Set the HTML field of a section.
+		*	\brief set the HTML of a section.
+		*	\param $section_name the name of the section
+		*	\param $HTML the HTML string of the section
+		*/
+	static function setHTML($section_name,$HTML)
+		{
+		Main()->DB->query
+// 		print
+			(
+			"UPDATE `Sections` SET `HTML` = '".mysql_real_escape_string ($HTML)."' WHERE `Name` ='$section_name'"
 			);
 		}
 	/**	For every group ID from $grp_arr this function creates a pair (<i>section name</i>, <i>group ID</i>) and inserts it in GroupSections database table, making section $section_name member of the group with that ID.
