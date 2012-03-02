@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2010 Becheru Petru-Ioan
+Copyright (C) 2010,2012 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,13 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**	\file
 	*	\brief pwision translation to english.
-	*	\version 1.0.0
+	*	\version 1.1.0
 	*/
 
 // PCSSZenWebPage
 
 /// PWision's sections
 PMainComponent::$Lang['Root']='&#x27F0;';
+PMainComponent::$Lang['SectionManagement']='Section Management';
+	PMainComponent::$Lang['EditSectionText']='Edit section text';
+	PMainComponent::$Lang['UploadFile']='File Upload';
 
 PMainComponent::$Lang['']='';
 ?>

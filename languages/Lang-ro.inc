@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**	\file
 	*	\brief pwision translation to romanian.
-	*	\version 1.6.0
+	*	\version 1.7.0
 	*/
 
 PMainComponent::$Lang['Select']='Selectează';
@@ -57,10 +57,12 @@ PMainComponent::$Lang['UserAccess']='Access Utilizatori';
 	PMainComponent::$Lang['You are now being redirected to section']='Redirectare c&#259;tre secțiunea';
 	PMainComponent::$Lang['You are now being redirected to']='Redirectare c&#259;tre';
 
-PMainComponent::$Lang['UploadFile']='Încarcă fișiere';
-	PMainComponent::$Lang['Choose the files']='Alege fișiere';
-	PMainComponent::$Lang['Upload!']='&Icirc;ncarc&#259;!';
-	PMainComponent::$Lang['Keep Original Filename']='p&#259;streaz&#259; numele original';
+PMainComponent::$Lang['SectionManagement']='Administrarea secțiunilor';
+	PMainComponent::$Lang['EditSectionText']='Editează textul unei secțiuni';
+	PMainComponent::$Lang['UploadFile']='Încarcă fișiere';
+		PMainComponent::$Lang['Choose the files']='Alege fișiere';
+		PMainComponent::$Lang['Upload!']='&Icirc;ncarc&#259;!';
+		PMainComponent::$Lang['Keep Original Filename']='p&#259;streaz&#259; numele original';
 
 
 PMainComponent::$Lang['']='';
