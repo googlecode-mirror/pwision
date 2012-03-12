@@ -29,7 +29,7 @@ include_once("inc/Groups.inc");
 /** 	The EditSectionText class is designed to model the section that allows a user to edit a section's text.
 	*	\latexonly \label{PWision:Sections:EditSectionText} \index{EditSectionText} \endlatexonly
 	*	\brief a section editor.
-	*	\version 2.0.0
+	*	\version 2.0.1
 	*/
 class EditSectionText extends PFormSection
 	{
@@ -89,7 +89,7 @@ class EditSectionText extends PFormSection
 // 		print(
 			BBCode::HTML2BBCode
 				(
-				html_entity_decode
+// 				html_entity_decode
 					(
 					$tidy->repairString
 						(
@@ -100,7 +100,8 @@ class EditSectionText extends PFormSection
 							stripslashes($this->getParam('xhtml'))
 							).
 						'</body></html>'
-						), ENT_QUOTES, 'UTF-8'
+						)
+// 					, ENT_QUOTES, 'UTF-8'
 					)
 				)
 			);
