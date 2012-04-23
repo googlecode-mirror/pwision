@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.20.0
+ *	- version 1.21.0
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009--12 Becheru Petru-Ioan
@@ -551,21 +551,23 @@ a.Contact span:before{
 	border-style:solid;
 	border-color:#0057AE;
 	border-width:0 0 0 1px;
-	border-radius: 0 0 0 1em;
 	-moz-border-radius: 0 0 0 1em;
-	padding-bottom:.3em;
 	}
 #lresources div div,#larchives div div{
 	display:block;
-	border-width:0px;
+	font-size:1.4em;
+	border-width: 0px 0px 1px 0px;
+	border-radius: 0px 0.5em 1em 0px;
+	padding-right: 0.5em;
 	padding-bottom:0em;
+	margin-left: 0px;
+	}
+#lresources div div:hover,#larchives div div:hover{
+	background-color:rgba(0,0,0,0.1);
 	}
 #lresources div div.selected a, #larchives div div.selected a{
-	border: #bcbcbc 1px solid;
+	background-color:rgba(0,0,0,0.05);
 	}
-#lresources div div:hover a,#larchives div div:hover a{
-	border: #bcbcbc 1px dotted;
-}	
 
 
 #supportingText {
