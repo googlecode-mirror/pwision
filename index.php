@@ -44,10 +44,10 @@ class PMyWebPage extends PWebPageDefault
 			return null;
 			return new PText(" @import \"css/pwision_kde.css\"; ");
 			}
-		protected function TranslateElement()
+		function TranslateElement($id="google_translate_element")
 			{
 			return null;
-			return parent::TranslateElement();
+			return parent::TranslateElement($id);
 			}
 	function SearchForm($query='')
 		{
