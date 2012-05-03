@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009--11 Becheru Petru-Ioan
+Copyright (C) 2009--12 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ include_once("PStaticSection.inc");
 /** 	The PMostBasicWebPage class is designed to be a model the most basic webpage: a PDrawable with a database connection.
 	*	\latexonly \label{PWision:PMostBasicWebPage} \index{PMostBasicWebPage} \index{database} \endlatexonly
 	*	\brief a PDrawable with database connection.
-	*	\version 2.3.0
+	*	\version 2.4.0
 	*	\par Example:
 	*		See PBasicWebPage class.
 	*/
@@ -259,22 +259,23 @@ abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 			}
 		/**	The translate gadget from google is a script.
 			*	\brief makes the <i>Translate Page</i> element.
-			*	\version 1.1.0
+			*	\version 1.2.0
+			*	\param $id the id of the element where the translate widget will be inserted
 			*	\return the translate gadget from google
 			*/
-		protected function TranslateElement()
+		function TranslateElement($id="google_translate_element")
 			{
 			return new PText(
-'<div id="google_translate_element"></div><script>
-function googleTranslateElementInit() {
+'<div id="'.$id.'"></div><script>
+function googleTranslateElementInit'.$id.'() {
 new google.translate.TranslateElement({
 	pageLanguage: \''.$this->getLanguage().'\',
 	multilanguagePage: true,
 	gaTrack: true,
 	layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-}, \'google_translate_element\');
+}, \''.$id.'\');
 }
-</script><script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>');
+</script><script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'.$id.'"></script>');
 			}
 		/**	The translate gadget from google is a script.
 			*	\brief <i>Translate Page</i> element with Public check.
