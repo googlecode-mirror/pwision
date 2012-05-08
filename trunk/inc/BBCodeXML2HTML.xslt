@@ -172,7 +172,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/.
 
 <!-- 5 tex -->
 <xsl:template match="tex">
-&lt;img src="http://chart.googleapis.com/chart?chf=bg,s,65432100&amp;cht=tx&amp;chl=<xsl:apply-templates/>"/&gt;
+&lt;img class="noBorder" src="http://chart.googleapis.com/chart?chf=bg,s,65432100&amp;cht=tx&amp;chl=<xsl:apply-templates/>"/&gt;
 </xsl:template>
 
 
