@@ -3,8 +3,8 @@
 	>
 <!--
 BBCodeXML to HTML
-version 1.3.0
-Copyright (C) 2010,2011 Becheru Petru-Ioan
+version 1.4.0
+Copyright (C) 2010-12 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -166,6 +166,12 @@ along with this program.  If not, see http://www.gnu.org/licenses/.
 <xsl:template match="caption">
 <caption><xsl:apply-templates/></caption>
 </xsl:template>
+
+<!-- 5 tex -->
+<xsl:template match="tex">
+&lt;img src="http://chart.googleapis.com/chart?cht=tx&amp;chl=<xsl:apply-templates/>"/&gt;
+</xsl:template>
+
 
 <!-- X  -->
 
