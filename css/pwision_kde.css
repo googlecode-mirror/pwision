@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.21.0
+ *	- version 1.22.0
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009--12 Becheru Petru-Ioan
@@ -262,6 +262,11 @@ hr {
 img {
 	border: 0;
 	}
+img.noBorder{
+	border:none;
+	border-radius:0;
+	box-shadow:none;
+}
 
 #content table {
 	border-collapse:collapse;
