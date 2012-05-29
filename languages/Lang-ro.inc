@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**	\file
 	*	\brief pwision translation to romanian.
-	*	\version 1.7.0
+	*	\version 1.8.0
 	*/
 
 PMainComponent::$Lang['Select']='Selectează';
@@ -53,6 +53,10 @@ PMainComponent::$Lang['login']='Conectare';
 	PMainComponent::$Lang['username']='utilizator';
 	PMainComponent::$Lang['password']='parola';
 PMainComponent::$Lang['UserAccess']='Access Utilizatori';
+	PMainComponent::$Lang['MySettings']='Setările mele';
+		PMainComponent::$Lang['Save']='Salvează';
+		PMainComponent::$Lang['enter a new password']='introduce o nouă parolă';
+		PMainComponent::$Lang['The password was changed!']='Parola a fost schimbată!';
 
 	PMainComponent::$Lang['You are now being redirected to section']='Redirectare c&#259;tre secțiunea';
 	PMainComponent::$Lang['You are now being redirected to']='Redirectare c&#259;tre';
