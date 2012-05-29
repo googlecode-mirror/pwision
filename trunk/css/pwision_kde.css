@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 /*
  * pwision_kde.css
- *	- version 1.22.1
+ *	- version 1.23.0
  *	- a CSS theme for PWision that looks like www.kde.org(28-11-2009)
  * part of PWision toolkit: http://pwision.googlecode.com/
  * Copyright (C) 2009--12 Becheru Petru-Ioan
@@ -330,6 +330,9 @@ a.login span:before{
 	}
 a.logout span:before{
 	content:url(images/sections/logout.png);
+	}
+a.MySettings span:before{
+	content:url(images/sections/EditUser.png);
 	}
 a.SectionManagement span:before{
 	content:url(images/sections/SectionManagement.png);

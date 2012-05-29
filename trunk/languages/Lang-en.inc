@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**	\file
 	*	\brief pwision translation to english.
-	*	\version 1.2.0
+	*	\version 1.3.0
 	*/
 
 // PCSSZenWebPage
@@ -31,6 +31,7 @@ PMainComponent::$Lang['SectionManagement']='Section Management';
 	PMainComponent::$Lang['EditSectionText']='Edit section text';
 	PMainComponent::$Lang['UploadFile']='File Upload';
 PMainComponent::$Lang['UserAccess']='User Access';
+	PMainComponent::$Lang['MySettings']='My settings';
 
 PMainComponent::$Lang['']='';
 ?>
