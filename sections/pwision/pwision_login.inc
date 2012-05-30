@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009--11 Becheru Petru-Ioan
+Copyright (C) 2009--12 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ include_once("externalAPI/recaptchalib.php");
 /** 	The pwision_login class is designed to model the login section. The login section is the section of the website where guest users can log in with their username and password. This class can be extended, for example, to change the redireting URL by modifying InsertOnSuccessfulLogin() method.
 	*	\latexonly \label{PWision:Sections:pwision_login} \index{login}  \index{guest} \index{user}\endlatexonly
 	*	\brief the pwision_login section.
-	*	\version 1.0.4
+	*	\version 1.1.0
 	*/
 class pwision_login extends PFormSection
 	{
@@ -72,13 +72,9 @@ class pwision_login extends PFormSection
 		$this->AddMessage("User/Password not ok! Try again");
 		return false;
 		}
-	function & createForm()
+		protected function inside_form()
 		{
-		if(!isset($_SESSION['login_attempt']))$_SESSION['login_attempt']=0;
-		$captcha=($_SESSION['login_attempt']<3)?(new PDrawable):(new PText(recaptcha_get_html(Main()->reCAPTCHApublickey())) );
-		return PFormSection::createForm()
-			->setAtr("method","post")
-			->Insert(
+		return 
 				Object(new PFieldSet(PTextlang("Please identify")))
 					->Insert(
 						new PInput("text","","username",lang('username'))
@@ -90,6 +86,17 @@ class pwision_login extends PFormSection
 						->Insert(new PSimpleTag("br"))
 					->Insert($captcha)
 					->Insert(new PInput("submit",lang("Log in!"),""))
+				;
+		}
+
+	function & createForm()
+		{
+		if(!isset($_SESSION['login_attempt']))$_SESSION['login_attempt']=0;
+		$captcha=($_SESSION['login_attempt']<3)?(new PDrawable):(new PText(recaptcha_get_html(Main()->reCAPTCHApublickey())) );
+		return PFormSection::createForm()
+			->setAtr("method","post")
+			->Insert(
+				$this->inside_form()
 				)
 			;
 		}
