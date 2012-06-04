@@ -36,7 +36,7 @@ class pwision_MySettings extends PFormSection
 	function setParams()
 		{
 		$this
-			->addParam("Password",'/^[a-z0-9 ]{1,64}$/i','')
+			->addParam("Password",'/^[a-z0-9 ]{0,64}$/i','')
 			;
 		}
 	function if_not_all_parameters_are_set()
@@ -51,8 +51,11 @@ class pwision_MySettings extends PFormSection
 	function ProcessOK()
 		{
 // 		return true;
-		Users::SetPassword( $_SESSION['userID'], $this->getParam('Password') );
-		$this->AddMessage("The password was changed!");
+		if(strlen($this->getParam('Password')))
+			{
+			Users::SetPassword( $_SESSION['userID'], $this->getParam('Password') );
+			$this->AddMessage("The password was changed!");
+			}
 		return false;
 		}
 	function createForm()
