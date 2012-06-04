@@ -17,64 +17,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-include_once ('inc/PBBCodeInput.inc');
-include_once('inc/BBCode.inc');
-include_once("inc/PFormSection.inc");
-include_once("inc/PTable.inc");
-include_once("inc/Users.inc");
-include_once("inc/Groups.inc");
-
+include_once("sections/pwision/pwision_MySettings.inc");
 
 
 /** 	The MySettings class is designed to model the section that allows a user to configure its account.
 	*	\latexonly \label{PWision:Sections:MySettings} \index{MySettings} \endlatexonly
 	*	\brief a user editor.
-	*	\version 1.0.0
+	*	\version 2.0.0
 	*/
-class MySettings extends PFormSection
+class MySettings extends pwision_MySettings
 	{
-	protected function preprocessParam($param_name)
-		{
-		$_REQUEST[$param_name]=charset_decode_utf_8($_REQUEST[$param_name]);
-		}
-	function setParams()
-		{
-		$this
-			->addParam("Password",'/^[a-z0-9 ]{1,64}$/i','')
-			;
-		}
-	function if_not_all_parameters_are_set()
-		{
-		$this->ConstructLocation();
-		parent::if_not_all_parameters_are_set();
-		}
-/*	function getTitle()
-		{
-		return lang($this->getName()).' '.lang($this->getParam('sectionname'));
-		}*/
-	function ProcessOK()
-		{
-// 		return true;
-		Users::SetPassword( $_SESSION['userID'], $this->getParam('Password') );
-		$this->AddMessage("The password was changed!");
-		return false;
-		}
-	function createForm()
-		{
-		$FormContent=new PContent();
-		$FormContent
-				->Insert(
-					new PInput("password","","Password",lang('enter a new password'))
-					)
-					->Insert(new PSimpleTag("br"))
-				->Insert(new PInput("submit",lang("Save"),""))
-				;
-
-		return PFormSection::createForm()
-				->setAtr("method",'post')
-
-			->Insert($FormContent)
-			;
-		}
 	}
 ?>
