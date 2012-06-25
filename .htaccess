@@ -1,5 +1,7 @@
 RewriteEngine On 
 
+RewriteRule ^.*[.]inc.*$									/									[NC,R=301]
+
 RewriteRule ^(.*[/])?([_a-z0-9]+)[/]?$						/index.php?section=$2				[NC]
 
 RewriteRule ^([_a-z0-9]+)([&].*)$						/index.php?section=$1$2				[NC]
