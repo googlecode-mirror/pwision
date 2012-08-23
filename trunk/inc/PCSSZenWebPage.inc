@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2009--11 Becheru Petru-Ioan
+Copyright (C) 2009--12 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ include_once('PRedirectSection.inc');
 /** 	The PCSSZenWebPage class is designed to model the <a href="http://www.csszengarden.com">www.csszengarden.com</a> website layout so we can use the themes provided by this website.
 	*	\latexonly \label{PWision:PCSSZenWebPage} \index{PCSSZenWebPage} \index{webpage} \index{layout} \index{theme} \index{css zen garden} \endlatexonly
 	*	\brief a themed webpage.
-	*	\version 3.1.7
+	*	\version 3.1.6
 	*	\par Example:
 \code
 include_once("PCSSZenWebPage.inc");
@@ -558,7 +558,7 @@ abstract class PWebPageDefault extends PCSSZenWebPage
 		{
 		return 	
 			Object(new PSimpleTag('img'))
-					->setAtr('src','css/images/logo1.png')
+					->setAtr('src','/css/images/logo1.png')
 					->setAtr("title",lang('logo'))
 				;
 		}
