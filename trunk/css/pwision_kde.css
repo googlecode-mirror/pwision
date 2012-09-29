@@ -20,7 +20,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 html{
-}
+  background-color: #D9E3EA;
+	}
 
 body{
 	margin-top: 0;
@@ -35,11 +36,12 @@ body{
 	margin:0px;
 /* 	height:100%; */
   /* fallback */
+	background: url('/css/images/logo1.png')  no-repeat center right;
   background-color: #D9E3EA;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: center right;
 
-  
+
   /* Safari 5.1, Chrome 10+ 
   background: -webkit-linear-gradient(top, white, #D9E3EA);
   
@@ -55,13 +57,13 @@ body{
 
   
   /* Safari 5.1+, Chrome 10+ */
-  background: -webkit-radial-gradient(circle, white, #D9E3EA);
+  background: url('/css/images/logo1.png')  no-repeat center right, -webkit-radial-gradient(circle, white, #D9E3EA);
   
   /* Firefox 3.6+ */ 
-  background: -moz-radial-gradient(circle, white, #D9E3EA);
+  background: url('/css/images/logo1.png')  no-repeat center right, -moz-radial-gradient(circle, white, #D9E3EA);
   
   /* IE 10 */ 
-  background: -ms-radial-gradient(circle, white, #D9E3EA);
+  background: url('/css/images/logo1.png')  no-repeat center right, -ms-radial-gradient(circle, white, #D9E3EA);
   
 	}
 
@@ -389,7 +391,6 @@ a.Contact span:before{
 	text-align:left;
 	margin-left:auto;
 	margin-right:auto;
-	max-width: 70em;
 	height:100%;
 	}
 
