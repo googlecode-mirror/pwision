@@ -350,20 +350,24 @@ function FieldSet($legend_text='')
 
 /**	Constructs a textarea input element.
 	*	\brief a textarea.
-	*	\version 1.0.1
+	*	\version 1.1.0
 	*	\param $name name of the textarea
 	*	\param $text initial text content of textarea
 	*	\param $rows number of visible rows of the textarea
-	*	\return an textarea PElement
+	*	\param $placeholder the placeholder
+	*	\param $required set to true if the input is required
+*	\return an textarea PElement
 	*/
-function TextArea($name,$text='',$rows=20)
+function TextArea($name,$text='',$rows=20, $placeholder='', $required=false)
 	{
 	return
 		El('textarea')
 				->setAtr('name',$name)
 				->setAtr('id',$name)
 				->setAtr('rows',$rows)
-			->Insert(new PText($text) )
+				->setAtr('placeholder',$placeholder)
+				->setAtr('required',$required?'required':'')
+		->Insert(new PText($text) )
 		;
 	}
 ?>
