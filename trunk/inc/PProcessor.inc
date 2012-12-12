@@ -1,7 +1,7 @@
 <?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
-Copyright (C) 2010 Becheru Petru-Ioan
+Copyright (C) 2010,2012 Becheru Petru-Ioan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -121,7 +121,7 @@ class PXSLTFileProcessor extends PProcessor
 /** 	The PXSLTFileXMLProcessor class is designed to be a XSTL file processor of XML text.
 	*	\latexonly \label{PWision:PXSLTFileXMLProcessor} \index{PXSLTFileXMLProcessor} \endlatexonly
 	*	\brief XSTL File XML Processor class.
-	*	\version 1.0.0
+	*	\version 1.0.1
 	*	\par Example:
 \code
 include_once("PXSLTFileXMLProcessor.inc");
@@ -150,13 +150,13 @@ class PXSLTFileXMLProcessor extends PXSLTFileProcessor
 		*	\brief loads the xml.
 		*	\return reference to $this
 		*/
-	function PreProcess()
+	function & PreProcess()
 		{
 		$this->xml= new DOMDocument();
 		$this->xml->loadXML( $this->xml_text );
 		return parent::PreProcess();
 		}
-	function Process()
+	function & Process()
 		{
 		$this->result=$this->xslt->transformToXML( $this->xml );
 		return parent::Process();

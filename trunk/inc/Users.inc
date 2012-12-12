@@ -200,12 +200,20 @@ final class Users
 	static function hasAccess( $UserID, $SectionName )
 		{
 		$row= Main()->DB->fetch_array_query
-			(
-			"select GroupID from GroupSections where SectionName='$SectionName' ".
-				" and GroupID in ".
-			"(select GroupID from GroupUsers where UserID='$UserID')"
-			);
-		return $row['GroupID']!=null;
+// 			(
+// 			"select GroupID from GroupSections where SectionName='$SectionName' ".
+// 				" and GroupID in ".
+// 			"(select GroupID from GroupUsers where UserID='$UserID')"
+// 			);
+						("
+			SELECT UserID, SectionName
+FROM GroupUsers
+JOIN  `GroupSections` ON GroupUsers.`GroupID` = GroupSections.GroupID
+WHERE GroupSections.SectionName =  '$SectionName'
+AND GroupUsers.UserID ='$UserID'
+			");
+
+		return $row['UserID']!=null;
 		}
 	/**	Checks if a user is member of a group.
 		*	\brief Check if a user is in a group.
