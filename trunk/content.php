@@ -33,9 +33,10 @@ class PMyWebPage extends PSectionWebPage
 	{
 	function & setLanguage()
 		{
-		$this->Language='ro';
+		$this->Language='en';
+		parent::setLanguage();
 		PMainComponent::$Lang['']='';
-		return parent::setLanguage();
+		return $this;
 		}
 	/**	Settings for the webpage.
 		*	\brief constructor.

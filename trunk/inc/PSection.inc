@@ -373,7 +373,7 @@ class PSection
 /**	A namespace for section relation functions.
 	*	\latexonly \label{PWision:Sections} \endlatexonly
 	*	\brief section's namespace.
-	*	\version 4.3.0
+	*	\version 4.4.0
 	*/
 final class Sections
 	{
@@ -396,15 +396,16 @@ final class Sections
 	/**	Creates a new section of the website by adding it to Sections table and to its groups.
 		*	\latexonly \label{PWision:Sections:Create} \endlatexonly
 		*	\brief create a section
-		*	\version 2.0.2
+		*	\version 2.1.0
 		*	\param name name of the new section(must not exist, e.g. a new name)
 		*	\param owner owner section of the new section(must exist)
 		*	\param descr description text "^[a-z ]{0,127}$"
 		*	\param grp_arr array of group numbers
 		*	\param $attr attributes(bookmarked,hidden)
+		*	\param $type type of the section: ['section'], 'xml'
 		*	\return true if success
 		*/
-	static function Create( $name, $owner, $descr="", $grp_arr=null,$attr=null )
+	static function Create( $name, $owner, $descr="", $grp_arr=null,$attr=null, $Type='section' )
 		{
 		if($grp_arr==null)$grp_arr=array();
 		if($attr==null)$attr=array();
@@ -418,7 +419,7 @@ final class Sections
 			(eregi("^[01]{1}$",$hidden)==false)*/
 			)
 				return false;
-		Main()->DB->query("INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`, `BBCode`, `HTML`) VALUES ('$name', '$owner', 'section', '$descr', '', '')");
+		Main()->DB->query("INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`, `BBCode`, `HTML`) VALUES ('$name', '$owner', '$Type', '$descr', '', '')");
 		Sections::Add2Groups($name,$grp_arr);
 		if(array_key_exists('Hidden',$attr) && $attr['Hidden']=='Hidden')Sections::Hide($name);
 		if(array_key_exists('Bookmarked',$attr) && $attr['Bookmarked']=='Bookmarked')Sections::Bookmark($name);
@@ -519,13 +520,13 @@ final class Sections
 		{
 		Main()->DB->query("DELETE FROM `GroupSections` WHERE `SectionName` = '$section_name'");
 		}
-	/**	Hide a section by inserting it in the HiddenSections table.
+	/**	Hide a section.
 		*	\brief hide a section.
 		*	\param $section_name the name of the section to be hidden
 		*/
 	static function Hide( $section_name )
 		{
-		Main()->DB->query("INSERT INTO `HiddenSections`(`SectionName`) VALUES ('$section_name')");
+		Main()->DB->query("UPDATE `Sections` SET Hidden=1 WHERE `Name` = '$section_name'");
 		}
 	/**	Checks if a section is in HiddenSections table.
 		*	\brief checks if a section is hidden.
@@ -535,8 +536,8 @@ final class Sections
 	static function isHidden( $section_name="Root" )
 		{
 		if(!Sections::CheckName($section_name))return false;
-		$row=Main()->DB->fetch_array_query( "SELECT SectionName FROM HiddenSections WHERE SectionName='$section_name'");
-		if($row) return true;
+		$row=Main()->DB->fetch_array_query( "SELECT Hidden, Type FROM Sections WHERE Name='$section_name'");
+		if($row['Hidden']=='1' || $row['Type']=='xml') return true;
 		return false;
 		}
 	/**	Deletes from HiddenSections table the section $section_name.
@@ -545,13 +546,13 @@ final class Sections
 		*/
 	static function unHide( $section_name )
 		{
-		Main()->DB->query("DELETE FROM `HiddenSections` WHERE `SectionName` = '$section_name'");
+		Main()->DB->query("UPDATE `Sections` SET Hidden=0  WHERE `Name` = '$section_name'");
 		}
 
 //---------BOOKMARKS
-	/**	Hide a section by inserting it in the HiddenSections table.
-		*	\brief hide a section.
-		*	\param $section_name the name of the section to be hidden
+	/**	Bookmark a section by inserting it in the UserBookmarkedSections table.
+		*	\brief bookmark a section.
+		*	\param $section_name the name of the section to be bookmarked
 		*	\param $UserID the user's id
 		*/
 	static function Bookmark( $section_name, $UserID=0 )
@@ -641,7 +642,7 @@ final class Sections
 	/**	Gets the sections that have as Owner $section_name and are accesible by the user with $UserID.
 		*	\note see the <i>access rule</i> in Users::hasAccess()
 		*	\brief the subsections of a section that are accesible by an user.
-		*	\version 1.0.1
+		*	\version 1.0.2
 		*	\param $section_name the name of the section
 		*	\param $UserID the user's id
 		*	\return an array containing the accesible subsections with full information
@@ -650,18 +651,25 @@ final class Sections
 		{
 		if(!Sections::CheckName($section_name)) return false;
 		return Main()->DB->fetch_all_query(
-			"SELECT * FROM Sections WHERE Owner='$section_name' and ".
+/*			"SELECT * FROM Sections WHERE Owner='$section_name' and ".
 					"(".
 					"select Count(*) from GroupSections where SectionName=Sections.Name ".
 						" and GroupID in ".
 							"(select GroupID from GroupUsers where UserID='$UserID')".
 					")>0".
-				' order by `Sort`'
+				' order by `Sort`'*/
+"SELECT * FROM Sections 
+JOIN GroupSections ON GroupSections.SectionName=Sections.Name
+JOIN GroupUsers ON GroupUsers.GroupID = GroupSections.GroupID
+WHERE  
+Sections.Owner ='$section_name' AND Sections.Type <>'xml'
+GroupUsers.UserID ='$UserID' 
+order by Sort, SectionName"
 			);
 		}
 	/**	Gets the sections that have as Owner $section_name, are accesible by the user with $UserID and are not hidden.
 		*	\brief the subsections of a section that are accesible by an user and not hidden.
-		*	\version 1.0.1
+		*	\version 1.0.2
 		*	\param $section_name the name of the section
 		*	\param $UserID the user's id
 		*	\return an array containing the accesible not hidden subsections with full information
@@ -670,7 +678,7 @@ final class Sections
 		{
 		if(!Sections::CheckName($section_name)) return false;
 		return Main()->DB->fetch_all_query(
-			"SELECT * FROM Sections WHERE Owner='$section_name' and ".
+/*			"SELECT * FROM Sections WHERE Owner='$section_name' and ".
 					"( Sections.Name NOT IN " .
 						"(select SectionName from HiddenSections ) ".
 					")".
@@ -680,20 +688,28 @@ final class Sections
 						" and GroupID in ".
 							"(select GroupID from GroupUsers where UserID='$UserID')".
 					")>0".
-				' order by `Sort`'
+				' order by `Sort`'*/
+"SELECT * FROM Sections 
+JOIN GroupSections ON GroupSections.SectionName=Sections.Name
+JOIN GroupUsers ON GroupUsers.GroupID = GroupSections.GroupID
+WHERE  
+Sections.Owner ='$section_name' AND Sections.Hidden=0 AND Sections.Type <>'xml' AND 
+GroupUsers.UserID ='$UserID' 
+order by Sort, SectionName"
+
 			);
 		}
 
 	/**	the bookmarked sections of a user combined with those of used 0(guest).
 		*	\brief the accesible bookmarked sections.
-		*	\version 1.0.1
+		*	\version 1.0.2
 		*	\param $UserID the user's id
 		*	\return an array containing the accesible bookmarked sections with full information
 		*/
 	static function AccesibleBookmarkedSections( $UserID=0 )
 		{
 		return Main()->DB->fetch_all_query(
-			"SELECT * FROM Sections WHERE ".
+			/*"SELECT * FROM Sections WHERE ".
 					"( Sections.Name IN " .
 						"(select SectionName from UserBookmarkedSections ".
 							"where UserBookmarkedSections.UserID='$UserID' or UserBookmarkedSections.UserID='0'".
@@ -705,31 +721,49 @@ final class Sections
 						" and GroupSections.GroupID in ".
 							"(select GroupID from GroupUsers where GroupUsers.UserID='$UserID')".
 					")>0".
-				' order by `Sort`'
+				' order by `Sort`'*/
+"SELECT * FROM Sections 
+JOIN UserBookmarkedSections ON Sections.Name=UserBookmarkedSections.SectionName
+JOIN GroupSections ON GroupSections.SectionName=Sections.Name
+JOIN GroupUsers ON GroupUsers.GroupID = GroupSections.GroupID
+WHERE  
+Sections.Type <>'xml' AND 
+(UserBookmarkedSections.UserID='0' OR UserBookmarkedSections.UserID='0') AND 
+GroupUsers.UserID ='0' 
+order by Sort, Sections.Name"
 			);
 		}
 
 	/**	Constructs an hyperlink to a section from a SQL section information.
 		*	\brief hyperlink to a SQL section information.
-		*	\version 1.0.2
+		*	\version 1.0.4
 		*	\param $section array containing section information, that may have been return by Section() function.
 		*	\return an <b>a</b> element with a hyper reference to the section.
 		*/
 	static function Link2SQLSection( $section)
 		{
-		if($section['Type']=='section')
+		$ret;
+		switch($section['Type'])
+			{
+			case 'section':
 				return Sections::Link2($section['Name'],lang($section['Description']));
-			else
-				return
-					El("a")
-							->setAtr("href","index.php?section=". $section['Owner']. "#". $section['Name'])
-							->setAtr("title",lang($section['Description']))
-						->Insert(
-							El('span')
-								->Insert(
-									PTextlang($section['Name'])
-									)
-							);
+				break;
+			case 'xml':
+					$ret=El('span');
+				break;
+			default:
+					$ret=El("a")->setAtr("href","index.php?section=". $section['Owner']. "#". $section['Name']);
+				break;
+			}
+		$ret
+				->setAtr("title",lang($section['Description']))
+			->Insert(
+				El('span')
+					->Insert(
+						PTextlang($section['Name'])
+						)
+				);
+		return $ret;
 		}
 	/**	Constructs an hyperlink to a section.
 		*	\brief hyperlink to a section.
@@ -738,18 +772,34 @@ final class Sections
 		*	\param text text of the link(by default $section_name used). If null, no content is inserted.
 		*	\param attr attributes to link, besides <b>section=<i>section_name</i></b>
 		*	\return an <b>a</b> element with a hyper reference to the section.
-		*	\version 1.1.5
+		*	\version 1.1.6
 	 */
 	static function Link2( $section_name="Root", $title="", $text="" , PURLAttributes $attr=null)
 		{
+		$section=Sections::Section($section_name);
 		if($title=="")
 			{
-			$section=Sections::Section($section_name);
+//			$section=Sections::Section($section_name);
 			$title=lang($section['Description']);
 			}
 		if($attr==null)$attr=new PURLAttributes();
-		$lnk=El('a')
-				->setAtr( 'href', "/$section_name".$attr->Draw() )
+		
+		$lnk;
+		switch($section['Type'])
+			{
+			case 'section':
+				$lnk=El('a')
+						->setAtr( 'href', "/$section_name".$attr->Draw() );
+				break;
+			case 'xml':
+					$lnk=El('span');
+				break;
+			default:
+					$lnk=El("a")->setAtr("href","index.php?section=". $section['Owner']. "#". $section['Name']);
+				break;
+			}
+				
+		$lnk
 				->setAtr( 'title', $title )
 				->setAtr( 'class', "section $section_name")
 				;
