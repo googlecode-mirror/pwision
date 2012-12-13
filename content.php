@@ -24,6 +24,11 @@ include_once("inc/PCSSZenWebPage.inc");
 
 // include_once('.inc');
 
+function xmlentities($string) {
+    return str_replace(array("&", "<", ">", "\"", "'"),
+        array("&amp;", "&lt;", "&gt;", "&quot;", "&apos;"), $string);
+}
+
 /** 	The PMyWebPage class is designed to model the webpage.
 	*	\latexonly \label{PWision:PMyWebPage} \index{PMyWebPage} \endlatexonly
 	*	\brief the webpage.
