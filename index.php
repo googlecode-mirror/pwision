@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
 Copyright (C) 2009,2010,2012 Becheru Petru-Ioan
@@ -38,7 +38,7 @@ class PMyWebPage extends PWebPageDefault
 		parent::setLanguage();
 		PMainComponent::$Lang['']='';
 		return $this;
-		}
+	}
 		protected function website_css()
 			{
 			return null;

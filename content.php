@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
 Copyright (C) 2011 Becheru Petru-Ioan
@@ -56,7 +56,6 @@ class PMyWebPage extends PSectionWebPage
 		}
 	}
 
-// header ("Content-Type:text/xml;charset=utf-8"); 
 
 $page=new PMyWebPage();
 print( $page->Draw() );
