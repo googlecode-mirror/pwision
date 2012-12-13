@@ -56,7 +56,7 @@ class PMyWebPage extends PSectionWebPage
 		}
 	}
 
-header ("Content-Type:text/xml"); 
+// header ("Content-Type:text/xml;charset=utf-8"); 
 
 $page=new PMyWebPage();
 print( $page->Draw() );

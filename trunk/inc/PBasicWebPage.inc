@@ -586,7 +586,7 @@ new google.translate.TranslateElement({
 /** 	The PSectionWebPage class is designed to be a model a webpage that displays just the main content of the section( PSection::Chapter1() ).
 	*	\latexonly \label{PWision:PSectionWebPage} \index{PSectionWebPage} \endlatexonly
 	*	\brief a model class.
-	*	\version 1.0.1
+	*	\version 1.0.2
 	*/
 class PSectionWebPage extends PBasicWebPage
 	{
@@ -596,7 +596,11 @@ class PSectionWebPage extends PBasicWebPage
 		*/
 	function Draw()
 		{
-		return $this->getMessages().$this->getSection()->Chapter1();
+		header ("Content-Type:text/xml;charset=utf-8"); 
+		return 
+			'<?xml version="1.0" encoding="UTF-8" ?>'.
+			$this->getMessages().
+			$this->getSection()->Chapter1();
 		}
 	}
 
