@@ -99,10 +99,11 @@ CREATE TABLE `Sections`(
 `Sort` VARCHAR( 16 ) NOT NULL DEFAULT  'L5' COMMENT  'sort string',
 `Owner` VARCHAR( 64 ) NOT NULL COMMENT 'Owner of the section' DEFAULT 'Root',
 `Type` VARCHAR( 8 ) NOT NULL COMMENT 'type of the section' DEFAULT 'section',
+`Hidden` BOOL NOT NULL DEFAULT  '0' COMMENT  'is the section hidden',
 `Description` VARCHAR( 512 ) NOT NULL COMMENT 'description of the section' DEFAULT '',
 `BBCode` LONGTEXT NOT NULL COMMENT  'content of the section in BBCode',
 `HTML` LONGTEXT NOT NULL COMMENT  'the HTML content of the section compiled from the BBCode',
-INDEX ( `ID` ), INDEX ( `Name` ), INDEX (`Owner`)
+INDEX ( `ID` ), INDEX ( `Name` ), INDEX (`Owner`),  INDEX (`Hidden`) 
 )COMMENT='Sections of the website';
 INSERT INTO `Sections` (`Name`, `Owner`, `Type`, `Description`, `BBCode`, `HTML`) VALUES
 		('login', 'UserAccess', 'section', 'Login a user', '', ''),
