@@ -669,7 +669,7 @@ order by Sort, SectionName"
 		}
 	/**	Gets the sections that have as Owner $section_name, are accesible by the user with $UserID and are not hidden.
 		*	\brief the subsections of a section that are accesible by an user and not hidden.
-		*	\version 1.0.2
+		*	\version 1.0.3
 		*	\param $section_name the name of the section
 		*	\param $UserID the user's id
 		*	\return an array containing the accesible not hidden subsections with full information
@@ -695,7 +695,9 @@ JOIN GroupUsers ON GroupUsers.GroupID = GroupSections.GroupID
 WHERE  
 Sections.Owner ='$section_name' AND Sections.Hidden=0 AND Sections.Type <>'xml' AND 
 GroupUsers.UserID ='$UserID' 
-order by Sort, SectionName"
+GROUP BY SectionName
+order by Sort, SectionName
+"
 
 			);
 		}
