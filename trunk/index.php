@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*
 part of PWision toolkit: http://pwision.googlecode.com/
 Copyright (C) 2009,2010,2012 Becheru Petru-Ioan

@@ -47,10 +47,11 @@ class pwision_login extends PFormSection
 					)
 				;
 		}
+	protected $max_attemps=3;
 	function ProcessOK()
 		{
 		$captcha_ok=true;
-		if($_SESSION['login_attempt']>3)
+		if($_SESSION['login_attempt']>$this->max_attemps)
 			{
 			$resp = recaptcha_check_answer (Main()->reCAPTCHAprivatekey(),
 										$_SERVER["REMOTE_ADDR"],
@@ -74,7 +75,7 @@ class pwision_login extends PFormSection
 		}
 		protected function inside_form()
 		{
-		$captcha=($_SESSION['login_attempt']<3)?(new PDrawable):(new PText(recaptcha_get_html(Main()->reCAPTCHApublickey())) );
+		$captcha=($_SESSION['login_attempt']<$this->max_attemps)?(new PDrawable):(new PText(recaptcha_get_html(Main()->reCAPTCHApublickey())) );
 		return 
 				Object(new PFieldSet(PTextlang("Please identify")))
 					->Insert(
