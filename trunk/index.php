@@ -38,7 +38,7 @@ class PMyWebPage extends PWebPageDefault
 		parent::setLanguage();
 		PMainComponent::$Lang['']='';
 		return $this;
-	}
+		}
 		protected function website_css()
 			{
 			return null;
