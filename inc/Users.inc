@@ -119,14 +119,13 @@ final class Users
 		}
 	/**	Checks if the user $UserName has the password $Password.
 		*	\brief check if a (user, password) pair.
-		*	\version 1.0.2
+		*	\version 1.0.1
 		*	\param $UserName the name of the user
 		*	\param $Password the password for the user
 		*	\return the user's ID on succes, 0 insucces, -1 regexp missmatch
 		*/
 	static function CheckUserPass( $UserName, $Password )
 		{
-		sleep(1);
 		if(preg_match("`^[-@._a-z0-9 ]{1,64}$`i",$UserName)==false) return -1;
 		if(preg_match("`^[a-z0-9 ]{1,64}$`i",$Password)==false) return -1;
 		$row=Main()->DB->fetch_array_query
@@ -245,6 +244,7 @@ AND GroupUsers.UserID ='$UserID'
 				$_SESSION['userID']=$Chk;
 				return true;
 				}
+		sleep(1);
 		return false;
 		}
 	/**	The logout process: the session variable <b>userID</b> is assigned 0 (the ID of the Guest user).
