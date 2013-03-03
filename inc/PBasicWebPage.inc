@@ -181,7 +181,7 @@ function SiteURL()
 /** 	The PBasicWebPage class is designed to model a webpage. Main atributes of a webpage are: title, motto, message, section and the language.
 	*	\latexonly \label{PWision:PBasicWebPage} \index{PBasicWebPage} \index{webpage} \index{section} \endlatexonly
 	*	\brief a basic web page.
-	*	\version 3.1.5
+	*	\version 3.1.6
 	*	\note  Themed webpages will extend this class.
 	*	\par Example:
 	*		see PCSSZenWebPage class.
@@ -199,7 +199,7 @@ abstract class PBasicWebPage extends PMostBasicWebPage implements IMessage
 			;
 		return
 			"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" ".
-			"\"http://www.w3.org/TR/xhtml11/DTD/xhtml1.dtd\">\n".
+			"\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n".
 			$html->Draw();
 		}
 	/**	Constructs a web page as a html element and inserts the head and the body.
@@ -603,5 +603,3 @@ class PSectionWebPage extends PBasicWebPage
 			$this->getSection()->Chapter1();
 		}
 	}
-
-?>
